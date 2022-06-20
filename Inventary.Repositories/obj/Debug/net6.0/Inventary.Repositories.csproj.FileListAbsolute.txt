@@ -1,0 +1,15 @@
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Repositories.deps.json
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Repositories.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Repositories.pdb
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Domain.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Domain.pdb
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.csproj.AssemblyReference.cache
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.AssemblyInfoInputs.cache
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.AssemblyInfo.cs
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.csproj.CopyComplete
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\refint\Inventary.Repositories.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.pdb
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\ref\Inventary.Repositories.dll

@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Inventary.Services/1.0.0": {
+        "dependencies": {
+          "Inventary.Repositories": "1.0.0"
+        },
+        "runtime": {
+          "Inventary.Services.dll": {}
+        }
+      },
+      "Inventary.Domain/1.0.0": {
+        "runtime": {
+          "Inventary.Domain.dll": {}
+        }
+      },
+      "Inventary.Repositories/1.0.0": {
+        "dependencies": {
+          "Inventary.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Inventary.Repositories.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Inventary.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Inventary.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Inventary.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
