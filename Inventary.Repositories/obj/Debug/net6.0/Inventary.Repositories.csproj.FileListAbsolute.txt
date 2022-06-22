@@ -13,3 +13,5 @@ C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\refint\Inventary.Repositories.dll
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.pdb
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\ref\Inventary.Repositories.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Repositories.runtimeconfig.json
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.genruntimeconfig.cache

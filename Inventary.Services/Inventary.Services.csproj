@@ -7,14 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Contracts" />
-      <Folder Include="Mappers" />
-      <Folder Include="Models\DTO" />
-      <Folder Include="Services" />
+      <ProjectReference Include="..\Inventary.Repositories\Inventary.Repositories.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Inventary.Repositories\Inventary.Repositories.csproj" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     </ItemGroup>
 
 </Project>
