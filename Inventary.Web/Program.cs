@@ -6,6 +6,7 @@ using Inventary.Services.Contracts;
 using Inventary.Services.Infrastructure;
 using Inventary.Services.Mappers;
 using Inventary.Services.Services;
+using Inventary.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,10 +23,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
+// builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+// builder.Services.AddTransient<IService, Service>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddAutoMapper(typeof(RoomsDTOProfile));
+// builder.Services.AddAutoMapper(typeof(RoomsDTOProfile));
 
 
 var app = builder.Build();
@@ -36,9 +41,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();

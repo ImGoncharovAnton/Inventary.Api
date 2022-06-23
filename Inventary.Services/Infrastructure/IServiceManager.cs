@@ -4,5 +4,6 @@ namespace Inventary.Services.Infrastructure;
 
 public interface IServiceManager
 {
-    IRoomService RoomService { get; }
+    // IRoomService RoomService { get; }
+    IServiceRoom ServiceRoom { get; }
 }

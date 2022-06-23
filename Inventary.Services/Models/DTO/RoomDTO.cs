@@ -2,7 +2,7 @@
 
 namespace Inventary.Services.Models.DTO;
 
-public class RoomDTO: BaseEntity
+public class RoomDTO
 {
     public string RoomName { get; set; }
 }

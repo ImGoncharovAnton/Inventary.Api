@@ -1,8 +1,12 @@
-﻿using Inventary.Repositories.Contracts;
+﻿using Inventary.Domain.Entities;
+using Inventary.Repositories.Contracts;
 
 namespace Inventary.Repositories.Infrastructure;
 
 public interface IRepositoryManager
 {
-    IRoomRepository RoomRepository { get; }
+    // IRoomRepository RoomRepository { get; }
+    IUnitOfWork UnitOfWork { get; }
+    
+    IRepositoryRooms<RoomEntity> RepositoryRooms { get; }
 }
