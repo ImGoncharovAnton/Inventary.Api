@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "aRLFM4Ss5YeMcEzH/xQ77yb602d10oPu2QpiKkBJOHchiOm4AIXw+/IExi6sCrCI/y4GW2gArLjSIdQn7R/7rg==",
+  "dgSpecHash": "7DmNcQ2MXgXK0u0n/ZUeAGQ99vDUhHva6s5Zl+GaaXJORAytv7IgZ5+PBnCMOe7DoMvnnxZHPPtP0AIrm4FRbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Web\\Inventary.Web.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\danil\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

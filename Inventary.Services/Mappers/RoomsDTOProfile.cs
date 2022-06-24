@@ -8,6 +8,7 @@ public class RoomsDTOProfile : Profile
 {
     public RoomsDTOProfile()
     {
-        CreateMap<RoomEntity, RoomDTO>().ReverseMap();
+        // CreateMap<RoomEntity, RoomDTO>().ReverseMap();
+        CreateMap<RoomEntity, RoomDTO>();
     }
 }

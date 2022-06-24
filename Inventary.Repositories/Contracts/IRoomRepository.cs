@@ -2,10 +2,7 @@
 
 namespace Inventary.Repositories.Contracts;
 
-public interface IRoomRepository
+public interface IRoomRepository : IGenericRepository<RoomEntity>
 {
-    Task<IEnumerable<RoomEntity>> GetAllAsync(CancellationToken cancellationToken = default);
-    Task<RoomEntity> GetByIdAsync(Guid roomId, CancellationToken cancellationToken = default);
-    void Insert(RoomEntity roomEntity);
-    void Remove(RoomEntity roomEntity);
+    
 }

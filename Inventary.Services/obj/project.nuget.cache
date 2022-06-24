@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "e/3UnGdoN6ODouqL9+fEOg/1b8vYK8VkLv/WCrzEzqbgnbszizXxRs4EMVarhNamolo4gtJmH933Ct2z82Ct6w==",
+  "dgSpecHash": "QNZNYFOX3LPTfPiJRiqbvSkY7QC2rZFhUKQsY0vo6WhPpcRuV3IXg5X5W6hwQdYi31ByaQRuH+OmdMUaeSaPHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\danil\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

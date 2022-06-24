@@ -1,3 +1,4 @@
+using AutoMapper;
 using Inventary.Repositories;
 using Inventary.Repositories.Contracts;
 using Inventary.Repositories.Infrastructure;
@@ -30,8 +31,7 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-// builder.Services.AddAutoMapper(typeof(RoomsDTOProfile));
-
+builder.Services.AddAutoMapper(typeof(RoomsDTOProfile).Assembly);
 
 var app = builder.Build();
 
@@ -41,10 +41,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(o => o
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed((host) => true)
+    .AllowCredentials());
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

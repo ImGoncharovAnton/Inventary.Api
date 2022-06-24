@@ -5,9 +5,9 @@ namespace Inventary.Services.Contracts;
 
 public interface IRoomService
 {
-    Task<IEnumerable<RoomEntity>> GetAllAsync(CancellationToken cancellationToken = default);
-    Task<RoomEntity> GetByIdAsync(Guid roomId, CancellationToken cancellationToken = default);
-    Task<RoomEntity> CreateAsync(RoomEntity roomEntity, CancellationToken cancellationToken = default);
-    Task UpdateAsync(Guid roomId, RoomEntity roomEntity, CancellationToken cancellationToken = default);
-    Task DeleteAsync(Guid roomId, CancellationToken cancellationToken = default);
+    Task<IList<RoomDTO>> GetAllAsync();
+    Task<RoomEntity> GetByIdAsync(Guid id);
+    Task<RoomEntity> CreateAsync(CreateRoomDTO room);
+    Task UpdateAsync(Guid id, CreateRoomDTO room);
+    Task DeleteAsync(Guid id);
 }

@@ -9,4 +9,5 @@ public interface IRepositoryManager
     IUnitOfWork UnitOfWork { get; }
     
     IRepositoryRooms<RoomEntity> RepositoryRooms { get; }
+    IRoomRepository RoomRepository { get; }
 }
