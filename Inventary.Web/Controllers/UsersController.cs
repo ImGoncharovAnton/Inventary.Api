@@ -24,7 +24,8 @@ public class UsersController : Controller
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _serviceManager.UserService.GetAllAsync();
-        return Ok(users);
+        var result = _mapper.Map<List<UserResponseUi>>(users);
+        return Ok(result);
     }
 
     [HttpGet("[action]/{id:guid}")]
@@ -53,7 +54,7 @@ public class UsersController : Controller
         return NoContent();
     }
 
-    [HttpDelete("action/{userId:guid}")]
+    [HttpDelete("[action]/{userId:guid}")]
     public async Task<IActionResult> DeleteUser(Guid userId)
     {
         await _serviceManager.UserService.DeleteAsync(userId);
