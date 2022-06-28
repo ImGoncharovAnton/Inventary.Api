@@ -22,7 +22,42 @@ namespace Inventary.Repositories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Inventary.Domain.Entities.RoomEntity", b =>
+            modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Item");
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,6 +76,122 @@ namespace Inventary.Repositories.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.Setup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SetupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Setup");
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ItemSetup", b =>
+                {
+                    b.Property<Guid>("ItemsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SetupsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ItemsId", "SetupsId");
+
+                    b.HasIndex("SetupsId");
+
+                    b.ToTable("ItemSetup");
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
+                {
+                    b.HasOne("Inventary.Domain.Entities.Room", null)
+                        .WithMany("Items")
+                        .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.Setup", b =>
+                {
+                    b.HasOne("Inventary.Domain.Entities.Room", null)
+                        .WithMany("Setups")
+                        .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("ItemSetup", b =>
+                {
+                    b.HasOne("Inventary.Domain.Entities.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inventary.Domain.Entities.Setup", null)
+                        .WithMany()
+                        .HasForeignKey("SetupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
+                {
+                    b.Navigation("Items");
+
+                    b.Navigation("Setups");
                 });
 #pragma warning restore 612, 618
         }

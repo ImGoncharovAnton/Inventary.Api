@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using AutoMapper;
 using Inventary.Repositories;
 using Inventary.Repositories.Contracts;
@@ -26,12 +27,15 @@ builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-// builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-// builder.Services.AddTransient<IService, Service>();
+
+// this needed for ignore cyclic json objects
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddAutoMapper(typeof(RoomsDTOProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(AppDomain));
+builder.Services.AddAutoMapper(typeof(RoomsDtoProfile).Assembly);
 
 var app = builder.Build();
 

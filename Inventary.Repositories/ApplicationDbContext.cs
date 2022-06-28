@@ -10,13 +10,20 @@ public class ApplicationDbContext: DbContext
     {
         
     }
-
-    // private DbSet<RoomEntity> Rooms { get; set; }
-    public DbSet<RoomEntity> Rooms { get; set; }
+    
+    public DbSet<Room> Rooms { get; set; }
+    public DbSet<User> Users { get; set; }
+    // public DbSet<Category> Categories { get; set; }
+    // public DbSet<Item> Items { get; set; }
+    // public DbSet<Setup> Setups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        // modelBuilder.Entity<Setup>()
+        //     .HasOne<User>(s => s.User)
+        //     .WithOne(x => x.Setup)
+        //     .HasForeignKey<User>(u => u.SetupId);
     }
 }

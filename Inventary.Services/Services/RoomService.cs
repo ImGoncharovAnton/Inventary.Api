@@ -25,27 +25,32 @@ public class RoomService : IRoomService
         _repositoryManager = repositoryManager;
     }
 
-    public async Task<IList<RoomDTO>> GetAllAsync()
+    public async Task<IList<RoomDto>> GetAllAsync()
     {
         var rooms = await _repositoryManager.RoomRepository.GetAllAsync();
-        // var roomsDto = _mapper.Map<List<RoomDTO>>(rooms);
-        return rooms.Select(room => new RoomDTO() { Id = room.Id, RoomName = room.RoomName }).ToList();
+        var result = _mapper.Map<List<RoomDto>>(rooms);
+        return result;
     }
 
-    public async Task<RoomEntity> GetByIdAsync(Guid id)
+    public async Task<RoomDto> GetByIdAsync(Guid id)
     {
         var room = await _repositoryManager.RoomRepository.GetByIdAsync(id);
         if (room is null)
             throw new RoomNotFoundException(id);
+        var result = new RoomDto()
+        {
+            Id = room.Id,
+            RoomName = room.RoomName
+        };
         
-        return room;
+        return result;
     }
 
-    public async Task<RoomEntity> CreateAsync(CreateRoomDTO createRoomDto)
+    public async Task<Room> CreateAsync(CreateRoomDTO createRoomDto)
     {
         if (createRoomDto.RoomName == string.Empty)
             throw new Exception("Room Name cant be empty");
-        var room = new RoomEntity()
+        var room = new Room()
         {
             Id = new Guid(),
             CreatedDate = DateTime.UtcNow,

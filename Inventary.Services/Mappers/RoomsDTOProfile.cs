@@ -4,11 +4,11 @@ using Inventary.Services.Models.DTO;
 
 namespace Inventary.Services.Mappers;
 
-public class RoomsDTOProfile : Profile
+public class RoomsDtoProfile : Profile
 {
-    public RoomsDTOProfile()
+    public RoomsDtoProfile()
     {
         // CreateMap<RoomEntity, RoomDTO>().ReverseMap();
-        CreateMap<RoomEntity, RoomDTO>();
+        CreateMap<Room, RoomDto>();
     }
 }

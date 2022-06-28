@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
+using AutoMapper;
 using Inventary.Domain.Entities;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
@@ -11,16 +12,18 @@ namespace Inventary.Services.Infrastructure;
 public sealed class ServiceManager: IServiceManager
 {
     private readonly Lazy<IRoomService> _lazyRoomService;
-    private readonly Lazy<IServiceRoom> _lazyServiceRoom;
+    private readonly Lazy<IUserService> _lazyUserService;
+    private readonly IMapper _mapper;
 
-    public ServiceManager(IRepositoryManager repositoryManager)
+    public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
     {
-        _lazyRoomService = new Lazy<IRoomService>(() => new RoomService(repositoryManager));
-        _lazyServiceRoom = new Lazy<IServiceRoom>(() => new ServiceRoom(repositoryManager));
+        _mapper = mapper;
+        _lazyRoomService = new Lazy<IRoomService>(() => new RoomService(repositoryManager, mapper));
+        _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, mapper));
     }
     
     public IRoomService RoomService => _lazyRoomService.Value;
-    public IServiceRoom ServiceRoom => _lazyServiceRoom.Value;
-    
+    public IUserService UserService => _lazyUserService.Value;
+
 }
 

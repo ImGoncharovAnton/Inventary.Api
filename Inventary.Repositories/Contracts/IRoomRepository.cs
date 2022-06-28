@@ -2,7 +2,7 @@
 
 namespace Inventary.Repositories.Contracts;
 
-public interface IRoomRepository : IGenericRepository<RoomEntity>
+public interface IRoomRepository : IGenericRepository<Room>
 {
     
 }

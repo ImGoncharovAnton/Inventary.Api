@@ -2,7 +2,7 @@
 
 namespace Inventary.Services.Models.DTO;
 
-public class RoomDTO
+public class RoomDto
 {
     public Guid Id { get; set; }
     public string RoomName { get; set; }

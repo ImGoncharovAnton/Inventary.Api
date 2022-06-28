@@ -14,13 +14,13 @@ public class RoomsController : Controller
 {
     private readonly IServiceManager _serviceManager;
     private readonly IMapper _mapper;
-    
+
     public RoomsController(IServiceManager serviceManager, IMapper mapper)
     {
         _serviceManager = serviceManager;
         _mapper = mapper;
     }
-    
+
     [HttpGet(nameof(GetAllRooms))]
     public async Task<IActionResult> GetAllRooms()
     {
@@ -31,24 +31,16 @@ public class RoomsController : Controller
     [HttpGet("[action]/{id:guid}")]
     public async Task<IActionResult> GetRoomById(Guid id)
     {
-        try
-        {
-            var result = await _serviceManager.RoomService.GetByIdAsync(id);
-            // var roomsDto = _mapper.Map<List<RoomDTO>>(rooms);
-            var resultUI = _mapper.Map<RoomUIResponse>(result);
-            return Ok(resultUI);
-        }
-        catch (Exception e)
-        {
-            return BadRequest("No records found");
-        }
+        var result = await _serviceManager.RoomService.GetByIdAsync(id);
+        var resultUi = _mapper.Map<RoomUIResponse>(result);
+        return Ok(resultUi);
     }
-    
+
     [HttpPost(nameof(CreateRoom))]
     public async Task<IActionResult> CreateRoom([FromBody] CreateRoomDTO room)
     {
         var newRoom = await _serviceManager.RoomService.CreateAsync(room);
-        return CreatedAtAction(nameof(GetRoomById), new {id = newRoom.Id}, newRoom);
+        return CreatedAtAction(nameof(GetRoomById), new { id = newRoom.Id }, newRoom);
     }
 
     [HttpPut("UpdateRoom/{roomId:guid}")]
@@ -64,5 +56,4 @@ public class RoomsController : Controller
         await _serviceManager.RoomService.DeleteAsync(roomId);
         return NoContent();
     }
-    
 }
