@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inventary.Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class UsersController : Controller
 {
@@ -20,7 +20,7 @@ public class UsersController : Controller
         _mapper = mapper;
     }
 
-    [HttpGet(nameof(GetAllUsers))]
+    [HttpGet("")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _serviceManager.UserService.GetAllAsync();
@@ -28,7 +28,7 @@ public class UsersController : Controller
         return Ok(result);
     }
 
-    [HttpGet("[action]/{id:guid}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetUserById(Guid id)
     {
         var user = await _serviceManager.UserService.GetByIdAsync(id);
@@ -36,7 +36,7 @@ public class UsersController : Controller
         return Ok(result);
     }
 
-    [HttpPost(nameof(CreateUser))]
+    [HttpPost("")]
     public async Task<IActionResult> CreateUser([FromBody] UserRequestUi userRequest)
     {
         var mappedUser = _mapper.Map<UserCreateDto>(userRequest);
@@ -46,7 +46,7 @@ public class UsersController : Controller
         return CreatedAtAction(nameof(GetUserById), new { id = result.Id }, result);
     }
 
-    [HttpPut("[action]/{userId:guid}")]
+    [HttpPut("{userId:guid}")]
     public async Task<IActionResult> UpdateUser(Guid userId, [FromBody] UserRequestUi userRequest)
     {
         var mappedUser = _mapper.Map<UserCreateDto>(userRequest);
@@ -54,7 +54,7 @@ public class UsersController : Controller
         return NoContent();
     }
 
-    [HttpDelete("[action]/{userId:guid}")]
+    [HttpDelete("{userId:guid}")]
     public async Task<IActionResult> DeleteUser(Guid userId)
     {
         await _serviceManager.UserService.DeleteAsync(userId);

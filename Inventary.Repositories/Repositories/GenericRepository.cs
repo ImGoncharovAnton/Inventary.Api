@@ -1,5 +1,4 @@
 ﻿using Inventary.Domain.Entities;
-using Inventary.Domain.Extensions;
 using Inventary.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 

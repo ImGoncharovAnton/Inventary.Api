@@ -1,6 +1,6 @@
 ﻿namespace Inventary.Domain.Enums;
 
-public class Status
+public class StatusEnum
 {
     public enum StatusType
     {

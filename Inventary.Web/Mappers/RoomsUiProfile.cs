@@ -9,7 +9,7 @@ public class RoomsUiProfile : Profile
 {
     public RoomsUiProfile()
     {
-        CreateMap<RoomDto, RoomUIResponse>();
+        CreateMap<RoomDto, RoomResponseUi>();
     }
     
 }

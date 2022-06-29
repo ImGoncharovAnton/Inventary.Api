@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
-using Inventary.Domain.Extensions;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
+using Inventary.Services.Extensions;
 using Inventary.Services.Models.DTO;
 
 namespace Inventary.Services.Services;

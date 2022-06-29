@@ -1,4 +1,4 @@
-﻿namespace Inventary.Domain.Extensions;
+﻿namespace Inventary.Services.Extensions;
 
 public sealed class RoomNotFoundException : NotFoundException
 {

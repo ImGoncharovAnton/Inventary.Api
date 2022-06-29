@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using Inventary.Domain.Extensions;
+using Inventary.Services.Extensions;
 
 namespace Inventary.Web.Middleware;
 

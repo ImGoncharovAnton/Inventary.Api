@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inventary.Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class RoomsController : Controller
 {
@@ -21,36 +21,36 @@ public class RoomsController : Controller
         _mapper = mapper;
     }
 
-    [HttpGet(nameof(GetAllRooms))]
+    [HttpGet("")]
     public async Task<IActionResult> GetAllRooms()
     {
         var rooms = await _serviceManager.RoomService.GetAllAsync();
         return Ok(rooms);
     }
 
-    [HttpGet("[action]/{id:guid}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetRoomById(Guid id)
     {
         var result = await _serviceManager.RoomService.GetByIdAsync(id);
-        var resultUi = _mapper.Map<RoomUIResponse>(result);
+        var resultUi = _mapper.Map<RoomResponseUi>(result);
         return Ok(resultUi);
     }
 
-    [HttpPost(nameof(CreateRoom))]
+    [HttpPost("")]
     public async Task<IActionResult> CreateRoom([FromBody] CreateRoomDTO room)
     {
         var newRoom = await _serviceManager.RoomService.CreateAsync(room);
         return CreatedAtAction(nameof(GetRoomById), new { id = newRoom.Id }, newRoom);
     }
 
-    [HttpPut("UpdateRoom/{roomId:guid}")]
+    [HttpPut("{roomId:guid}")]
     public async Task<IActionResult> UpdateRoom(Guid roomId, [FromBody] CreateRoomDTO room)
     {
         await _serviceManager.RoomService.UpdateAsync(roomId, room);
         return NoContent();
     }
 
-    [HttpDelete("DeleteRoom/{roomId:guid}")]
+    [HttpDelete("{roomId:guid}")]
     public async Task<IActionResult> DeleteRoom(Guid roomId)
     {
         await _serviceManager.RoomService.DeleteAsync(roomId);
