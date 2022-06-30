@@ -12,6 +12,8 @@ public class UserRequestUi
     public string Email { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public List<Item>? Items { get; set; }
+    public string urlOrig { get; set; }
+    public string urlCrop { get; set; }
     // public Guid SetupId { get; set; }
     
 }
