@@ -57,6 +57,8 @@ public class UserService : IUserService
         deciredUser.Phone = user.Phone;
         deciredUser.Email = user.Email;
         deciredUser.Status = user.Status;
+        deciredUser.urlOrig = user.urlOrig;
+        deciredUser.urlCrop = user.urlCrop;
         // deciredUser.Items = user.Items;
         // deciredUser.SetupId = user.SetupId;
 
