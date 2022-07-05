@@ -4,6 +4,7 @@ using Inventary.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventary.Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220705091117_add_userdate&qrcode_fields_for_items")]
+    partial class add_userdateqrcode_fields_for_items
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,34 +24,10 @@ namespace Inventary.Repositories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Inventary.Domain.Entities.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -58,6 +36,9 @@ namespace Inventary.Repositories.Migrations
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -82,8 +63,6 @@ namespace Inventary.Repositories.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("RoomId");
 
@@ -159,22 +138,15 @@ namespace Inventary.Repositories.Migrations
 
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
                 {
-                    b.HasOne("Inventary.Domain.Entities.Category", null)
-                        .WithMany("Items")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Inventary.Domain.Entities.Room", null)
+                    b.HasOne("Inventary.Domain.Entities.Room", "Room")
                         .WithMany("Items")
                         .HasForeignKey("RoomId");
 
                     b.HasOne("Inventary.Domain.Entities.User", null)
                         .WithMany("Items")
                         .HasForeignKey("UserId");
-                });
 
-            modelBuilder.Entity("Inventary.Domain.Entities.Category", b =>
-                {
-                    b.Navigation("Items");
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>

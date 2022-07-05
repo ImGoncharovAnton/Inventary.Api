@@ -6,4 +6,5 @@ public interface IServiceManager
 {
     IRoomService RoomService { get; }
     IUserService UserService { get; }
+    IItemService ItemService { get; }
 }

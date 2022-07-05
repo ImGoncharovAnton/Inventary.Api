@@ -8,4 +8,5 @@ public interface IRepositoryManager
     IUnitOfWork UnitOfWork { get; }
     IRoomRepository RoomRepository { get; }
     IUserRepository UserRepository { get; }
+    IItemRepository<Item> ItemRepository { get; } 
 }

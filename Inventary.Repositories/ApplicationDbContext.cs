@@ -13,7 +13,7 @@ public class ApplicationDbContext: DbContext
     
     public DbSet<Room> Rooms { get; set; }
     public DbSet<User> Users { get; set; }
-    // public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Item> Items { get; set; }
     // public DbSet<Setup> Setups { get; set; }
 

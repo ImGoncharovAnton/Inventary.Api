@@ -12,7 +12,7 @@ public class User: BaseEntity
 
     public string urlOrig { get; set; }
     public string urlCrop { get; set; }
-    // public virtual List<Item>? Items { get; set; }
+    public virtual List<Item>? Items { get; set; }
     // public Guid SetupId { get; set; }
     // public Setup Setup { get; set; }
 }

@@ -1,17 +1,18 @@
-﻿using Inventary.Domain.Enums;
+﻿using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 
-namespace Inventary.Domain.Entities;
+namespace Inventary.Web.Models.Response;
 
-public class Item: BaseEntity
+public class ItemResponseUi
 {
+    public Guid Id { get; set; }
     public string ItemName { get; set; }
     public DateTime UserDate { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public double Price { get; set; }
+    public int Number { get; set; }
     public string QRcode { get; set; }
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CategoryId { get; set; }
-    // public virtual List<Setup?> Setups { get; set; }
- 
 }
