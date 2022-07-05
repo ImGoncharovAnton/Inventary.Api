@@ -54,7 +54,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
