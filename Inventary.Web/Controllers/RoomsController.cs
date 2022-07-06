@@ -28,12 +28,26 @@ public class RoomsController : Controller
         return Ok(rooms);
     }
 
+    [HttpGet("")]
+    public async Task<IActionResult> GetAllWithItems()
+    {
+        var rooms = await _serviceManager.RoomService.GetAllAsyncWithItems();
+        return Ok(rooms);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetRoomById(Guid id)
     {
         var result = await _serviceManager.RoomService.GetByIdAsync(id);
         var resultUi = _mapper.Map<RoomResponseUi>(result);
         return Ok(resultUi);
+    }
+    
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetRoomByIdWithItems(Guid id)
+    {
+        var result = await _serviceManager.RoomService.GetByIdWithItems(id);
+        return Ok(result);
     }
 
     [HttpPost("")]

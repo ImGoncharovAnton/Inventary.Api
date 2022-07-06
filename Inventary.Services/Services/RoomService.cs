@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Contracts;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
@@ -32,6 +33,13 @@ public class RoomService : IRoomService
         return result;
     }
 
+    public async Task<IList<RoomDto>> GetAllAsyncWithItems()
+    {
+        var rooms = await _repositoryManager.RoomRepository.GetAllWithItems();
+        var result = _mapper.Map<List<RoomDto>>(rooms);
+        return result;
+    }
+
     public async Task<RoomDto> GetByIdAsync(Guid id)
     {
         var room = await _repositoryManager.RoomRepository.GetByIdAsync(id);
@@ -44,6 +52,11 @@ public class RoomService : IRoomService
         };
         
         return result;
+    }
+
+    public async Task<IList<ItemsForRoom>> GetByIdWithItems(Guid id)
+    {
+        return await _repositoryManager.RoomRepository.GetByIdWithItems(id);
     }
 
     public async Task<Room> CreateAsync(CreateRoomDTO createRoomDto)
