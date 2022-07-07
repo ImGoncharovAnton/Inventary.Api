@@ -8,6 +8,7 @@ namespace Inventary.Repositories.Repositories;
 public class RoomRepository : GenericRepository<Room>, IRoomRepository
 {
     private readonly ApplicationDbContext _dbContext;
+
     public RoomRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
@@ -21,20 +22,36 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
     public async Task<List<ItemsForRoom>> GetByIdWithItems(Guid id)
     {
         var room = await _dbContext.Rooms.FindAsync(id);
-       if (room is null)
-           throw new ArgumentNullException();
-       var itemsForRoom = await _dbContext.Items
-           .Where(i => i.RoomId == id)
-           .Select(i => new ItemsForRoom()
-           {
-               Id = i.Id,
-               ItemName = i.ItemName,
-               UserDate = i.UserDate,
-               Status = i.Status,
-               Price = i.Price,
-               QRcode = i.QRcode,
-               RoomName = room.RoomName
-           }).ToListAsync();
-       return itemsForRoom;
+        if (room is null)
+            throw new ArgumentNullException();
+        var itemsForRoom = await _dbContext.Items
+            .Where(i => i.RoomId == room.Id)
+            .Select(i => new ItemsForRoom()
+            {
+                Id = i.Id,
+                ItemName = i.ItemName,
+                UserDate = i.UserDate,
+                Status = i.Status,
+                Price = i.Price,
+                QRcode = i.QRcode,
+                RoomName = room.RoomName,
+                CategoryId = i.CategoryId
+            }).ToListAsync();
+        
+        // var test = await  _dbContext.Categories.Include(x => x.Items).ThenInclude(x => x.Rooms).Where(x => x.Rooms.id == 201)
+
+        // var test = await _dbContext.Rooms.Include(x => x.Items).ThenInclude(x => x.Category);
+        //
+        //
+        // var unicCategory = test.Select(x => x.Category).Distinct();
+        //
+        // foreach (var caategory in unicCategory)
+        // {
+        //     var test213 = test.Select(x => x.items).where(x => x.categoryId == unicCategory.id);
+        //
+        // }
+        
+        
+        return itemsForRoom;
     }
 }

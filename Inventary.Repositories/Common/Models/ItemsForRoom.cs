@@ -11,5 +11,7 @@ public class ItemsForRoom
     public double Price { get; set; }
     public string QRcode { get; set; }
     public string RoomName { get; set; }
+    public Guid? CategoryId { get; set; }
+    // public string CategoryName { get; set; }
 
 }

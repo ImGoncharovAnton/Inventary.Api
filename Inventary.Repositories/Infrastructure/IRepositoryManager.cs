@@ -9,4 +9,5 @@ public interface IRepositoryManager
     IRoomRepository RoomRepository { get; }
     IUserRepository UserRepository { get; }
     IItemRepository<Item> ItemRepository { get; } 
+    ICategoryRepository CategoryRepository { get; }
 }
