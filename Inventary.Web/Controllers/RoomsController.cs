@@ -50,6 +50,13 @@ public class RoomsController : Controller
         return Ok(result);
     }
 
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetRoomByIdWithCategories(Guid id)
+    {
+        var result = await _serviceManager.RoomService.GetByIdWithCategory(id);
+        return Ok(result);
+    }
+
     [HttpPost("")]
     public async Task<IActionResult> CreateRoom([FromBody] CreateRoomDTO room)
     {

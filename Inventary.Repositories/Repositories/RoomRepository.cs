@@ -38,8 +38,10 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
                 CategoryId = i.CategoryId
             }).ToListAsync();
         
+        
         // var test = await  _dbContext.Categories.Include(x => x.Items).ThenInclude(x => x.Rooms).Where(x => x.Rooms.id == 201)
 
+        
         // var test = await _dbContext.Rooms.Include(x => x.Items).ThenInclude(x => x.Category);
         //
         //
@@ -53,5 +55,36 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
         
         
         return itemsForRoom;
+    }
+
+    public async Task<List<Category>> GetByIdWithCategory(Guid id)
+    {
+        var room = await _dbContext.Rooms.FindAsync(id);
+        if (room is null)
+            throw new ArgumentNullException();
+
+        // var test = await _dbContext.Categories
+        //     .Include(x => x.Items)
+        //     .ThenInclude(x => x.Room)
+        //     .ToListAsync();
+        //     
+        
+        var categoriesForRoom = await _dbContext.Rooms.Include(x => x.Items)
+            .ThenInclude(x => x.Category)
+            .Where(x => x.Id == room.Id)
+            .ToListAsync();
+
+        var getCategories = categoriesForRoom.SelectMany(x => x.Items.Select(z => 
+           z.Category)).Distinct().ToList();
+        
+
+        // var result = getCategories.Select(x => new CategoriesForRoom()
+        // {
+        //     Id = x.Id,
+        //     CategoryName = x.CategoryName,
+        //     NumbersOfItems = x.Items.Count
+        // }).ToList();
+      
+        return getCategories;
     }
 }

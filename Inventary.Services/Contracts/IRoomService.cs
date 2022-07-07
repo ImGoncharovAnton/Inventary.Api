@@ -9,6 +9,7 @@ public interface IRoomService
     Task<IList<RoomDto>> GetAllAsync();
     Task<IList<RoomDto>> GetAllAsyncWithItems();
     Task<RoomDto> GetByIdAsync(Guid id);
+    Task<IList<Category>> GetByIdWithCategory(Guid id);
     Task<IList<ItemsForRoom>> GetByIdWithItems(Guid id);
     Task<Room> CreateAsync(CreateRoomDTO room);
     Task UpdateAsync(Guid id, CreateRoomDTO room);

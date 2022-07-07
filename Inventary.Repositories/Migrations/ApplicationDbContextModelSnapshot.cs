@@ -40,7 +40,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
@@ -89,7 +89,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
@@ -110,7 +110,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.User", b =>
@@ -154,7 +154,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
