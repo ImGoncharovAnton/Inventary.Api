@@ -4,6 +4,7 @@ using Inventary.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventary.Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712090306_add-attachment&comment&defect&defectPhoto&itemPhoto-tables&models")]
+    partial class addattachmentcommentdefectdefectPhotoitemPhototablesmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachment");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Category", b =>
@@ -96,7 +98,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Defect", b =>
@@ -126,7 +128,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Defects");
+                    b.ToTable("Defect");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.DefectPhoto", b =>
@@ -152,7 +154,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("DefectId");
 
-                    b.ToTable("DefectPhotos");
+                    b.ToTable("DefectPhoto");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
@@ -161,11 +163,11 @@ namespace Inventary.Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CurrentCategoryId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
@@ -195,39 +197,13 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrentCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("Inventary.Domain.Entities.ItemPhoto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OrigUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("ItemPhotos");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
@@ -335,8 +311,7 @@ namespace Inventary.Repositories.Migrations
                 {
                     b.HasOne("Inventary.Domain.Entities.Category", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CurrentCategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("Inventary.Domain.Entities.Room", null)
                         .WithMany("Items")
@@ -347,15 +322,6 @@ namespace Inventary.Repositories.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Inventary.Domain.Entities.ItemPhoto", b =>
-                {
-                    b.HasOne("Inventary.Domain.Entities.Item", null)
-                        .WithMany("ItemPhotos")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Category", b =>
@@ -375,8 +341,6 @@ namespace Inventary.Repositories.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Defects");
-
-                    b.Navigation("ItemPhotos");
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>

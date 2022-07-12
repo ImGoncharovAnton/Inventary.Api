@@ -16,6 +16,11 @@ public class ApplicationDbContext: DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Item> Items { get; set; }
     // public DbSet<Setup> Setups { get; set; }
+    public DbSet<Attachment> Attachments { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Defect> Defects { get; set; }
+    public DbSet<DefectPhoto> DefectPhotos { get; set; }
+    public DbSet<ItemPhoto> ItemPhotos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,5 +30,10 @@ public class ApplicationDbContext: DbContext
         //     .HasOne<User>(s => s.User)
         //     .WithOne(x => x.Setup)
         //     .HasForeignKey<User>(u => u.SetupId);
+        modelBuilder.Entity<Category>()
+            .HasMany<Item>(x => x.Items)
+            .WithOne(x => x.Category)
+            .HasForeignKey(x => x.CurrentCategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

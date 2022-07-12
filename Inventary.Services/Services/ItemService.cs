@@ -60,7 +60,7 @@ public class ItemService: IItemService
         deciredItem.QRcode = item.QRcode;
         deciredItem.RoomId = item.RoomId;
         deciredItem.UserId = item.UserId;
-        deciredItem.CategoryId = item.CategoryId;
+        deciredItem.CurrentCategoryId = item.CurrentCategoryId;
 
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
