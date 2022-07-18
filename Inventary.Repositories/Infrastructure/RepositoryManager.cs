@@ -11,6 +11,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IUserRepository> _lazyUserRepository;
     private readonly Lazy<IItemRepository<Item>> _lazyItemRepository;
     private readonly Lazy<ICategoryRepository> _lazyCategoryRepository;
+    private readonly Lazy<IItemPhotoRepository> _lazyItemPhotoRepository;
 
     public RepositoryManager(ApplicationDbContext dbContext)
     {
@@ -19,6 +20,7 @@ public class RepositoryManager : IRepositoryManager
         _lazyUserRepository = new Lazy<IUserRepository>(() => new UserRepository(dbContext));
         _lazyItemRepository = new Lazy<IItemRepository<Item>>(() => new ItemRepository(dbContext));
         _lazyCategoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(dbContext));
+        _lazyItemPhotoRepository = new Lazy<IItemPhotoRepository>(() => new ItemPhotoRepository(dbContext));
     }
 
     public IRoomRepository RoomRepository => _lazyRoomRepository.Value;
@@ -26,4 +28,5 @@ public class RepositoryManager : IRepositoryManager
     public IUserRepository UserRepository => _lazyUserRepository.Value;
     public IItemRepository<Item> ItemRepository => _lazyItemRepository.Value;
     public ICategoryRepository CategoryRepository => _lazyCategoryRepository.Value;
+    public IItemPhotoRepository ItemPhotoRepository => _lazyItemPhotoRepository.Value;
 }

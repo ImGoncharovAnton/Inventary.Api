@@ -16,12 +16,20 @@ public class ItemRepository: IItemRepository<Item>
 
     public async Task<IList<Item>> GetAllAsync()
     {
-        return await _dbContext.Set<Item>().ToListAsync();
+        var result = await _dbContext.Set<Item>()
+            .Include(x => x.ItemPhotos)
+            .ToListAsync();
+
+        return result;
     }
 
     public async Task<Item> GetByIdAsync(Guid id)
     {
-        return await _dbContext.Set<Item>().FindAsync(id);
+        var result = await _dbContext.Items
+            .Include(x => x.ItemPhotos)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        
+        return result;
     }
 
     public async Task<Item> Add(Item entity)

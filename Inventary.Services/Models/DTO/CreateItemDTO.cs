@@ -13,4 +13,5 @@ public class CreateItemDto
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public List<CreateItemPhotoDto>? ItemPhotos { get; set; }
 }

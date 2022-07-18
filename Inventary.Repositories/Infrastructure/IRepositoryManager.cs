@@ -10,4 +10,5 @@ public interface IRepositoryManager
     IUserRepository UserRepository { get; }
     IItemRepository<Item> ItemRepository { get; } 
     ICategoryRepository CategoryRepository { get; }
+    IItemPhotoRepository ItemPhotoRepository { get; }
 }

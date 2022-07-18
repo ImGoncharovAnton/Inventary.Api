@@ -11,5 +11,7 @@ public class ItemsUiProfile: Profile
     {
         CreateMap<ItemDto, ItemResponseUi>();
         CreateMap<ItemRequestUi, CreateItemDto>();
+        CreateMap<ItemPhotoDto, ItemPhotoResponseUi>();
+        CreateMap<ItemPhotoRequestUi, CreateItemPhotoDto>();
     }
 }

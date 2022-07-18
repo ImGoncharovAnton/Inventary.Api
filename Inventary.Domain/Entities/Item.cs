@@ -14,12 +14,12 @@ public class Item: BaseEntity
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
     public virtual Category? Category { get; set; }
-    public virtual List<Comment?> Comments { get; set; }
-    public virtual List<Defect?> Defects { get; set; }
-    public virtual List<Attachment?> Attachments { get; set; }
-    public virtual List<ItemPhoto?> ItemPhotos { get; set; }
+    public virtual List<Comment>? Comments { get; set; }
+    public virtual List<Defect>? Defects { get; set; }
+    public virtual List<Attachment>? Attachments { get; set; }
+    public virtual List<ItemPhoto>? ItemPhotos { get; set; }
 
 
-    // public virtual List<Setup?> Setups { get; set; }
+    // public virtual List<Setup>? Setups { get; set; }
  
 }
