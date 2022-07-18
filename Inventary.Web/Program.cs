@@ -32,6 +32,9 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddControllers().AddJsonOptions(x => 
+    x.JsonSerializerOptions.AllowTrailingCommas = true);
+
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(AppDomain));

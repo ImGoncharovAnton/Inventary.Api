@@ -6,7 +6,7 @@ using Inventary.Services.Models.DTO;
 
 namespace Inventary.Services.Services;
 
-public class ItemPhotoService: IItemPhotoService
+public class ItemPhotoService : IItemPhotoService
 {
     private readonly IRepositoryManager _repositoryManager;
     private readonly IMapper _mapper;

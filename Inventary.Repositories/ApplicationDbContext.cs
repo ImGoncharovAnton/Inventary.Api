@@ -35,5 +35,9 @@ public class ApplicationDbContext: DbContext
             .WithOne(x => x.Category)
             .HasForeignKey(x => x.CurrentCategoryId)
             .OnDelete(DeleteBehavior.SetNull);
+        // modelBuilder.Entity<Item>()
+        //     .HasMany<ItemPhoto>(x => x.ItemPhotos)
+        //     .WithOne(x => x.Item)
+        //     .HasForeignKey(x => x.ItemId);
     }
 }

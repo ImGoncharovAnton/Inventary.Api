@@ -5,7 +5,7 @@ namespace Inventary.Repositories.Repositories;
 
 public class ItemPhotoRepository: GenericRepository<ItemPhoto>, IItemPhotoRepository
 {
-    public ItemPhotoRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public ItemPhotoRepository(ApplicationDbContext dbContext): base(dbContext)
     {
         
     }

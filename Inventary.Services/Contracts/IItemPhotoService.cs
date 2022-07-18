@@ -1,4 +1,5 @@
-﻿using Inventary.Services.Models.DTO;
+﻿using Inventary.Domain.Entities;
+using Inventary.Services.Models.DTO;
 
 namespace Inventary.Services.Contracts;
 

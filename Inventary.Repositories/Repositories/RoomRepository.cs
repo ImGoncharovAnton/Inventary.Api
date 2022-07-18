@@ -62,12 +62,6 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
         var room = await _dbContext.Rooms.FindAsync(id);
         if (room is null)
             throw new ArgumentNullException();
-
-        // var test = await _dbContext.Categories
-        //     .Include(x => x.Items)
-        //     .ThenInclude(x => x.Room)
-        //     .ToListAsync();
-        //     
         
         var categoriesForRoom = await _dbContext.Rooms.Include(x => x.Items)
             .ThenInclude(x => x.Category)

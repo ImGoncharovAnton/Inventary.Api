@@ -39,11 +39,14 @@ public class ItemsController : Controller
     [HttpPost("")]
     public async Task<IActionResult> CreateItem([FromBody] ItemRequestUi itemRequest)
     {
+        // if (!ModelState.IsValid)
+        //     return BadRequest("Something is wrong with the model");
+        
         var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
         var newItem = await _serviceManager.ItemService.CreateAsync(mappedItem);
         var result = _mapper.Map<ItemResponseUi>(newItem);
 
-        return CreatedAtAction(nameof(GetItemById), new { id = result.Id }, result);
+        return CreatedAtAction(nameof(GetItemById), new { id = result.Id}, result);
     }
 
     [HttpPut("{itemId:guid}")]

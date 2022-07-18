@@ -1,4 +1,6 @@
-﻿namespace Inventary.Services.Models.DTO;
+﻿using Inventary.Domain.Entities;
+
+namespace Inventary.Services.Models.DTO;
 
 public class ItemPhotoDto
 {
