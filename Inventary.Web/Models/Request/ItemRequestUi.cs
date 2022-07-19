@@ -15,4 +15,5 @@ public class ItemRequestUi
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
     public List<ItemPhotoRequestUi>? ItemPhotos { get; set; }
+    public List<AttachmentRequestUi>? Attachments { get; set; }
 }

@@ -14,4 +14,5 @@ public class CreateItemDto
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
     public List<CreateItemPhotoDto>? ItemPhotos { get; set; }
+    public List<CreateAttachementDto>? Attachments { get; set; }
 }

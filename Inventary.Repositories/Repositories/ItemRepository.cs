@@ -27,6 +27,7 @@ public class ItemRepository: IItemRepository<Item>
     {
         var result = await _dbContext.Items
             .Include(x => x.ItemPhotos)
+            .Include(x => x.Attachments)
             .FirstOrDefaultAsync(x => x.Id == id);
         
         return result;
