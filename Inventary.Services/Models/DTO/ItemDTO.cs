@@ -18,4 +18,6 @@ public class ItemDto
     public Guid? CurrentCategoryId { get; set; }
     public List<ItemPhotoDto>? ItemPhotos { get; set; }
     public List<AttachmentDto>? Attachments { get; set; }
+    public List<DefectDto>? Defects { get; set; }
+    public List<CommentDto>? Comments { get; set; }
 }

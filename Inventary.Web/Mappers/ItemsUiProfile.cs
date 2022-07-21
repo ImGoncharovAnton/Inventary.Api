@@ -15,5 +15,11 @@ public class ItemsUiProfile: Profile
         CreateMap<ItemPhotoRequestUi, CreateItemPhotoDto>();
         CreateMap<AttachmentDto, AttachmentResponseUi>();
         CreateMap<AttachmentRequestUi, CreateAttachementDto>();
+        CreateMap<DefectDto, DefectResponseUi>();
+        CreateMap<DefectRequestUi, CreateDefectDto>();
+        CreateMap<DefectPhotoDto, DefectPhotoResponseUi>();
+        CreateMap<DefectPhotoRequestUi, CreateDefectPhotoDto>();
+        CreateMap<CommentDto, CommentResponseUi>();
+        CreateMap<CommentRequestUi, CreateCommentDto>();
     }
 }

@@ -14,5 +14,11 @@ public class ItemsDtoProfile : Profile
         CreateMap<CreateItemPhotoDto, ItemPhoto>();
         CreateMap<Attachment, AttachmentDto>().ReverseMap();
         CreateMap<CreateAttachementDto, Attachment>();
+        CreateMap<Defect, DefectDto>().ReverseMap();
+        CreateMap<CreateDefectDto, Defect>();
+        CreateMap<DefectPhoto, DefectPhotoDto>().ReverseMap();;
+        CreateMap<CreateDefectPhotoDto, DefectPhoto>();
+        CreateMap<Comment, CommentDto>().ReverseMap();
+        CreateMap<CreateCommentDto, Comment>();
     }
 }

@@ -28,6 +28,8 @@ public class ItemRepository: IItemRepository<Item>
         var result = await _dbContext.Items
             .Include(x => x.ItemPhotos)
             .Include(x => x.Attachments)
+            .Include(x => x.Defects).ThenInclude(i => i.DefectPhotos)
+            .Include(x => x.Comments)
             .FirstOrDefaultAsync(x => x.Id == id);
         
         return result;

@@ -41,15 +41,7 @@ public class ItemService: IItemService
         
         
         var item = _mapper.Map<Item>(createItem);
-        var itemPhotoArr = item.ItemPhotos;
-        // if (itemPhotoArr != null)
-        // {
-        //     foreach (var itemPhoto in itemPhotoArr.ToList())
-        //     {
-        //         item.ItemPhotos.Add(itemPhoto);
-        //     }
-        // }
-        
+
         var result = _mapper.Map<ItemDto>(item);
 
         await _repositoryManager.ItemRepository.Add(item);
