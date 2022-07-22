@@ -41,6 +41,14 @@ public class ItemRepository: IItemRepository<Item>
         return entity;
     }
 
+    public async Task<Item> Update(Item entity)
+    {
+        _dbContext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        _dbContext.Items.Update(entity);
+        await _dbContext.SaveChangesAsync();
+        return entity;
+    }
+
     public Item Remove(Item entity)
     {
          _dbContext.Set<Item>().Remove(entity);

@@ -55,6 +55,11 @@ public class ItemService: IItemService
         var deciredItem = await _repositoryManager.ItemRepository.GetByIdAsync(id);
         if (deciredItem is null)
             throw new ItemNotFoundException(id);
+
+        var mappedItemPhotos = _mapper.Map<List<ItemPhoto>>(item.ItemPhotos);
+        var mappedAttachments = _mapper.Map<List<Attachment>>(item.Attachments);
+        var mappedDefects = _mapper.Map<List<Defect>>(item.Defects);
+        var mappedComment = _mapper.Map<List<Comment>>(item.Comments);
         
         deciredItem.UpdateDate = DateTime.UtcNow;
         deciredItem.ItemName = item.ItemName;
@@ -65,7 +70,13 @@ public class ItemService: IItemService
         deciredItem.RoomId = item.RoomId;
         deciredItem.UserId = item.UserId;
         deciredItem.CurrentCategoryId = item.CurrentCategoryId;
+        deciredItem.ItemPhotos = mappedItemPhotos;
+        deciredItem.Attachments = mappedAttachments;
+        deciredItem.Defects = mappedDefects;
+        deciredItem.Comments = mappedComment;
 
+
+        // await _repositoryManager.ItemRepository.Update(deciredItem);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
         var result = _mapper.Map<ItemDto>(deciredItem);

@@ -1,4 +1,5 @@
-﻿using Inventary.Domain.Enums;
+﻿using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 
 namespace Inventary.Repositories.Common.Models;
 
@@ -12,6 +13,7 @@ public class ItemsForRoom
     public string QRcode { get; set; }
     public string RoomName { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public List<Defect> Defects { get; set; }
     // public string CategoryName { get; set; }
 
 }

@@ -35,7 +35,8 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
                 Price = i.Price,
                 QRcode = i.QRcode,
                 RoomName = room.RoomName,
-                CurrentCategoryId = i.CurrentCategoryId
+                CurrentCategoryId = i.CurrentCategoryId,
+                Defects = i.Defects
             }).ToListAsync();
         
         
