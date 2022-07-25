@@ -11,4 +11,8 @@ public interface IRepositoryManager
     IItemRepository<Item> ItemRepository { get; } 
     ICategoryRepository CategoryRepository { get; }
     IItemPhotoRepository ItemPhotoRepository { get; }
+    IAttachmentRepository AttachmentRepository { get; }
+    ICommentRepository CommentRepository { get; }
+    IDefectRepository DefectRepository { get; }
+    IDefectPhotoRepository DefectPhotoRepository { get; }
 }

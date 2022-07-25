@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using Inventary.Services.Infrastructure;
 using Inventary.Services.Models.DTO;
 using Inventary.Web.Models.Request;
@@ -50,14 +51,22 @@ public class ItemsController : Controller
     }
 
     [HttpPut("{itemId:guid}")]
-    public async Task<IActionResult> UpdateItem(Guid itemId, [FromBody] ItemRequestUi itemRequest)
+    public async Task<IActionResult> UpdateItem(Guid itemId, [FromBody] ItemUpdateRequestUi itemRequest)
     {
-        var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
+        var mappedItem = _mapper.Map<UpdateItemDto>(itemRequest);
         await _serviceManager.ItemService.UpdateAsync(itemId, mappedItem);
         var item = await _serviceManager.ItemService.GetByIdAsync(itemId);
         var result = _mapper.Map<ItemResponseUi>(item);
         return Ok(result);
     }
+
+    // [HttpPut("{itemId:guid}")]
+    // public async Task<IActionResult> UpsertItem(Guid itemId, [FromBody] ItemRequestUi itemRequest)
+    // {
+    //     var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
+    //     await _serviceManager.ItemService.Upsert(itemId, mappedItem);
+    //     return NoContent();
+    // }
 
     [HttpDelete("{itemId:guid}")]
     public async Task<IActionResult> DeleteItem(Guid itemId)

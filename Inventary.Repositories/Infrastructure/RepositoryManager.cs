@@ -12,6 +12,10 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IItemRepository<Item>> _lazyItemRepository;
     private readonly Lazy<ICategoryRepository> _lazyCategoryRepository;
     private readonly Lazy<IItemPhotoRepository> _lazyItemPhotoRepository;
+    private readonly Lazy<IAttachmentRepository> _lazyAttachmentRepository;
+    private readonly Lazy<ICommentRepository> _lazyCommentRepository;
+    private readonly Lazy<IDefectRepository> _lazyDefectRepository;
+    private readonly Lazy<IDefectPhotoRepository> _lazyDefectPhotoRepository;
 
     public RepositoryManager(ApplicationDbContext dbContext)
     {
@@ -21,6 +25,10 @@ public class RepositoryManager : IRepositoryManager
         _lazyItemRepository = new Lazy<IItemRepository<Item>>(() => new ItemRepository(dbContext));
         _lazyCategoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(dbContext));
         _lazyItemPhotoRepository = new Lazy<IItemPhotoRepository>(() => new ItemPhotoRepository(dbContext));
+        _lazyAttachmentRepository = new Lazy<IAttachmentRepository>(() => new AttachmentRepository(dbContext));
+        _lazyCommentRepository = new Lazy<ICommentRepository>(() => new CommentRepository(dbContext));
+        _lazyDefectRepository = new Lazy<IDefectRepository>(() => new DefectRepository(dbContext));
+        _lazyDefectPhotoRepository = new Lazy<IDefectPhotoRepository>(() => new DefectPhotoRepository(dbContext));
     }
 
     public IRoomRepository RoomRepository => _lazyRoomRepository.Value;
@@ -29,4 +37,8 @@ public class RepositoryManager : IRepositoryManager
     public IItemRepository<Item> ItemRepository => _lazyItemRepository.Value;
     public ICategoryRepository CategoryRepository => _lazyCategoryRepository.Value;
     public IItemPhotoRepository ItemPhotoRepository => _lazyItemPhotoRepository.Value;
+    public IAttachmentRepository AttachmentRepository => _lazyAttachmentRepository.Value;
+    public ICommentRepository CommentRepository => _lazyCommentRepository.Value;
+    public IDefectRepository DefectRepository => _lazyDefectRepository.Value;
+    public IDefectPhotoRepository DefectPhotoRepository => _lazyDefectPhotoRepository.Value;
 }
