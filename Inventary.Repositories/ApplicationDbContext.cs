@@ -39,6 +39,6 @@ public class ApplicationDbContext: DbContext
         //     .HasMany<ItemPhoto>(x => x.ItemPhotos)
         //     .WithOne(x => x.Item)
         //     .HasForeignKey(x => x.ItemId);
-        // modelBuilder.Entity<ItemPhoto>().Property(b => b.ItemId).UseIdentityColumn();
+        // modelBuilder.Entity<Defect>().Property(b => b.Id).ValueGeneratedNever();
     }
 }
