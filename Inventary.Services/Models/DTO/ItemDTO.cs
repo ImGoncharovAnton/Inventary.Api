@@ -16,6 +16,7 @@ public class ItemDto
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public Guid? SetupId { get; set; }
     public List<ItemPhotoDto>? ItemPhotos { get; set; }
     public List<AttachmentDto>? Attachments { get; set; }
     public List<DefectDto>? Defects { get; set; }

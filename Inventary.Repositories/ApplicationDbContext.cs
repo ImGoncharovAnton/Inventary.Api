@@ -15,7 +15,7 @@ public class ApplicationDbContext: DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Item> Items { get; set; }
-    // public DbSet<Setup> Setups { get; set; }
+    public DbSet<Setup> Setups { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Defect> Defects { get; set; }

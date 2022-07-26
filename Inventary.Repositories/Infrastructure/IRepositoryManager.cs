@@ -15,4 +15,5 @@ public interface IRepositoryManager
     ICommentRepository CommentRepository { get; }
     IDefectRepository DefectRepository { get; }
     IDefectPhotoRepository DefectPhotoRepository { get; }
+    ISetupRepository SetupRepository { get; }
 }

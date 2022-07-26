@@ -14,6 +14,7 @@ public class ItemRequestUi
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public Guid? SetupId { get; set; }
     public List<ItemPhotoRequestUi>? ItemPhotos { get; set; }
     public List<AttachmentRequestUi>? Attachments { get; set; }
     public List<DefectRequestUi>? Defects { get; set; }

@@ -1,12 +1,11 @@
 ﻿using Inventary.Domain.Enums;
 
-namespace Inventary.Domain.Entities;
+namespace Inventary.Services.Models.DTO;
 
-public class Setup: BaseEntity
+public class CreateSetupDto
 {
     public string SetupName { get; set; }
     public StatusEnum.StatusType Status { get; set; }
-    public virtual List<Item>? Items { get; set; }
+    public List<CreateItemWithSetupDto>? Items { get; set; }
     public Guid UserId { get; set; }
-    // public User User { get; set; }
 }

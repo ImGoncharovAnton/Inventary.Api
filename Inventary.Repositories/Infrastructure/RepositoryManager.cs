@@ -16,6 +16,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<ICommentRepository> _lazyCommentRepository;
     private readonly Lazy<IDefectRepository> _lazyDefectRepository;
     private readonly Lazy<IDefectPhotoRepository> _lazyDefectPhotoRepository;
+    private readonly Lazy<ISetupRepository> _lazySetupRepository;
 
     public RepositoryManager(ApplicationDbContext dbContext)
     {
@@ -29,6 +30,7 @@ public class RepositoryManager : IRepositoryManager
         _lazyCommentRepository = new Lazy<ICommentRepository>(() => new CommentRepository(dbContext));
         _lazyDefectRepository = new Lazy<IDefectRepository>(() => new DefectRepository(dbContext));
         _lazyDefectPhotoRepository = new Lazy<IDefectPhotoRepository>(() => new DefectPhotoRepository(dbContext));
+        _lazySetupRepository = new Lazy<ISetupRepository>(() => new SetupRepository(dbContext));
     }
 
     public IRoomRepository RoomRepository => _lazyRoomRepository.Value;
@@ -41,4 +43,5 @@ public class RepositoryManager : IRepositoryManager
     public ICommentRepository CommentRepository => _lazyCommentRepository.Value;
     public IDefectRepository DefectRepository => _lazyDefectRepository.Value;
     public IDefectPhotoRepository DefectPhotoRepository => _lazyDefectPhotoRepository.Value;
+    public ISetupRepository SetupRepository => _lazySetupRepository.Value;
 }
