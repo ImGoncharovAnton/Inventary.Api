@@ -15,5 +15,5 @@ public class UserResponseUi
     public string urlOrig { get; set; }
     public string urlCrop { get; set; }
     public List<Item>? Items { get; set; }
-    // public Guid SetupId { get; set; }
+    public Guid? CurrentSetupId { get; set; }
 }

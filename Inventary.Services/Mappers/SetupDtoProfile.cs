@@ -13,6 +13,7 @@ public class SetupDtoProfile: Profile
         CreateMap<UpdateSetupDto, Setup>();
 
         CreateMap<CreateItemWithSetupDto, Item>();
+        CreateMap<Item, ItemDto>().ReverseMap();
 
     }
 }

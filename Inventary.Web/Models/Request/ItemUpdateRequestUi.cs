@@ -13,6 +13,7 @@ public class ItemUpdateRequestUi
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public Guid? SetupId { get; set; }
     public List<ItemPhotoUpdateRequestUi>? ItemPhotos { get; set; }
     public List<AttachmentUpdateRequestUi>? Attachments { get; set; }
     public List<DefectUpdateRequestUi>? Defects { get; set; }

@@ -26,20 +26,21 @@ public class ApplicationDbContext: DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        // modelBuilder.Entity<Setup>()
-        //     .HasOne<User>(s => s.User)
-        //     .WithOne(x => x.Setup)
-        //     .HasForeignKey<User>(u => u.SetupId);
+        modelBuilder.Entity<Setup>()
+            .HasOne<User>(s => s.User)
+            .WithOne(x => x.Setup)
+            .HasForeignKey<User>(u => u.CurrentSetupId)
+            .OnDelete(DeleteBehavior.SetNull);
+        // modelBuilder.Entity<User>()
+        //     .HasOne<Setup>(x => x.Setup)
+        //     .WithOne(x => x.User)
+        //     .HasForeignKey<Setup>(s => s.CurrentUserId)
+        //     .OnDelete(DeleteBehavior.SetNull);
         modelBuilder.Entity<Category>()
             .HasMany<Item>(x => x.Items)
             .WithOne(x => x.Category)
             .HasForeignKey(x => x.CurrentCategoryId)
             .OnDelete(DeleteBehavior.SetNull);
-        // modelBuilder.Entity<Item>()
-        //     .HasMany<ItemPhoto>(x => x.ItemPhotos)
-        //     .WithOne(x => x.Item)
-        //     .HasForeignKey(x => x.ItemId);
-        // modelBuilder.Entity<Defect>().Property(b => b.Id).ValueGeneratedNever();
         modelBuilder.Entity<Setup>()
             .HasMany<Item>(x => x.Items)
             .WithOne(x => x.Setup)

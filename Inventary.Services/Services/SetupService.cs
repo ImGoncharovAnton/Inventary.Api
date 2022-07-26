@@ -27,7 +27,7 @@ public class SetupService: ISetupService
 
     public async Task<SetupDto> GetByIdAsync(Guid id)
     {
-        var setup = await _repositoryManager.SetupRepository.GetByIdAsync(id);
+        var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
         if (setup is null)
             throw new SetupNotFoundException(id);
         var result = _mapper.Map<SetupDto>(setup);
@@ -47,6 +47,11 @@ public class SetupService: ISetupService
         var newItem = await _repositoryManager.SetupRepository.AddAsync(mappedItem);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
+
+        var findUser = await _repositoryManager.UserRepository.GetByIdAsync(createItem.UserId);
+        findUser.UpdateDate = DateTime.UtcNow;
+        findUser.CurrentSetupId = newItem.Id;
+        
         var itemsList = createItem.Items;
 
         if (itemsList is not null)
@@ -75,6 +80,10 @@ public class SetupService: ISetupService
         desiredItem.Status = item.Status;
         desiredItem.UserId = item.UserId;
 
+        var findUser = await _repositoryManager.UserRepository.GetByIdAsync(item.UserId);
+        findUser.UpdateDate = DateTime.UtcNow;
+        findUser.CurrentSetupId = id;
+        
         var mappedItems = _mapper.Map<List<Item>>(item.Items);
 
         var exceptItemsList = desiredItem.Items
