@@ -40,5 +40,10 @@ public class ApplicationDbContext: DbContext
         //     .WithOne(x => x.Item)
         //     .HasForeignKey(x => x.ItemId);
         // modelBuilder.Entity<Defect>().Property(b => b.Id).ValueGeneratedNever();
+        modelBuilder.Entity<Setup>()
+            .HasMany<Item>(x => x.Items)
+            .WithOne(x => x.Setup)
+            .HasForeignKey(x => x.SetupId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

@@ -50,33 +50,26 @@ public class ItemService : IItemService
 
     public async Task<ItemDto> UpdateAsync(Guid id, UpdateItemDto item)
     {
-        var deciredItem = await _repositoryManager.ItemRepository.GetByIdAsync(id);
-        if (deciredItem is null)
+        var desiredItem = await _repositoryManager.ItemRepository.GetByIdAsync(id);
+        if (desiredItem is null)
             throw new ItemNotFoundException(id);
         var mappedAttachments = _mapper.Map<List<Attachment>>(item.Attachments);
         var mappedItemPhotos = _mapper.Map<List<ItemPhoto>>(item.ItemPhotos);
         var mappedDefects = _mapper.Map<List<Defect>>(item.Defects);
         var mappedComments = _mapper.Map<List<Comment>>(item.Comments);
-        deciredItem.UpdateDate = DateTime.UtcNow;
-        deciredItem.ItemName = item.ItemName;
-        deciredItem.UserDate = item.UserDate;
-        deciredItem.Status = item.Status;
-        deciredItem.Price = item.Price;
-        deciredItem.QRcode = item.QRcode;
-        deciredItem.RoomId = item.RoomId;
-        deciredItem.UserId = item.UserId;
-        deciredItem.CurrentCategoryId = item.CurrentCategoryId;
-        deciredItem.ItemPhotos = mappedItemPhotos;
-        deciredItem.Attachments = mappedAttachments;
-        deciredItem.Defects = mappedDefects;
-        deciredItem.Comments = mappedComments;
-
-        // foreach (var deciredItemPhoto in deciredItem.ItemPhotos)
-        // {
-        //     _repositoryManager.ItemPhotoRepository.Remove(deciredItemPhoto);
-        //     // _repositoryManager.ItemPhotoRepository.Upsert(deciredItemPhoto);
-        //     // await _repositoryManager.UnitOfWork.SaveChangesAsync();
-        // }
+        desiredItem.UpdateDate = DateTime.UtcNow;
+        desiredItem.ItemName = item.ItemName;
+        desiredItem.UserDate = item.UserDate;
+        desiredItem.Status = item.Status;
+        desiredItem.Price = item.Price;
+        desiredItem.QRcode = item.QRcode;
+        desiredItem.RoomId = item.RoomId;
+        desiredItem.UserId = item.UserId;
+        desiredItem.CurrentCategoryId = item.CurrentCategoryId;
+        desiredItem.ItemPhotos = mappedItemPhotos;
+        desiredItem.Attachments = mappedAttachments;
+        desiredItem.Defects = mappedDefects;
+        desiredItem.Comments = mappedComments;
 
         // #region InsertItemPhotos
         //
@@ -304,7 +297,7 @@ public class ItemService : IItemService
         // await _repositoryManager.ItemRepository.Update(deciredItem);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
-        var result = _mapper.Map<ItemDto>(deciredItem);
+        var result = _mapper.Map<ItemDto>(desiredItem);
         return result;
     }
 

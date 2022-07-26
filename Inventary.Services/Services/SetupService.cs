@@ -40,18 +40,73 @@ public class SetupService: ISetupService
         {
             CreatedDate = DateTime.UtcNow,
             UpdateDate = DateTime.UtcNow,
-            
+            SetupName = createItem.SetupName,
+            Status = createItem.Status,
+            UserId = createItem.UserId
+        };
+        var newItem = await _repositoryManager.SetupRepository.AddAsync(mappedItem);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+
+        var itemsList = createItem.Items;
+
+        if (itemsList is not null)
+        {
+            foreach (var item in itemsList)
+            {
+                var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                if (findItem is null) continue;
+                findItem.UpdateDate = DateTime.UtcNow;
+                findItem.SetupId = newItem.Id;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
         }
-        
+
+        var result = _mapper.Map<SetupDto>(newItem);
+        return result;
     }
 
     public async Task UpdateAsync(Guid id, UpdateSetupDto item)
     {
-        throw new NotImplementedException();
+        var desiredItem = await _repositoryManager.SetupRepository.GetByIdAsync(id);
+        if (desiredItem is null)
+            throw new SetupNotFoundException(id);
+        desiredItem.UpdateDate = DateTime.UtcNow;
+        desiredItem.SetupName = item.SetupName;
+        desiredItem.Status = item.Status;
+        desiredItem.UserId = item.UserId;
+
+        var mappedItems = _mapper.Map<List<Item>>(item.Items);
+
+        var exceptItemsList = desiredItem.Items
+            .ExceptBy(mappedItems.Select(x => x.Id), z => z.Id).ToList();
+        foreach (var exceptItem in exceptItemsList)
+        {
+            var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(exceptItem.Id);
+            if (findItem is null) continue;
+            findItem.UpdateDate = DateTime.UtcNow;
+            findItem.SetupId = null;
+        }
+
+
+        foreach (var mappedItem in mappedItems)
+        {
+            var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(mappedItem.Id);
+            if (findItem is null) continue;
+            findItem.UpdateDate = DateTime.UtcNow;
+            findItem.SetupId = mappedItem.SetupId;
+        }
+        
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+
+        var setup = await _repositoryManager.SetupRepository.GetByIdAsync(id);
+        if (setup is null)
+            throw new SetupNotFoundException(id);
+        
+        _repositoryManager.SetupRepository.Remove(setup);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
     }
 }

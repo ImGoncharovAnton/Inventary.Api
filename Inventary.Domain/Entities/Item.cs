@@ -13,8 +13,9 @@ public class Item: BaseEntity
     // public virtual Room Room { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
-    public Guid? SetupId { get; set; }
     public virtual Category? Category { get; set; }
+    public Guid? SetupId { get; set; }
+    public virtual Setup? Setup { get; set; }
     public virtual List<Comment>? Comments { get; set; }
     public virtual List<Defect>? Defects { get; set; }
     public virtual List<Attachment>? Attachments { get; set; }
