@@ -64,12 +64,14 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
         if (room is null)
             throw new ArgumentNullException();
         
-        var categoriesForRoom = await _dbContext.Rooms.Include(x => x.Items)
+        var categoriesForRoom = await _dbContext.Rooms
+            .Include(x => x.Items)
             .ThenInclude(x => x.Category)
             .Where(x => x.Id == room.Id)
             .ToListAsync();
 
-        var getCategories = categoriesForRoom.SelectMany(x => x.Items.Select(z => 
+        var getCategories = categoriesForRoom
+            .SelectMany(x => x.Items.Select(z => 
            z.Category)).Distinct().ToList();
         
 

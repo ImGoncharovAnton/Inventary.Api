@@ -27,6 +27,13 @@ public class SetupsController : Controller
     }
 
     [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetAllSetupsForRoom(Guid id)
+    {
+        var setups = await _serviceManager.SetupService.GetAllSetupsForRoomById(id);
+        return Ok(setups);
+    }
+
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetSetupById(Guid id)
     {
         var setup = await _serviceManager.SetupService.GetByIdAsync(id);

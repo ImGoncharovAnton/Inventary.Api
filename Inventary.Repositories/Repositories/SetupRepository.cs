@@ -40,4 +40,35 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
             }).ToListAsync();
         return await setups;
     }
+    
+    public async Task<List<SetupsListWithNumberOfDefects>> GetByIdWithSetups(Guid id)
+    {
+        var room = await _dbContext.Rooms.FindAsync(id);
+        if (room is null)
+            throw new Exception("Room is not found");
+
+        var setupsForRoom = await _dbContext.Rooms
+            .Where(x => x.Id == room.Id)
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Defects)
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Setup)
+            .ToListAsync();
+        
+        var setupsList = setupsForRoom
+            .SelectMany(x => x.Items.Where(w=>w.SetupId != null).Select(z => z.Setup))
+            .Distinct().ToList();
+        
+        var mappedSetupList = setupsList.Select(x => new SetupsListWithNumberOfDefects()
+        {
+            Id = x.Id,
+            SetupName = x.SetupName,
+            Status = x.Status,
+            UserId = x.UserId,
+            NumberOfDefects = x.Items.SelectMany(z => z.Defects).Count()
+        }).ToList();
+        
+
+        return mappedSetupList;
+    }
 }

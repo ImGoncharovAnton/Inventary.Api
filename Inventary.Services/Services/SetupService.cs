@@ -31,6 +31,11 @@ public class SetupService: ISetupService
         return await _repositoryManager.SetupRepository.GetAllWithNumberOfDefects();
     }
 
+    public async Task<IList<SetupsListWithNumberOfDefects>> GetAllSetupsForRoomById(Guid id)
+    {
+        return await _repositoryManager.SetupRepository.GetByIdWithSetups(id);
+    }
+
     public async Task<SetupDto> GetByIdAsync(Guid id)
     {
         var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);

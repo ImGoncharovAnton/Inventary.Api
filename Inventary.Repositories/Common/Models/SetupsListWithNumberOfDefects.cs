@@ -1,4 +1,5 @@
-﻿using Inventary.Domain.Enums;
+﻿using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 
 namespace Inventary.Repositories.Common.Models;
 
