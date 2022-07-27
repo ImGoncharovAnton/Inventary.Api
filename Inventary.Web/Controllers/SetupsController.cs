@@ -22,9 +22,8 @@ public class SetupsController : Controller
     [HttpGet("")]
     public async Task<IActionResult> GetAllSetups()
     {
-        var setups = await _serviceManager.SetupService.GetAllItems();
-        var result = _mapper.Map<List<SetupResponseUi>>(setups);
-        return Ok(result);
+        var setups = await _serviceManager.SetupService.GetAllWithNumberOfDefects();
+        return Ok(setups);
     }
 
     [HttpGet("{id:guid}")]

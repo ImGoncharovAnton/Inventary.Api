@@ -2179,19 +2179,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\a_n_g\\.nuget\\packages\\": {}
+    "C:\\Users\\danil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Web\\Inventary.Web.csproj",
+      "projectUniqueName": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Web\\Inventary.Web.csproj",
       "projectName": "Inventary.Web",
-      "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Web\\Inventary.Web.csproj",
-      "packagesPath": "C:\\Users\\a_n_g\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Web\\obj\\",
+      "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Web\\Inventary.Web.csproj",
+      "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\a_n_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2205,8 +2205,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {
-              "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj"
+            "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {
+              "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj"
             }
           }
         }
