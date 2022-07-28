@@ -10,5 +10,5 @@ public class SetupDto
     public string SetupName { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public List<ItemDto>? Items { get; set; }
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
 }

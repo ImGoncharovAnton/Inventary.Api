@@ -8,6 +8,7 @@ public class SetupsListWithNumberOfDefects
     public Guid Id { get; set; }
     public string SetupName { get; set; }
     public StatusEnum.StatusType Status { get; set; }
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
     public int NumberOfDefects { get; set; }
+    public string FullName { get; set; }
 }

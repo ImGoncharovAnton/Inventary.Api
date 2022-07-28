@@ -7,5 +7,5 @@ public interface IRoomRepository : IGenericRepository<Room>
 {
     Task<List<Room>> GetAllWithItems();
     Task<List<ItemsForRoom>> GetByIdWithItems(Guid id);
-    Task<List<Category>> GetByIdWithCategory(Guid id);
+    Task<List<CategoriesForRoom>> GetByIdWithCategory(Guid id);
 }

@@ -54,7 +54,7 @@ public class RoomService : IRoomService
         return result;
     }
 
-    public async Task<IList<Category>> GetByIdWithCategory(Guid id)
+    public async Task<IList<CategoriesForRoom>> GetByIdWithCategory(Guid id)
     {
         return await _repositoryManager.RoomRepository.GetByIdWithCategory(id);
     }

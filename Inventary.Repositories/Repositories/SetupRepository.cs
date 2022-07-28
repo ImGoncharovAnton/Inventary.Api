@@ -53,6 +53,7 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
             .ThenInclude(x => x.Defects)
             .Include(x => x.Items)
             .ThenInclude(x => x.Setup)
+            .ThenInclude(z => z.User)
             .ToListAsync();
         
         var setupsList = setupsForRoom
@@ -65,7 +66,8 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
             SetupName = x.SetupName,
             Status = x.Status,
             UserId = x.UserId,
-            NumberOfDefects = x.Items.SelectMany(z => z.Defects).Count()
+            NumberOfDefects = x.Items.SelectMany(z => z.Defects).Count(),
+            FullName = (x.User != null) ? x.User.FirstName + " " + x.User.LastName : "",
         }).ToList();
         
 

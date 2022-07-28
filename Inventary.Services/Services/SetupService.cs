@@ -58,10 +58,13 @@ public class SetupService: ISetupService
         var newItem = await _repositoryManager.SetupRepository.AddAsync(mappedItem);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
-
-        var findUser = await _repositoryManager.UserRepository.GetByIdAsync(createItem.UserId);
-        findUser.UpdateDate = DateTime.UtcNow;
-        findUser.CurrentSetupId = newItem.Id;
+        if (createItem.UserId.HasValue)
+        {
+            var findUser = await _repositoryManager.UserRepository.GetByIdAsync(createItem.UserId.Value);
+            findUser.UpdateDate = DateTime.UtcNow;
+            findUser.CurrentSetupId = newItem.Id;
+        }
+      
         
         var itemsList = createItem.Items;
 
@@ -92,12 +95,19 @@ public class SetupService: ISetupService
 
         if (desiredItem.UserId != item.UserId)
         {
-            var findOldUser = await _repositoryManager.UserRepository.GetByIdAsync(desiredItem.UserId);
-            findOldUser.UpdateDate = DateTime.UtcNow;
-            findOldUser.CurrentSetupId = null;
-            var findUser = await _repositoryManager.UserRepository.GetByIdAsync(item.UserId);
-            findUser.UpdateDate = DateTime.UtcNow;
-            findUser.CurrentSetupId = id;
+            if (desiredItem.UserId.HasValue)
+            {
+                var findOldUser = await _repositoryManager.UserRepository.GetByIdAsync(desiredItem.UserId.Value);
+                findOldUser.UpdateDate = DateTime.UtcNow;
+                findOldUser.CurrentSetupId = null;
+            }
+
+            if (item.UserId.HasValue)
+            {
+                var findUser = await _repositoryManager.UserRepository.GetByIdAsync(item.UserId.Value);
+                findUser.UpdateDate = DateTime.UtcNow;
+                findUser.CurrentSetupId = id;
+            }
             desiredItem.UserId = item.UserId;
         }
         
