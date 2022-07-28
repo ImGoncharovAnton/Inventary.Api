@@ -56,7 +56,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachments", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Category", b =>
@@ -77,7 +77,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Comment", b =>
@@ -103,7 +103,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Defect", b =>
@@ -133,7 +133,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Defects");
+                    b.ToTable("Defects", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.DefectPhoto", b =>
@@ -159,7 +159,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("DefectId");
 
-                    b.ToTable("DefectPhotos");
+                    b.ToTable("DefectPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Item", b =>
@@ -213,7 +213,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.ItemPhoto", b =>
@@ -239,7 +239,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("ItemPhotos");
+                    b.ToTable("ItemPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Room", b =>
@@ -260,7 +260,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Setup", b =>
@@ -287,7 +287,7 @@ namespace Inventary.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Setups");
+                    b.ToTable("Setups", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.User", b =>
@@ -338,7 +338,7 @@ namespace Inventary.Repositories.Migrations
                         .IsUnique()
                         .HasFilter("[CurrentSetupId] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Inventary.Domain.Entities.Attachment", b =>

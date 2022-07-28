@@ -37,6 +37,13 @@ public class ItemsController : Controller
         return Ok(result);
     }
 
+    [HttpGet("")]
+    public async Task<IActionResult> GetListItems()
+    {
+        var items = await _serviceManager.ItemService.GetItemsListAsync();
+        return Ok(items);
+    }
+
     [HttpPost("")]
     public async Task<IActionResult> CreateItem([FromBody] ItemRequestUi itemRequest)
     {

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Inventary.Domain.Entities;
+using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -23,6 +24,26 @@ public class ItemRepository : IItemRepository<Item>
             .ToListAsync();
 
         return result;
+    }
+
+    public async Task<IList<ItemsList>> GetListItemsAsync()
+    {
+        return await _dbContext.Items
+            .Select(i => new ItemsList()
+            {
+                Id = i.Id,
+                QrCode = i.QRcode,
+                ItemName = i.ItemName,
+                Status = i.Status,
+                Date = i.UserDate,
+                Price = i.Price,
+                RoomName = i.Room.RoomName,
+                NumberOfDefects = i.Defects.Count(),
+                RoomId = i.RoomId,
+                CategoryId = i.CurrentCategoryId,
+                SetupId = i.SetupId,
+                UserId = i.UserId
+            }).ToListAsync();
     }
 
     public async Task<Item> GetByIdAsync(Guid id)

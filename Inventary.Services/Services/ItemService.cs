@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
 using Inventary.Services.Extensions;
@@ -24,6 +25,11 @@ public class ItemService : IItemService
         var items = await _repositoryManager.ItemRepository.GetAllAsync();
         var result = _mapper.Map<List<ItemDto>>(items);
         return result;
+    }
+
+    public async Task<IList<ItemsList>> GetItemsListAsync()
+    {
+        return await _repositoryManager.ItemRepository.GetListItemsAsync();
     }
 
     public async Task<ItemDto> GetByIdAsync(Guid id)
