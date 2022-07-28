@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
 using Inventary.Services.Extensions;
@@ -23,6 +24,11 @@ public class UserService : IUserService
         var users = await _repositoryManager.UserRepository.GetAllAsync();
         var result = _mapper.Map<List<UserDto>>(users);
         return result;
+    }
+
+    public async Task<IList<ListUsersForCreateSetup>> GetListUsersForCreateSetup()
+    {
+        return await _repositoryManager.UserRepository.GetUsersListForCreateSetups();
     }
 
     public async Task<UserDto> GetByIdAsync(Guid id)

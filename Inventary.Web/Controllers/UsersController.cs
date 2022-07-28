@@ -28,6 +28,13 @@ public class UsersController : Controller
         return Ok(result);
     }
 
+    [HttpGet("")]
+    public async Task<IActionResult> GetListUsersForCreateSetup()
+    {
+        var users = await _serviceManager.UserService.GetListUsersForCreateSetup();
+        return Ok(users);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetUserById(Guid id)
     {
