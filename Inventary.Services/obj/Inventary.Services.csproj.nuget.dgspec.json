@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {}
+    "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj": {
+    "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
         "projectName": "Inventary.Domain",
-        "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
-        "packagesPath": "C:\\Users\\a_n_g\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\obj\\",
+        "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
+        "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\a_n_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,17 +68,17 @@
         }
       }
     },
-    "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj": {
+    "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj",
         "projectName": "Inventary.Repositories",
-        "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj",
-        "packagesPath": "C:\\Users\\a_n_g\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\obj\\",
+        "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj",
+        "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\a_n_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,8 +92,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj": {
-                "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj"
+              "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj": {
+                "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj"
               }
             }
           }
@@ -148,17 +148,17 @@
         }
       }
     },
-    "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {
+    "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj",
+        "projectUniqueName": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj",
         "projectName": "Inventary.Services",
-        "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj",
-        "packagesPath": "C:\\Users\\a_n_g\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Services\\obj\\",
+        "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\Inventary.Services.csproj",
+        "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\a_n_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -172,8 +172,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj": {
-                "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj"
+              "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj": {
+                "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Repositories\\Inventary.Repositories.csproj"
               }
             }
           }

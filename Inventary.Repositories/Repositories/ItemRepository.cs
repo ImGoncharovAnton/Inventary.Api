@@ -29,6 +29,7 @@ public class ItemRepository : IItemRepository<Item>
     public async Task<IList<ItemsList>> GetListItemsAsync()
     {
         return await _dbContext.Items
+            .Where(x => x.SetupId == null)
             .Select(i => new ItemsList()
             {
                 Id = i.Id,
