@@ -38,7 +38,7 @@ public class ItemsController : Controller
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetListItems()
+    public async Task<IActionResult> GetListItemsWithoutSetups()
     {
         var items = await _serviceManager.ItemService.GetItemsListAsync();
         return Ok(items);

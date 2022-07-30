@@ -23,6 +23,9 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
     {
         var result = await _dbContext.Setups
             .Include(x => x.Items)
+            .ThenInclude(z => z.Defects)
+            .Include(x => x.Items)
+            .ThenInclude(z => z.Room)
             .FirstOrDefaultAsync(x => x.Id == id);
         return result;
     }

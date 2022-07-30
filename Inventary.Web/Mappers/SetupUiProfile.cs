@@ -13,7 +13,15 @@ public class SetupUiProfile: Profile
         CreateMap<SetupRequestUi, CreateSetupDto>();
         CreateMap<SetupUpdateRequestUi, UpdateSetupDto>();
 
-        CreateMap<ItemDto, ItemForSetupsResponseUi>();
+        CreateMap<ItemDto, ItemForSetupsResponseUi>()
+            .ForMember(dest => dest.Date, opt => 
+                opt.MapFrom(src => src.UserDate))
+            .ForMember(dest => dest.RoomName, opt => 
+                opt.MapFrom(src => src.Room.RoomName))
+            .ForMember(dest => dest.CategoryId, opt =>
+                opt.MapFrom(src => src.CurrentCategoryId))
+            .ForMember(dest => dest.NumberOfDefects, opt =>
+                opt.MapFrom(src => src.Defects.Count));
         CreateMap<ItemForSetupsRequestUi, CreateItemWithSetupDto>().ReverseMap();
         
     }

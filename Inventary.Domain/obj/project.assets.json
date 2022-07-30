@@ -587,19 +587,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danil\\.nuget\\packages\\": {}
+    "C:\\Users\\a_n_g\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
       "projectName": "Inventary.Domain",
-      "projectPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
-      "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\obj\\",
+      "projectPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
+      "packagesPath": "C:\\Users\\a_n_g\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\a_n_g\\RiderProjects\\Inventary.Api\\Inventary.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\a_n_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
