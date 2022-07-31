@@ -9,4 +9,5 @@ public class SetupResponseUi
     public StatusEnum.StatusType Status { get; set; }
     public List<ItemForSetupsResponseUi>? Items { get; set; }
     public Guid? UserId { get; set; }
+    public string UserFullName { get; set; }
 }

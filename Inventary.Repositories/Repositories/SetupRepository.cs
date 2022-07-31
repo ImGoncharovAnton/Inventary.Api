@@ -22,6 +22,7 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
     public async Task<Setup> GetByIdWithItemsAsync(Guid id)
     {
         var result = await _dbContext.Setups
+            .Include(x => x.User)
             .Include(x => x.Items)
             .ThenInclude(z => z.Defects)
             .Include(x => x.Items)

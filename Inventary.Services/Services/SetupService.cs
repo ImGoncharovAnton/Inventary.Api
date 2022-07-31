@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
@@ -76,6 +77,7 @@ public class SetupService: ISetupService
                 if (findItem is null) continue;
                 findItem.UpdateDate = DateTime.UtcNow;
                 findItem.SetupId = newItem.Id;
+                findItem.Status = StatusEnum.StatusType.Active;
                 await _repositoryManager.UnitOfWork.SaveChangesAsync();
             }
         }
@@ -126,6 +128,7 @@ public class SetupService: ISetupService
             if (findItem is null) continue;
             findItem.UpdateDate = DateTime.UtcNow;
             findItem.SetupId = null;
+            findItem.Status = StatusEnum.StatusType.Inactive;
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
         
@@ -139,7 +142,7 @@ public class SetupService: ISetupService
                 if (findItem is null) continue;
                 findItem.UpdateDate = DateTime.UtcNow;
                 findItem.SetupId = id;
-                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+                findItem.Status = StatusEnum.StatusType.Active;
             }
         }
 
@@ -148,10 +151,23 @@ public class SetupService: ISetupService
 
     public async Task DeleteAsync(Guid id)
     {
-
-        var setup = await _repositoryManager.SetupRepository.GetByIdAsync(id);
+        var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
         if (setup is null)
             throw new SetupNotFoundException(id);
+        var itemsList = setup.Items;
+        if (itemsList is not null)
+        {
+            foreach (var item in itemsList)
+            {
+                var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                if (findItem is null) continue;
+                findItem.UpdateDate = DateTime.UtcNow;
+                findItem.Status = StatusEnum.StatusType.Inactive;
+                findItem.RoomId = null;
+                findItem.Room = null;
+                findItem.UserId = null;
+            }
+        }
         
         _repositoryManager.SetupRepository.Remove(setup);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();

@@ -9,7 +9,9 @@ public class SetupUiProfile: Profile
 {
     public SetupUiProfile()
     {
-        CreateMap<SetupDto, SetupResponseUi>();
+        CreateMap<SetupDto, SetupResponseUi>()
+            .ForMember(dest => dest.UserFullName, opt =>
+                opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
         CreateMap<SetupRequestUi, CreateSetupDto>();
         CreateMap<SetupUpdateRequestUi, UpdateSetupDto>();
 

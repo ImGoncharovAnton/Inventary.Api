@@ -1,4 +1,5 @@
-﻿using Inventary.Domain.Enums;
+﻿using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 
 namespace Inventary.Services.Models.DTO;
 
@@ -11,4 +12,5 @@ public class SetupDto
     public StatusEnum.StatusType Status { get; set; }
     public List<ItemDto>? Items { get; set; }
     public Guid? UserId { get; set; }
+    public User? User { get; set; }
 }
