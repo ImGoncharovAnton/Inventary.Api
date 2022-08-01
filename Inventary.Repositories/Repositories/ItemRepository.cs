@@ -79,6 +79,11 @@ public class ItemRepository : IItemRepository<Item>
         return entity;
     }
 
+    // public void MoveItemsToAnotherRoom(Guid id, List<ListItemsForUpdate> items)
+    // {
+    //     throw new NotImplementedException();
+    // }
+
     public void Upsert(Item entity)
     {
         _dbContext.ChangeTracker.TrackGraph(entity, e =>

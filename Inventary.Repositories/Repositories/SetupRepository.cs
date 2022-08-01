@@ -77,4 +77,21 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
 
         return mappedSetupList;
     }
+
+    public async Task<List<SetupsListForSelect>> GetAllSetupsForSelect()
+    {
+        var setups = _dbContext.Setups
+            .Select(x => new SetupsListForSelect()
+            {
+                Id = x.Id,
+                SetupName = x.SetupName,
+                Status = x.Status,
+                Items = x.Items.Select(z => new ListItemsForSetupSelect()
+                {
+                    Id = z.Id,
+                    SetupId = z.SetupId
+                }).ToList()
+            }).ToListAsync();
+        return await setups;
+    }
 }

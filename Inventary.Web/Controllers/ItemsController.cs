@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Inventary.Repositories.Common.Models;
 using Inventary.Services.Infrastructure;
 using Inventary.Services.Models.DTO;
 using Inventary.Web.Models.Request;
@@ -49,12 +50,12 @@ public class ItemsController : Controller
     {
         // if (!ModelState.IsValid)
         //     return BadRequest("Something is wrong with the model");
-        
+
         var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
         var newItem = await _serviceManager.ItemService.CreateAsync(mappedItem);
         var result = _mapper.Map<ItemResponseUi>(newItem);
 
-        return CreatedAtAction(nameof(GetItemById), new { id = result.Id}, result);
+        return CreatedAtAction(nameof(GetItemById), new { id = result.Id }, result);
     }
 
     [HttpPut("{itemId:guid}")]
@@ -67,7 +68,14 @@ public class ItemsController : Controller
         return Ok(result);
     }
 
-    // [HttpPut("{itemId:guid}")]
+    [HttpPut("{roomId:guid}")]
+    public async Task<IActionResult> MoveItemsToAnotherRoom(Guid roomId, [FromBody] List<ListItemsForUpdate> items)
+    {
+        await _serviceManager.ItemService.MoveItemsToAnotherRoom(roomId, items);
+        return NoContent();
+    }
+
+// [HttpPut("{itemId:guid}")]
     // public async Task<IActionResult> UpsertItem(Guid itemId, [FromBody] ItemRequestUi itemRequest)
     // {
     //     var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);

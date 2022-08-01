@@ -11,7 +11,7 @@ public class ItemsForRoom
     public StatusEnum.StatusType Status { get; set; }
     public double Price { get; set; }
     public string QRcode { get; set; }
-    public string RoomName { get; set; }
+    public string SetupName { get; set; }
     public Guid? CurrentCategoryId { get; set; }
     public List<Defect> Defects { get; set; }
     // public string CategoryName { get; set; }

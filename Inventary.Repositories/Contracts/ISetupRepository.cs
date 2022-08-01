@@ -9,4 +9,5 @@ public interface ISetupRepository: IGenericRepository<Setup>
     Task<Setup> GetByIdWithItemsAsync(Guid id);
     Task<List<SetupsListWithNumberOfDefects>> GetAllWithNumberOfDefects();
     Task<List<SetupsListWithNumberOfDefects>> GetByIdWithSetups(Guid id);
+    Task<List<SetupsListForSelect>> GetAllSetupsForSelect();
 }

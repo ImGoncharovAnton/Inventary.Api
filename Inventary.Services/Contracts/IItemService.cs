@@ -10,6 +10,7 @@ public interface IItemService
     Task<ItemDto> GetByIdAsync(Guid id);
     Task<ItemDto> CreateAsync(CreateItemDto item);
     Task<ItemDto> UpdateAsync(Guid id, UpdateItemDto item);
+    Task MoveItemsToAnotherRoom(Guid id, IList<ListItemsForUpdate> items);
     Task Upsert(Guid id, CreateItemDto item);
     Task<ItemDto> DeleteAsync(Guid id);
 }

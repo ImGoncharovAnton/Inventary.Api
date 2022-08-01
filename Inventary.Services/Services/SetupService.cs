@@ -32,6 +32,11 @@ public class SetupService: ISetupService
         return await _repositoryManager.SetupRepository.GetAllWithNumberOfDefects();
     }
 
+    public async Task<IList<SetupsListForSelect>> GetAllSetupsForSelect()
+    {
+        return await _repositoryManager.SetupRepository.GetAllSetupsForSelect();
+    }
+
     public async Task<IList<SetupsListWithNumberOfDefects>> GetAllSetupsForRoomById(Guid id)
     {
         return await _repositoryManager.SetupRepository.GetByIdWithSetups(id);
@@ -112,9 +117,7 @@ public class SetupService: ISetupService
             }
             desiredItem.UserId = item.UserId;
         }
-        
-        
-        
+
         var mappedItems = _mapper.Map<List<CreateItemWithSetupDto>>(desiredItem.Items);
         
         var exceptItemsList = mappedItems

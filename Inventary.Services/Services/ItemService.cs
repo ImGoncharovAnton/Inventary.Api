@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Domain.Enums;
 using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Contracts;
@@ -305,6 +306,28 @@ public class ItemService : IItemService
 
         var result = _mapper.Map<ItemDto>(desiredItem);
         return result;
+    }
+
+    public async Task MoveItemsToAnotherRoom(Guid id, IList<ListItemsForUpdate> items)
+    {
+        var desiredRoom = _repositoryManager.RoomRepository.GetByIdAsync(id);
+        if (desiredRoom is null)
+            throw new RoomNotFoundException(id);
+
+        if (items is not null)
+        {
+            foreach (var item in items)
+            {
+                var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                if (findItem is null) continue;
+                findItem.UpdateDate = DateTime.UtcNow;
+                findItem.RoomId = id;
+                findItem.SetupId = null;
+                findItem.Setup = null;
+                findItem.Status = StatusEnum.StatusType.Active;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
+        }
     }
 
     public async Task Upsert(Guid id, CreateItemDto item)

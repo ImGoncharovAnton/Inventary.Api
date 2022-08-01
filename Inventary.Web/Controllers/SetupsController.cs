@@ -26,6 +26,13 @@ public class SetupsController : Controller
         return Ok(setups);
     }
 
+    [HttpGet("")]
+    public async Task<IActionResult> GetAllSetupsForSelect()
+    {
+        var setups = await _serviceManager.SetupService.GetAllSetupsForSelect();
+        return Ok(setups);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetAllSetupsForRoom(Guid id)
     {

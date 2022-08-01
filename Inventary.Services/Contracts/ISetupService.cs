@@ -8,6 +8,7 @@ public interface ISetupService
 {
     Task<IList<SetupDto>> GetAllItems();
     Task<IList<SetupsListWithNumberOfDefects>> GetAllWithNumberOfDefects();
+    Task<IList<SetupsListForSelect>> GetAllSetupsForSelect();
     Task<IList<SetupsListWithNumberOfDefects>> GetAllSetupsForRoomById(Guid id);
     Task<SetupDto> GetByIdAsync(Guid id);
     Task<SetupDto> CreateAsync(CreateSetupDto item);
