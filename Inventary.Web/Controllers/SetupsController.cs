@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Inventary.Repositories.Common.Models;
 using Inventary.Services.Infrastructure;
 using Inventary.Services.Models.DTO;
 using Inventary.Web.Models.Request;
@@ -23,6 +24,13 @@ public class SetupsController : Controller
     public async Task<IActionResult> GetAllSetups()
     {
         var setups = await _serviceManager.SetupService.GetAllWithNumberOfDefects();
+        return Ok(setups);
+    }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetListSetupsWithoutUser()
+    {
+        var setups = await _serviceManager.SetupService.GetAllSetupsWithoutUser();
         return Ok(setups);
     }
 
@@ -63,6 +71,12 @@ public class SetupsController : Controller
     {
         var mappedSetup = _mapper.Map<UpdateSetupDto>(setupUpdateRequest);
         await _serviceManager.SetupService.UpdateAsync(id, mappedSetup);
+        return NoContent();
+    }
+    [HttpPut("{roomId:guid}")]
+    public async Task<IActionResult> MoveSetupsToAnotherRoom(Guid roomId, [FromBody] List<ListMoveSetupsDto> items)
+    {
+        await _serviceManager.SetupService.MoveSetupsToAnotherRoom(roomId, items);
         return NoContent();
     }
 

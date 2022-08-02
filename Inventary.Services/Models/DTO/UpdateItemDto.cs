@@ -13,6 +13,7 @@ public class UpdateItemDto
     public Guid? RoomId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public Guid? SetupId { get; set; }
     public List<UpdateItemPhotoDto>? ItemPhotos { get; set; }
     public List<UpdateAttachmentDto>? Attachments { get; set; }
     public List<UpdateDefectDto>? Defects { get; set; }

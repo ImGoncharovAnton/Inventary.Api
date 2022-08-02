@@ -9,7 +9,9 @@ public class UsersUiProfile : Profile
 {
     public UsersUiProfile()
     {
-        CreateMap<UserDto, UserResponseUi>();
+        CreateMap<UserDto, UserResponseUi>()
+            .ForMember(dest => dest.SetupName, opt =>
+                opt.MapFrom(src => src.Setup.SetupName));
         CreateMap<UserRequestUi, UserCreateDto>();
     }
 }

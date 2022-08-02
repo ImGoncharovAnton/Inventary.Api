@@ -17,5 +17,6 @@ public class UserDto
     public string urlCrop { get; set; }
     public List<Item>? Items { get; set; }
     public Guid? CurrentSetupId { get; set; }
+    public Setup? Setup { get; set; }
 
 }

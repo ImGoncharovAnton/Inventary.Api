@@ -27,6 +27,13 @@ public class SetupService: ISetupService
         return result;
     }
 
+    public async  Task<IList<SetupDto>> GetAllSetupsWithoutUser()
+    {
+        var setups = await _repositoryManager.SetupRepository.GetAllSetupsWithoutUser();
+        var result = _mapper.Map<List<SetupDto>>(setups);
+        return result;
+    }
+
     public async Task<IList<SetupsListWithNumberOfDefects>> GetAllWithNumberOfDefects()
     {
         return await _repositoryManager.SetupRepository.GetAllWithNumberOfDefects();
@@ -59,7 +66,8 @@ public class SetupService: ISetupService
             UpdateDate = DateTime.UtcNow,
             SetupName = createItem.SetupName,
             Status = createItem.Status,
-            UserId = createItem.UserId
+            UserId = createItem.UserId,
+            RoomId = createItem.RoomId
         };
         var newItem = await _repositoryManager.SetupRepository.AddAsync(mappedItem);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
@@ -70,8 +78,7 @@ public class SetupService: ISetupService
             findUser.UpdateDate = DateTime.UtcNow;
             findUser.CurrentSetupId = newItem.Id;
         }
-      
-        
+
         var itemsList = createItem.Items;
 
         if (itemsList is not null)
@@ -82,11 +89,11 @@ public class SetupService: ISetupService
                 if (findItem is null) continue;
                 findItem.UpdateDate = DateTime.UtcNow;
                 findItem.SetupId = newItem.Id;
+                findItem.RoomId = createItem.RoomId;
                 findItem.Status = StatusEnum.StatusType.Active;
                 await _repositoryManager.UnitOfWork.SaveChangesAsync();
             }
         }
-
         var result = _mapper.Map<SetupDto>(newItem);
         return result;
     }
@@ -99,6 +106,7 @@ public class SetupService: ISetupService
         desiredItem.UpdateDate = DateTime.UtcNow;
         desiredItem.SetupName = item.SetupName;
         desiredItem.Status = item.Status;
+        desiredItem.RoomId = item.RoomId;
 
         if (desiredItem.UserId != item.UserId)
         {
@@ -132,6 +140,7 @@ public class SetupService: ISetupService
             findItem.UpdateDate = DateTime.UtcNow;
             findItem.SetupId = null;
             findItem.Status = StatusEnum.StatusType.Inactive;
+            findItem.RoomId = null;
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
         
@@ -145,11 +154,47 @@ public class SetupService: ISetupService
                 if (findItem is null) continue;
                 findItem.UpdateDate = DateTime.UtcNow;
                 findItem.SetupId = id;
+                findItem.RoomId = item.RoomId;
                 findItem.Status = StatusEnum.StatusType.Active;
             }
         }
-
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task MoveSetupsToAnotherRoom(Guid id, IList<ListMoveSetupsDto> items)
+    {
+        
+        var desiredRoom = await _repositoryManager.RoomRepository.GetByIdAsync(id);
+        if (desiredRoom is null)
+            throw new RoomNotFoundException(id);
+
+        if (items is not null)
+        {
+            foreach (var setup in items)
+            {
+                var findSetup = await _repositoryManager.SetupRepository.GetByIdAsync(setup.Id);
+                if (findSetup is null) continue;
+                findSetup.UpdateDate = DateTime.UtcNow;
+                findSetup.RoomId = id;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+                var itemsList = setup.Items;
+                // Можно ли это оптимизировать? Мб отправлять массив на апдейт? И как тогда менять значения...
+                if (itemsList is not null)
+                {
+                    foreach (var item in itemsList)
+                    {
+                        var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                        if (findItem is null) continue;
+                        findItem.UpdateDate = DateTime.UtcNow;
+                        findItem.RoomId = id;
+                        // findItem.Status = StatusEnum.StatusType.Active;
+                        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+                    }
+                }
+            }
+        }
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+
     }
 
     public async Task DeleteAsync(Guid id)

@@ -7,11 +7,13 @@ namespace Inventary.Services.Contracts;
 public interface ISetupService
 {
     Task<IList<SetupDto>> GetAllItems();
+    Task<IList<SetupDto>> GetAllSetupsWithoutUser();
     Task<IList<SetupsListWithNumberOfDefects>> GetAllWithNumberOfDefects();
     Task<IList<SetupsListForSelect>> GetAllSetupsForSelect();
     Task<IList<SetupsListWithNumberOfDefects>> GetAllSetupsForRoomById(Guid id);
     Task<SetupDto> GetByIdAsync(Guid id);
     Task<SetupDto> CreateAsync(CreateSetupDto item);
     Task UpdateAsync(Guid id, UpdateSetupDto item);
+    Task MoveSetupsToAnotherRoom(Guid id, IList<ListMoveSetupsDto> items);
     Task DeleteAsync(Guid id);
 }

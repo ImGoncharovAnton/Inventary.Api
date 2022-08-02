@@ -6,6 +6,7 @@ public class SetupRequestUi
 {
     public string SetupName { get; set; }
     public StatusEnum.StatusType Status { get; set; }
+    public Guid? RoomId { get; set; }
     public List<ItemForSetupsRequestUi>? Items { get; set; }
     public Guid? UserId { get; set; }
 }

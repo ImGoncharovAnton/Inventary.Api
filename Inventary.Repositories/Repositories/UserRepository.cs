@@ -23,4 +23,16 @@ public class UserRepository: GenericRepository<User>, IUserRepository
             FullName = u.FirstName + " " + u.LastName
         }).ToListAsync();
     }
+
+    public async Task<User> GetUserByIdWithSetup(Guid id)
+    {
+        return await _dbContext.Users.Include(x => x.Setup)
+            .FirstOrDefaultAsync(z => z.Id == id);
+    }
+
+    public async Task<User> AddAsync(User entity)
+    {
+        await _dbContext.Set<User>().AddAsync(entity);
+        return entity;
+    }
 }

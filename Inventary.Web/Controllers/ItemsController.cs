@@ -75,14 +75,6 @@ public class ItemsController : Controller
         return NoContent();
     }
 
-// [HttpPut("{itemId:guid}")]
-    // public async Task<IActionResult> UpsertItem(Guid itemId, [FromBody] ItemRequestUi itemRequest)
-    // {
-    //     var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
-    //     await _serviceManager.ItemService.Upsert(itemId, mappedItem);
-    //     return NoContent();
-    // }
-
     [HttpDelete("{itemId:guid}")]
     public async Task<IActionResult> DeleteItem(Guid itemId)
     {

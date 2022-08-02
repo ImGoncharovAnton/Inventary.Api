@@ -33,7 +33,7 @@ public class UserService : IUserService
 
     public async Task<UserDto> GetByIdAsync(Guid id)
     {
-        var user = await _repositoryManager.UserRepository.GetByIdAsync(id);
+        var user = await _repositoryManager.UserRepository.GetUserByIdWithSetup(id);
         if (user is null)
             throw new UserNotFoundException(id);
         var result = _mapper.Map<UserDto>(user);
@@ -45,28 +45,56 @@ public class UserService : IUserService
     {
         var user = _mapper.Map<User>(createUser);
         var result = _mapper.Map<UserDto>(user);
-        
-        _repositoryManager.UserRepository.Add(user);
+        var newUser = _repositoryManager.UserRepository.AddAsync(user);
+        if (user.CurrentSetupId is not null)
+        {
+            var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+            findSetup.UpdateDate = DateTime.UtcNow;
+            findSetup.UserId = newUser.Result.Id;
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        }
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
         return result;
     }
 
     public async Task UpdateAsync(Guid id, UserCreateDto user)
     {
-        var deciredUser = await _repositoryManager.UserRepository.GetByIdAsync(id);
-        if (deciredUser is null)
+        var desiredUser = await _repositoryManager.UserRepository.GetByIdAsync(id);
+        if (desiredUser is null)
             throw new UserNotFoundException(id);
-        
-        deciredUser.UpdateDate = DateTime.UtcNow;
-        deciredUser.FirstName = user.FirstName;
-        deciredUser.LastName = user.LastName;
-        deciredUser.Phone = user.Phone;
-        deciredUser.Email = user.Email;
-        deciredUser.Status = user.Status;
-        deciredUser.urlOrig = user.urlOrig;
-        deciredUser.urlCrop = user.urlCrop;
-        // deciredUser.Items = user.Items;
-        // deciredUser.SetupId = user.SetupId;
+
+        desiredUser.UpdateDate = DateTime.UtcNow;
+        desiredUser.FirstName = user.FirstName;
+        desiredUser.LastName = user.LastName;
+        desiredUser.Phone = user.Phone;
+        desiredUser.Email = user.Email;
+        desiredUser.Status = user.Status;
+        desiredUser.urlOrig = user.urlOrig;
+        desiredUser.urlCrop = user.urlCrop;
+
+        if (desiredUser.CurrentSetupId != user.CurrentSetupId)
+        {
+            if (desiredUser.CurrentSetupId is not null)
+            {
+                var findSetup =
+                    await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(desiredUser.CurrentSetupId.Value);
+                findSetup.UpdateDate = DateTime.UtcNow;
+                findSetup.UserId = null;
+                findSetup.User = null;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
+
+            if (user.CurrentSetupId is not null)
+            {
+                var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+                findSetup.UpdateDate = DateTime.UtcNow;
+                findSetup.UserId = id;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
+
+            desiredUser.CurrentSetupId = user.CurrentSetupId;
+        }
+
 
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
     }
@@ -76,7 +104,7 @@ public class UserService : IUserService
         var user = await _repositoryManager.UserRepository.GetByIdAsync(id);
         if (user is null)
             throw new RoomNotFoundException(id);
-        
+
         _repositoryManager.UserRepository.Remove(user);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
     }

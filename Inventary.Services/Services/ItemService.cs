@@ -73,6 +73,7 @@ public class ItemService : IItemService
         desiredItem.RoomId = item.RoomId;
         desiredItem.UserId = item.UserId;
         desiredItem.CurrentCategoryId = item.CurrentCategoryId;
+        desiredItem.SetupId = item.SetupId;
         desiredItem.ItemPhotos = mappedItemPhotos;
         desiredItem.Attachments = mappedAttachments;
         desiredItem.Defects = mappedDefects;
@@ -310,13 +311,15 @@ public class ItemService : IItemService
 
     public async Task MoveItemsToAnotherRoom(Guid id, IList<ListItemsForUpdate> items)
     {
-        var desiredRoom = _repositoryManager.RoomRepository.GetByIdAsync(id);
+        var desiredRoom = await _repositoryManager.RoomRepository.GetByIdAsync(id);
         if (desiredRoom is null)
             throw new RoomNotFoundException(id);
 
-        if (items is not null)
+        var itemsList = items.ToList();
+        // Можно ли это оптимизировать? Мб отправлять массив на апдейт? И как тогда менять значения...
+        if (itemsList is not null)
         {
-            foreach (var item in items)
+            foreach (var item in itemsList)
             {
                 var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
                 if (findItem is null) continue;
@@ -329,19 +332,7 @@ public class ItemService : IItemService
             }
         }
     }
-
-    public async Task Upsert(Guid id, CreateItemDto item)
-    {
-        var deciredItem = await _repositoryManager.ItemRepository.GetByIdAsync(id);
-        if (deciredItem is null)
-            throw new ItemNotFoundException(id);
-
-        var mappedItem = _mapper.Map<Item>(item);
-        _repositoryManager.ItemRepository.Upsert(mappedItem);
-        await _repositoryManager.UnitOfWork.SaveChangesAsync();
-    }
-
-
+    
     public async Task<ItemDto> DeleteAsync(Guid id)
     {
         var item = await _repositoryManager.ItemRepository.GetByIdAsync(id);

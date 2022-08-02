@@ -79,34 +79,6 @@ public class ItemRepository : IItemRepository<Item>
         return entity;
     }
 
-    // public void MoveItemsToAnotherRoom(Guid id, List<ListItemsForUpdate> items)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    public void Upsert(Item entity)
-    {
-        _dbContext.ChangeTracker.TrackGraph(entity, e =>
-        {
-            if (e.Entry.IsKeySet)
-            {
-                e.Entry.State = EntityState.Modified;
-            }
-            else
-            {
-                e.Entry.State = EntityState.Added;
-            }
-        });
-        
-
-#if DEBUG
-        foreach (var entry in _dbContext.ChangeTracker.Entries())
-        {
-            Console.WriteLine($"Entity: {entry.Entity.GetType().Name} State: {entry.State.ToString()}");
-        }
-#endif
-    }
-
     public Item Remove(Item entity)
     {
         _dbContext.Set<Item>().Remove(entity);
