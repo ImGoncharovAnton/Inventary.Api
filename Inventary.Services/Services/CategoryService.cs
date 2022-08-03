@@ -51,6 +51,13 @@ public class CategoryService : ICategoryService
         return result;
     }
 
+    public async Task CreateRangeAsync(IList<CreateCategoryDto> createCategoryList)
+    {
+        var mappedList = _mapper.Map<List<Category>>(createCategoryList);
+        await _repositoryManager.CategoryRepository.AddRange(mappedList);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+    }
+
     public async Task UpdateAsync(Guid id, CreateCategoryDto updateCategory)
     {
         var deciredCategory = await _repositoryManager.CategoryRepository.GetByIdAsync(id);

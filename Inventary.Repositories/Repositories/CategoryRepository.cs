@@ -26,4 +26,9 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
         return await category;
 
     }
+
+    public async Task AddRange(IList<Category> categories)
+    {
+        await _dbContext.Categories.AddRangeAsync(categories);
+    }
 }

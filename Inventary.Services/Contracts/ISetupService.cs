@@ -14,6 +14,8 @@ public interface ISetupService
     Task<SetupDto> GetByIdAsync(Guid id);
     Task<SetupDto> CreateAsync(CreateSetupDto item);
     Task UpdateAsync(Guid id, UpdateSetupDto item);
+    Task ToggleSetupStatus(Guid id, SetupForUpdateStatusDto setup);
+    Task ToggleSetupStatusList(IList<SetupForUpdateStatusDto> setups);
     Task MoveSetupsToAnotherRoom(Guid id, IList<ListMoveSetupsDto> items);
     Task DeleteAsync(Guid id);
 }

@@ -53,6 +53,14 @@ public class CategoryController : Controller
         return CreatedAtAction(nameof(GetCategoryById), new { id = result.Id }, result);
     }
 
+    [HttpPost("")]
+    public async Task<IActionResult> CreateListCategory([FromBody] List<CategoryRequestUi> categoryRequestList)
+    {
+        var mappedCategory = _mapper.Map<List<CreateCategoryDto>>(categoryRequestList);
+        await _serviceManager.CategoryService.CreateRangeAsync(mappedCategory);
+        return NoContent();
+    }
+
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateCategory(Guid id, [FromBody] CategoryRequestUi categoryRequest)
     {

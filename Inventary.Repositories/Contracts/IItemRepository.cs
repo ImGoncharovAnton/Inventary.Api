@@ -11,4 +11,5 @@ public interface IItemRepository<Item>
     Task<Item> Add(Item entity);
     Task<Item> Update(Item entity);
     Item Remove(Item entity);
+    void RemoveRange(IList<Item> items);
 }

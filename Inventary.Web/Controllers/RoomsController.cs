@@ -64,6 +64,13 @@ public class RoomsController : Controller
         return CreatedAtAction(nameof(GetRoomById), new { id = newRoom.Id }, newRoom);
     }
 
+    [HttpPost("")]
+    public async Task<IActionResult> CreateListRooms([FromBody] List<CreateRoomDTO> rooms)
+    {
+        await _serviceManager.RoomService.CreateRangeAsync(rooms);
+        return NoContent();
+    }
+
     [HttpPut("{roomId:guid}")]
     public async Task<IActionResult> UpdateRoom(Guid roomId, [FromBody] CreateRoomDTO room)
     {

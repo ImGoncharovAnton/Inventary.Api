@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventary.Domain.Entities;
+using Inventary.Repositories.Common.Models;
 using Inventary.Services.Models.DTO;
 
 namespace Inventary.Services.Mappers;
@@ -11,6 +12,7 @@ public class ItemsDtoProfile : Profile
         CreateMap<Item, ItemDto>().ReverseMap();
         CreateMap<CreateItemDto, Item>();
         CreateMap<UpdateItemDto, Item>();
+        CreateMap<ItemsForRoom, Item>();
         
         CreateMap<ItemPhoto, ItemPhotoDto>().ReverseMap();
         CreateMap<CreateItemPhotoDto, ItemPhoto>();

@@ -80,6 +80,20 @@ public class SetupsController : Controller
         return NoContent();
     }
 
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> ToggleSetupStatus(Guid id, [FromBody] SetupForUpdateStatusDto setup)
+    {
+        await _serviceManager.SetupService.ToggleSetupStatus(id, setup);
+        return NoContent();
+    }
+    
+    [HttpPut("")]
+    public async Task<IActionResult> ToggleSetupStatusList([FromBody] List<SetupForUpdateStatusDto> setups)
+    {
+        await _serviceManager.SetupService.ToggleSetupStatusList(setups);
+        return NoContent();
+    }
+
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteSetup(Guid id)
     {

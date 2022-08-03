@@ -68,4 +68,9 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
       
         return result;
     }
+
+    public async Task AddRange(IList<Room> rooms)
+    {
+        await _dbContext.Rooms.AddRangeAsync(rooms);
+    }
 }

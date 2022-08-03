@@ -161,6 +161,57 @@ public class SetupService: ISetupService
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
     }
 
+    public async Task ToggleSetupStatus(Guid id, SetupForUpdateStatusDto setup)
+    {
+
+        var desiredSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
+        if (desiredSetup is null)
+            throw new SetupNotFoundException(id);
+        desiredSetup.UpdateDate = DateTime.UtcNow;
+        desiredSetup.Status = setup.Status;
+
+        var itemsList = setup.Items;
+
+        if (itemsList is not null)
+        {
+            foreach (var item in itemsList)
+            {
+                var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                if (findItem is null) continue;
+                findItem.UpdateDate = DateTime.UtcNow;
+                findItem.Status = item.Status;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
+        }
+        
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task ToggleSetupStatusList(IList<SetupForUpdateStatusDto> setups)
+    {
+        foreach (var setup in setups)
+        {
+            var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(setup.Id);
+            if (findSetup is null) continue;
+            findSetup.UpdateDate = DateTime.UtcNow;
+            findSetup.Status = setup.Status;
+
+            var listItems = setup.Items;
+            if (listItems is not null)
+            {
+                foreach (var item in listItems)
+                {
+                    var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(item.Id);
+                    if (findItem is null) continue;
+                    findItem.UserDate = DateTime.UtcNow;
+                    findItem.Status = item.Status;
+                    await _repositoryManager.UnitOfWork.SaveChangesAsync();
+                }
+            }
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        }
+    }
+
     public async Task MoveSetupsToAnotherRoom(Guid id, IList<ListMoveSetupsDto> items)
     {
         

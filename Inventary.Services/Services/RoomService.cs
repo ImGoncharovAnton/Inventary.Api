@@ -80,6 +80,13 @@ public class RoomService : IRoomService
         return room;
     }
 
+    public async Task CreateRangeAsync(IList<CreateRoomDTO> rooms)
+    {
+        var mappedListRooms = _mapper.Map<List<Room>>(rooms);
+        await _repositoryManager.RoomRepository.AddRange(mappedListRooms);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+    }
+
     public async Task UpdateAsync(Guid id, CreateRoomDTO createRoomDto)
     {
         var deciredRoom = await _repositoryManager.RoomRepository.GetByIdAsync(id);

@@ -9,6 +9,7 @@ public class RoomsDtoProfile : Profile
     public RoomsDtoProfile()
     {
         // CreateMap<RoomEntity, RoomDTO>().ReverseMap();
-        CreateMap<Room, RoomDto>();
+        CreateMap<Room, RoomDto>().ReverseMap();
+        CreateMap<CreateRoomDTO, Room>();
     }
 }

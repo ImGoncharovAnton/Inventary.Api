@@ -345,4 +345,11 @@ public class ItemService : IItemService
         var result = _mapper.Map<ItemDto>(item);
         return result;
     }
+    
+    public async Task DeleteRange(IList<ItemsForRoom> items)
+    {
+        var mappedListItems = _mapper.Map<List<Item>>(items);
+        _repositoryManager.ItemRepository.RemoveRange(mappedListItems);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+    }
 }

@@ -80,4 +80,12 @@ public class ItemsController : Controller
     {
         return Ok (await _serviceManager.ItemService.DeleteAsync(itemId));
     }
+
+
+    [HttpDelete("")]
+    public async Task<IActionResult> DeleteListItems([FromBody] List<ItemsForRoom> items)
+    {
+        await _serviceManager.ItemService.DeleteRange(items);
+        return NoContent();
+    }
 }

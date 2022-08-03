@@ -84,4 +84,9 @@ public class ItemRepository : IItemRepository<Item>
         _dbContext.Set<Item>().Remove(entity);
         return entity;
     }
+
+    public void RemoveRange(IList<Item> items)
+    {
+        _dbContext.Set<Item>().RemoveRange(items);
+    }
 }
