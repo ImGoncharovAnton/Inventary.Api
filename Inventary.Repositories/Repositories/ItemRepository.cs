@@ -17,13 +17,26 @@ public class ItemRepository : IItemRepository<Item>
         _dbContext = dbContext;
     }
 
-    public async Task<IList<Item>> GetAllAsync()
+    public async Task<IList<ListItemsForStorage>> GetAllAsync()
     {
-        var result = await _dbContext.Set<Item>()
-            .Include(x => x.ItemPhotos)
-            .ToListAsync();
+        var listItems = await _dbContext.Items
+            .Select(i => new ListItemsForStorage()
+            {
+                Id = i.Id,
+                ItemName = i.ItemName,
+                UserDate = i.UserDate,
+                Status = i.Status,
+                Price = i.Price,
+                QRcode = i.QRcode,
+                RoomName = i.Room.RoomName,
+                SetupName = i.Setup.SetupName,
+                NumberOfDefects = i.Defects.Count(),
+                CategoryId = i.CurrentCategoryId,
+                SetupId = i.SetupId,
+                RoomId = i.RoomId
+            }).ToListAsync();
 
-        return result;
+        return listItems;
     }
 
     public async Task<IList<ItemsList>> GetListItemsAsync()

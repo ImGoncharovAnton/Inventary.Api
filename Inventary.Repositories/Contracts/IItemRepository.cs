@@ -5,7 +5,7 @@ namespace Inventary.Repositories.Contracts;
 
 public interface IItemRepository<Item>
 {
-    Task<IList<Item>> GetAllAsync();
+    Task<IList<ListItemsForStorage>> GetAllAsync();
     Task<IList<ItemsList>> GetListItemsAsync();
     Task<Item> GetByIdAsync(Guid id);
     Task<Item> Add(Item entity);

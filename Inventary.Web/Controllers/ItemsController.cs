@@ -26,8 +26,7 @@ public class ItemsController : Controller
     public async Task<IActionResult> GetAllItems()
     {
         var items = await _serviceManager.ItemService.GetAllItems();
-        var result = _mapper.Map<List<ItemResponseUi>>(items);
-        return Ok(result);
+        return Ok(items);
     }
 
     [HttpGet("{id:guid}")]

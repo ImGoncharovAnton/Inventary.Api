@@ -5,7 +5,7 @@ namespace Inventary.Services.Contracts;
 
 public interface IItemService
 {
-    Task<IList<ItemDto>> GetAllItems();
+    Task<IList<ListItemsForStorage>> GetAllItems();
     Task<IList<ItemsList>> GetItemsListAsync();
     Task<ItemDto> GetByIdAsync(Guid id);
     Task<ItemDto> CreateAsync(CreateItemDto item);
