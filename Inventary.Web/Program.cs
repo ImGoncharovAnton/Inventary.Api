@@ -56,7 +56,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(o => o
     .AllowAnyHeader()
     .AllowAnyMethod()
-    .SetIsOriginAllowed((host) => true)
+    .SetIsOriginAllowed(origin  => true)
     .AllowCredentials());
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
