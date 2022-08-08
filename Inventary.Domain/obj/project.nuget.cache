@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "s3tuztEgsifWLXzsIqqinfVZSmmDbn/zcaxGVgTUBn42p3/aGuhi3BrZWHjXG2UCgqRFFOKaWnx75xkudBv5KQ==",
+  "dgSpecHash": "9r02kH1wDeq0WayzUEb9WcuBc1OwT+mQvz4JHaiy88Alri6NRXNbWV+5DGAbYt359tMW6qR4Sp/iZ90/Pr4NCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\danil\\RiderProjects\\Inventary.Api\\Inventary.Domain\\Inventary.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.6\\microsoft.entityframeworkcore.6.0.6.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.6\\microsoft.entityframeworkcore.abstractions.6.0.6.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.6\\microsoft.entityframeworkcore.analyzers.6.0.6.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.6\\microsoft.entityframeworkcore.relational.6.0.6.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.7\\microsoft.entityframeworkcore.6.0.7.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.7\\microsoft.entityframeworkcore.abstractions.6.0.7.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.7\\microsoft.entityframeworkcore.analyzers.6.0.7.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.7\\microsoft.entityframeworkcore.relational.6.0.7.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

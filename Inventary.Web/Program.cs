@@ -10,6 +10,7 @@ using Inventary.Services.Mappers;
 using Inventary.Services.Services;
 using Inventary.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -21,7 +22,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("connectSql")));
+    options
+    .UseNpgsql(configuration.GetConnectionString("connectSql"), 
+        x => x.MigrationsHistoryTable("__efmigrationshistory", "public"))
+    .UseSnakeCaseNamingConvention()
+    .ReplaceService<IHistoryRepository, LoweredCaseMigrationHistoryRepository>());
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
