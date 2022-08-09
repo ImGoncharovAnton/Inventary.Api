@@ -10,6 +10,7 @@ using Inventary.Services.Mappers;
 using Inventary.Services.Services;
 using Inventary.Web;
 using Inventary.Web.Middleware;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -99,11 +100,18 @@ builder.Services.AddAutoMapper(typeof(RoomsDtoProfile).Assembly);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseForwardedHeaders(new ForwardedHeadersOptions()
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+});
+app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseCors(o => o
     .AllowAnyHeader()
     .AllowAnyMethod()
@@ -111,13 +119,13 @@ app.UseCors(o => o
     .AllowCredentials());
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseHttpsRedirection();
+
 app.UseRouting();
 app.UseAuthorization();
 
 
 
 app.MapControllers();
-
+var port = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORT") ?? "3100";
 app.MigrateDatabase();
-app.Run();
+app.Run("http://0.0.0.0:" + port);
