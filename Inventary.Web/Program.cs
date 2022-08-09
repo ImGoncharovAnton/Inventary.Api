@@ -30,19 +30,19 @@ builder.Services.AddSwaggerGen();
 //     .UseSnakeCaseNamingConvention()
 //     .ReplaceService<IHistoryRepository, LoweredCaseMigrationHistoryRepository>());
 
-var serviceProvider = builder.Services.BuildServiceProvider();
-try
-{
-    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate();
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
-    throw;
-}
+// var serviceProvider = builder.Services.BuildServiceProvider();
+// try
+// {
+//     var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+//     dbContext.Database.Migrate();
+// }
+// catch (Exception e)
+// {
+//     Console.WriteLine(e);
+//     throw;
+// }
 
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
     string connStr;
@@ -119,5 +119,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// app.MigrateDatabase();
+app.MigrateDatabase();
 app.Run();

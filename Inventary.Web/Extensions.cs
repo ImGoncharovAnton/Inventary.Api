@@ -5,14 +5,14 @@ namespace Inventary.Web;
 
 public static class Extensions
 {
-    public static IHost MigrateDatabase(this IHost host)
+    public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder iApplicationBuilder)
     {
         // Manually run any pending migrations if configured to do so.
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         if (env == "Production")
         {
-            var serviceScopeFactory = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
+            var serviceScopeFactory = (IServiceScopeFactory)iApplicationBuilder.ApplicationServices.GetService(typeof(IServiceScopeFactory));
             
             using (var scope = serviceScopeFactory.CreateScope())
             {
@@ -21,6 +21,6 @@ public static class Extensions
                 dbContext.Database.Migrate();
             }
         }
-        return host;
+        return iApplicationBuilder;
     }
 }
