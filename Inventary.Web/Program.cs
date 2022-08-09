@@ -12,6 +12,7 @@ using Inventary.Web;
 using Inventary.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -28,6 +29,19 @@ builder.Services.AddSwaggerGen();
 //         x => x.MigrationsHistoryTable("__efmigrationshistory", "public"))
 //     .UseSnakeCaseNamingConvention()
 //     .ReplaceService<IHistoryRepository, LoweredCaseMigrationHistoryRepository>());
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+try
+{
+    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+    throw;
+}
+
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
 {
     var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -105,5 +119,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MigrateDatabase();
+// app.MigrateDatabase();
 app.Run();
