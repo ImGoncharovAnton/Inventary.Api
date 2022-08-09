@@ -126,6 +126,5 @@ app.UseAuthorization();
 
 
 app.MapControllers();
-var port = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORT") ?? "3100";
 app.MigrateDatabase();
-app.Run("http://0.0.0.0:" + port);
+app.Run();
