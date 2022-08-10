@@ -15,7 +15,6 @@ public sealed class ServiceManager: IServiceManager
     private readonly Lazy<IUserService> _lazyUserService;
     private readonly Lazy<IItemService> _lazyItemService;
     private readonly Lazy<ICategoryService> _lazyCategoryService;
-    private readonly Lazy<IItemPhotoService> _lazyItemPhotoService;
     private readonly Lazy<ISetupService> _lazySetupService;
 
     private readonly IMapper _mapper;
@@ -27,7 +26,6 @@ public sealed class ServiceManager: IServiceManager
         _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, mapper));
         _lazyItemService = new Lazy<IItemService>(() => new ItemService(repositoryManager, mapper));
         _lazyCategoryService = new Lazy<ICategoryService>(() => new CategoryService(repositoryManager, mapper));
-        _lazyItemPhotoService = new Lazy<IItemPhotoService>(() => new ItemPhotoService(repositoryManager, mapper));
         _lazySetupService = new Lazy<ISetupService>(() => new SetupService(repositoryManager, mapper));
 
     }
@@ -36,7 +34,6 @@ public sealed class ServiceManager: IServiceManager
     public IUserService UserService => _lazyUserService.Value;
     public IItemService ItemService => _lazyItemService.Value;
     public ICategoryService CategoryService => _lazyCategoryService.Value;
-    public IItemPhotoService ItemPhotoService => _lazyItemPhotoService.Value;
     public ISetupService SetupService => _lazySetupService.Value;
 }
 

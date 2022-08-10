@@ -12,7 +12,11 @@ public class UserRepository: GenericRepository<User>, IUserRepository
     {
         _dbContext = dbContext;
     }
-
+    
+    public async Task<IList<User>> GetAllUsers()
+    {
+        return await _dbContext.Users.Include(x => x.Setup).ToListAsync();
+    }
 
     public async Task<List<ListUsersForCreateSetup>> GetUsersListForCreateSetups()
     {

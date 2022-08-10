@@ -21,7 +21,7 @@ public class UserService : IUserService
 
     public async Task<IList<UserDto>> GetAllAsync()
     {
-        var users = await _repositoryManager.UserRepository.GetAllAsync();
+        var users = await _repositoryManager.UserRepository.GetAllUsers();
         var result = _mapper.Map<List<UserDto>>(users);
         return result;
     }
@@ -104,6 +104,14 @@ public class UserService : IUserService
         var user = await _repositoryManager.UserRepository.GetByIdAsync(id);
         if (user is null)
             throw new RoomNotFoundException(id);
+
+        if (user.CurrentSetupId.HasValue)
+        {
+            var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+            setup.User = null;
+            setup.UserId = null;
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        }
 
         _repositoryManager.UserRepository.Remove(user);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();

@@ -8,6 +8,5 @@ public interface IServiceManager
     IUserService UserService { get; }
     IItemService ItemService { get; }
     ICategoryService CategoryService { get; }
-    IItemPhotoService ItemPhotoService { get; }
     ISetupService SetupService { get; }
 }
