@@ -9,4 +9,5 @@ public interface IUserRepository: IGenericRepository<User>
     Task<List<ListUsersForCreateSetup>> GetUsersListForCreateSetups();
     Task<User> GetUserByIdWithSetup(Guid id);
     Task<User> AddAsync(User entity);
+    Task<string> ValidateEmail(string email);
 }

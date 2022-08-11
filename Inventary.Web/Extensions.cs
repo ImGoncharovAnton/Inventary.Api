@@ -9,9 +9,7 @@ public static class Extensions
     {
         // Manually run any pending migrations if configured to do so.
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-        if (env == "Production")
-        {
+        
             var serviceScopeFactory = (IServiceScopeFactory)iApplicationBuilder.ApplicationServices.GetService(typeof(IServiceScopeFactory));
             
             using (var scope = serviceScopeFactory.CreateScope())
@@ -20,7 +18,7 @@ public static class Extensions
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
             }
-        }
+      
         return iApplicationBuilder;
     }
 }

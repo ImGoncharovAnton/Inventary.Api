@@ -46,6 +46,6 @@ public class ApplicationDbContext: DbContext
             .WithOne(x => x.Setup)
             .HasForeignKey(x => x.SetupId)
             .OnDelete(DeleteBehavior.SetNull);
-        modelBuilder.Entity<User>(e => e.HasIndex(i => i.Email).IsUnique());
+        // modelBuilder.Entity<User>(e => e.HasIndex(i => i.Email).IsUnique());
     }
 }

@@ -1,18 +1,20 @@
-﻿using Inventary.Domain.Entities;
+﻿using System.Linq.Expressions;
+using Inventary.Domain.Entities;
 using Inventary.Repositories.Common.Models;
 using Inventary.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventary.Repositories.Repositories;
 
-public class UserRepository: GenericRepository<User>, IUserRepository
+public class UserRepository : GenericRepository<User>, IUserRepository
 {
     private readonly ApplicationDbContext _dbContext;
+
     public UserRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
-    
+
     public async Task<IList<User>> GetAllUsers()
     {
         return await _dbContext.Users.Include(x => x.Setup).ToListAsync();
@@ -38,5 +40,11 @@ public class UserRepository: GenericRepository<User>, IUserRepository
     {
         await _dbContext.Set<User>().AddAsync(entity);
         return entity;
+    }
+
+    public async Task<string> ValidateEmail(string email)
+    {
+        var findEmail = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+        return findEmail != null ? findEmail.Email : null;
     }
 }

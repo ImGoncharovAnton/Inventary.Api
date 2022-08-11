@@ -430,10 +430,6 @@ namespace Inventary.Repositories.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_users_current_setup_id");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasDatabaseName("ix_users_email");
-
                     b.ToTable("users", (string)null);
                 });
 

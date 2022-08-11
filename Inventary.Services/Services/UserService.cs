@@ -43,18 +43,28 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateAsync(UserCreateDto createUser)
     {
-        var user = _mapper.Map<User>(createUser);
-        var result = _mapper.Map<UserDto>(user);
-        var newUser = _repositoryManager.UserRepository.AddAsync(user);
-        if (user.CurrentSetupId is not null)
+        var email = await _repositoryManager.UserRepository.ValidateEmail(createUser.Email);
+
+        if (email == null)
         {
-            var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
-            findSetup.UpdateDate = DateTime.UtcNow;
-            findSetup.UserId = newUser.Result.Id;
+            var user = _mapper.Map<User>(createUser);
+            var result = _mapper.Map<UserDto>(user);
+            var newUser = _repositoryManager.UserRepository.AddAsync(user);
+            if (user.CurrentSetupId is not null)
+            {
+                var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+                findSetup.UpdateDate = DateTime.UtcNow;
+                findSetup.UserId = newUser.Result.Id;
+                await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            }
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            return result;
         }
-        await _repositoryManager.UnitOfWork.SaveChangesAsync();
-        return result;
+        else
+        {
+            throw new Exception("Email is not unique");
+        }
+       
     }
 
     public async Task UpdateAsync(Guid id, UserCreateDto user)
