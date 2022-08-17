@@ -9,6 +9,7 @@ public class SetupDto
     public DateTime CreatedDate { get; set; }
     public DateTime UpdateDate { get; set; }
     public string SetupName { get; set; }
+    public string QrCode { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public Guid? RoomId { get; set; }
     public List<ItemDto>? Items { get; set; }

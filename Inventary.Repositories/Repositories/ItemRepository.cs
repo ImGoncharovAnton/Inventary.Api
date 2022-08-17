@@ -55,6 +55,33 @@ public class ItemRepository : IItemRepository<Item>
                 NumberOfDefects = i.Defects.Count(),
                 RoomId = i.RoomId,
                 CategoryId = i.CurrentCategoryId,
+                CategoryName = i.Category.CategoryName,
+                SetupId = i.SetupId,
+                UserId = i.UserId
+            }).ToListAsync();
+    }
+
+    public async Task<IList<ItemsList>> GetListItemsBySetupId(Guid id)
+    {
+        var findSetup = await _dbContext.Setups.FindAsync(id);
+        if (findSetup is null)
+            throw new Exception("Setup is not found");
+
+        return await _dbContext.Items
+            .Where(x => x.SetupId == id)
+            .Select(i => new ItemsList()
+            {
+                Id = i.Id,
+                QrCode = i.QRcode,
+                ItemName = i.ItemName,
+                Status = i.Status,
+                Date = i.UserDate,
+                Price = i.Price,
+                RoomName = i.Room.RoomName,
+                NumberOfDefects = i.Defects.Count(),
+                RoomId = i.RoomId,
+                CategoryId = i.CurrentCategoryId,
+                CategoryName = i.Category.CategoryName,
                 SetupId = i.SetupId,
                 UserId = i.UserId
             }).ToListAsync();

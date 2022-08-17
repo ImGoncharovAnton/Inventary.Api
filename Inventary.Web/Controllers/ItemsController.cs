@@ -37,6 +37,13 @@ public class ItemsController : Controller
         return Ok(result);
     }
 
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetItemsListBySetupId(Guid id)
+    {
+        var items = await _serviceManager.ItemService.GetItemsListBySetupId(id);
+        return Ok(items);
+    }
+
     [HttpGet("")]
     public async Task<IActionResult> GetListItemsWithoutSetups()
     {

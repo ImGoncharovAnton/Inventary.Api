@@ -46,6 +46,7 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
             {
                 Id = x.Id,
                 SetupName = x.SetupName,
+                QrCode = x.QrCode,
                 Status = x.Status,
                 UserId = x.UserId,
                 RoomId = x.RoomId,
@@ -76,6 +77,7 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
         {
             Id = x.Id,
             SetupName = x.SetupName,
+            QrCode = x.QrCode,
             Status = x.Status,
             UserId = x.UserId,
             NumberOfDefects = x.Items.SelectMany(z => z.Defects).Count(),
@@ -86,36 +88,6 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
                 ItemName = z.ItemName
             }).ToList()
         }).ToList();
-        //
-        // // old
-        
-        // var setupsForRoom = await _dbContext.Rooms
-        //     .Where(x => x.Id == room.Id)
-        //     .Include(x => x.Items)
-        //     .ThenInclude(x => x.Defects)
-        //     .Include(x => x.Items)
-        //     .ThenInclude(x => x.Setup)
-        //     .ThenInclude(z => z.User)
-        //     .ToListAsync();
-        //
-        // var setupsList = setupsForRoom
-        //     .SelectMany(x => x.Items.Where(w=>w.SetupId != null).Select(z => z.Setup))
-        //     .Distinct().ToList();
-        //
-        // var mappedSetupList = setupsList.Select(x => new SetupsListWithNumberOfDefects()
-        // {
-        //     Id = x.Id,
-        //     SetupName = x.SetupName,
-        //     Status = x.Status,
-        //     UserId = x.UserId,
-        //     NumberOfDefects = x.Items.SelectMany(z => z.Defects).Count(),
-        //     FullName = (x.User != null) ? x.User.FirstName + " " + x.User.LastName : "",
-        //     Items = x.Items.Select(z => new ListItemsForUpdate()
-        //     {
-        //         Id = z.Id,
-        //         ItemName = z.ItemName
-        //     }).ToList()
-        // }).ToList();
 
         return mappedSetupList;
     }
@@ -127,6 +99,7 @@ public class SetupRepository: GenericRepository<Setup>, ISetupRepository
             {
                 Id = x.Id,
                 SetupName = x.SetupName,
+                QrCode = x.QrCode,
                 Status = x.Status,
                 Items = x.Items.Select(z => new ListItemsForSetupSelect()
                 {

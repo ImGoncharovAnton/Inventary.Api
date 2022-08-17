@@ -7,6 +7,7 @@ public class UpdateSetupDto
 {
     public Guid Id { get; set; }
     public string SetupName { get; set; }
+    public string QrCode { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public Guid? RoomId { get; set; }
     public List<CreateItemWithSetupDto>? Items { get; set; }

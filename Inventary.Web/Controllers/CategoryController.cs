@@ -42,6 +42,13 @@ public class CategoryController : Controller
         var result = _mapper.Map<CategoryResponseUi>(category);
         return Ok(result);
     }
+    
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetAllCategoriesBySetupId(Guid id)
+    {
+        var result = await _serviceManager.CategoryService.GetAllCategoriesBySetupId(id);
+        return Ok(result);
+    }
 
     [HttpPost("")]
     public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestUi categoryRequest)

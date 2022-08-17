@@ -14,6 +14,7 @@ public class ItemsList
     public int NumberOfDefects { get; set; }
     public Guid? RoomId { get; set; }
     public Guid? CategoryId { get; set; }
+    public string? CategoryName { get; set; }
     public Guid? SetupId { get; set; }
     public Guid? UserId { get; set; }
 
