@@ -32,6 +32,11 @@ public class CategoryService : ICategoryService
         return await _repositoryManager.CategoryRepository.GetAllWithItems();
     }
 
+    public async Task<IList<CategoriesForRoom>> GetAllCategoriesBySetupId(Guid id)
+    {
+        return await _repositoryManager.CategoryRepository.GetCategoryBySetupId(id);
+    }
+
     public async Task<CategoryDto> GetByIdAsync(Guid id)
     {
         var category = await _repositoryManager.CategoryRepository.GetByIdAsync(id);

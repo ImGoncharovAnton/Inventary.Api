@@ -32,6 +32,11 @@ public class ItemService : IItemService
         return await _repositoryManager.ItemRepository.GetListItemsAsync();
     }
 
+    public async Task<IList<ItemsList>> GetItemsListBySetupId(Guid id)
+    {
+        return await _repositoryManager.ItemRepository.GetListItemsBySetupId(id);
+    }
+
     public async Task<ItemDto> GetByIdAsync(Guid id)
     {
         var item = await _repositoryManager.ItemRepository.GetByIdAsync(id);

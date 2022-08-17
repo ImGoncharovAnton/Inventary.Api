@@ -60,11 +60,23 @@ public class SetupService: ISetupService
 
     public async Task<SetupDto> CreateAsync(CreateSetupDto createItem)
     {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var stringChars = new char[6];
+        var random = new Random();
+
+        for (var i = 0; i < stringChars.Length; i++)
+        {
+            stringChars[i] = chars[random.Next(chars.Length)];
+        }
+
+        var finalString = new String(stringChars);
+        
         var mappedItem = new Setup()
         {
             CreatedDate = DateTime.UtcNow,
             UpdateDate = DateTime.UtcNow,
             SetupName = createItem.SetupName,
+            QrCode = finalString,
             Status = createItem.Status,
             UserId = createItem.UserId,
             RoomId = createItem.RoomId

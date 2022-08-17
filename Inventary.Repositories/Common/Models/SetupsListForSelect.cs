@@ -6,6 +6,7 @@ public class SetupsListForSelect
 {
     public Guid Id { get; set; }
     public string SetupName { get; set; }
+    public string QrCode { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public List<ListItemsForSetupSelect>? Items { get; set; }
     public Guid? UserId { get; set; }
