@@ -94,6 +94,8 @@ public class ItemRepository : IItemRepository<Item>
             .Include(x => x.Attachments)
             .Include(x => x.Defects).ThenInclude(i => i.DefectPhotos)
             .Include(x => x.Comments)
+            .Include(x => x.Room)
+            .Include(x => x.Category)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         return result;

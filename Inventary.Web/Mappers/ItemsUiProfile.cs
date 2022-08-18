@@ -9,7 +9,15 @@ public class ItemsUiProfile: Profile
 {
     public ItemsUiProfile()
     {
-        CreateMap<ItemDto, ItemResponseUi>();
+        CreateMap<ItemDto, ItemResponseUi>()
+            .ForMember(dest => dest.RoomName, o => 
+                o.MapFrom(src => src.Room.RoomName))
+            .ForMember(dest => dest.CategoryName, o => 
+                o.MapFrom(src => src.Category.CategoryName))
+            .ForMember(dest => dest.SetupName, o => 
+                o.MapFrom(src => src.Setup.SetupName))
+            .ForMember(dest => dest.UserName, o => 
+                o.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
         CreateMap<ItemRequestUi, CreateItemDto>();
         CreateMap<ItemUpdateRequestUi, UpdateItemDto>();
         
