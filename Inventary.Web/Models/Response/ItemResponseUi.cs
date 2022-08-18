@@ -12,9 +12,13 @@ public class ItemResponseUi
     public double Price { get; set; }
     public string QRcode { get; set; }
     public Guid? RoomId { get; set; }
+    public string RoomName { get; set; }
     public Guid? UserId { get; set; }
+    public string UserName { get; set; }
     public Guid? CurrentCategoryId { get; set; }
+    public string CategoryName { get; set; }
     public Guid? SetupId { get; set; }
+    public string SetupName { get; set; }
     public List<ItemPhotoResponseUi>? ItemPhotos { get; set; }
     public List<AttachmentResponseUi>? Attachments { get; set; }
     public List<DefectResponseUi>? Defects { get; set; }
