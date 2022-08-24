@@ -5,6 +5,7 @@ namespace Inventary.Repositories.Contracts;
 
 public interface IItemRepository<Item>
 {
+    Task<ListItemsForStorageResponse> GetItemsByPage(int page);
     Task<IList<ListItemsForStorage>> GetAllAsync();
     Task<IList<ItemsList>> GetListItemsAsync();
     Task<IList<ItemsList>> GetListItemsBySetupId(Guid id);

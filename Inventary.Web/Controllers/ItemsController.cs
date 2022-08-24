@@ -28,6 +28,13 @@ public class ItemsController : Controller
         var items = await _serviceManager.ItemService.GetAllItems();
         return Ok(items);
     }
+    
+    [HttpGet("{page:int}")]
+    public async Task<IActionResult> GetItemsByPage(int page)
+    {
+        var items = await _serviceManager.ItemService.GetItemsByPage(page);
+        return Ok(items);
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetItemById(Guid id)

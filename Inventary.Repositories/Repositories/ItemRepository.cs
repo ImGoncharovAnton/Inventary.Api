@@ -17,6 +17,40 @@ public class ItemRepository : IItemRepository<Item>
         _dbContext = dbContext;
     }
 
+    public async Task<ListItemsForStorageResponse> GetItemsByPage(int page)
+    {
+        var pageResults = 5f;
+        var pageCount = Math.Ceiling(_dbContext.Items.Count() / pageResults);
+        
+        var listItems = await _dbContext.Items
+            .Skip((page - 1) * (int)pageResults)
+            .Take((int)pageResults)
+            .Select(i => new ListItemsForStorage()
+            {
+                Id = i.Id,
+                ItemName = i.ItemName,
+                UserDate = i.UserDate,
+                Status = i.Status,
+                Price = i.Price,
+                QRcode = i.QRcode,
+                RoomName = i.Room.RoomName,
+                SetupName = i.Setup.SetupName,
+                NumberOfDefects = i.Defects.Count(),
+                CategoryId = i.CurrentCategoryId,
+                SetupId = i.SetupId,
+                RoomId = i.RoomId
+            }).ToListAsync();
+
+        var result = new ListItemsForStorageResponse()
+        {
+            Items = listItems,
+            CurrentPage = page,
+            Pages = (int)pageCount
+        };
+        
+        return result;
+    }
+    
     public async Task<IList<ListItemsForStorage>> GetAllAsync()
     {
         var listItems = await _dbContext.Items
@@ -35,7 +69,6 @@ public class ItemRepository : IItemRepository<Item>
                 SetupId = i.SetupId,
                 RoomId = i.RoomId
             }).ToListAsync();
-
         return listItems;
     }
 
