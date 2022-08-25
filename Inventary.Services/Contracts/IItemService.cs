@@ -6,7 +6,7 @@ namespace Inventary.Services.Contracts;
 public interface IItemService
 {
     Task<IList<ListItemsForStorage>> GetAllItems();
-    Task<ListItemsForStorageResponse> GetItemsByPage(int page);
+    Task<ListItemsForStorageResponse> GetItemsByPage(RequestParams parameters);
     Task<IList<ItemsList>> GetItemsListAsync();
     Task<IList<ItemsList>> GetItemsListBySetupId(Guid id);
     Task<ItemDto> GetByIdAsync(Guid id);

@@ -17,14 +17,30 @@ public class ItemRepository : IItemRepository<Item>
         _dbContext = dbContext;
     }
 
-    public async Task<ListItemsForStorageResponse> GetItemsByPage(int page)
+    public async Task<ListItemsForStorageResponse> GetItemsWithFilters(RequestParams parameters)
     {
-        var pageResults = 5f;
-        var pageCount = Math.Ceiling(_dbContext.Items.Count() / pageResults);
+
+        var items = from s in _dbContext.Items
+            select s;
         
-        var listItems = await _dbContext.Items
-            .Skip((page - 1) * (int)pageResults)
-            .Take((int)pageResults)
+        #region Filter&SortLogic
+
+        if (parameters.FilterByRoom != null || parameters.FilterBySetup != null || parameters.FilterByStatus != null ||
+            parameters.FilterByDateStart != null || parameters.FilterByPriceStart != null)
+        {
+            parameters.PageIndex = 1;
+        }
+        
+        if (!String.IsNullOrEmpty(parameters.SearchString))
+        {
+            parameters.PageIndex = 1;
+            items = items.Where(l =>
+                l.ItemName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())
+                || l.Room.RoomName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())
+                || l.Setup.SetupName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower()));
+        }
+
+        var listItems = await items
             .Select(i => new ListItemsForStorage()
             {
                 Id = i.Id,
@@ -40,17 +56,83 @@ public class ItemRepository : IItemRepository<Item>
                 SetupId = i.SetupId,
                 RoomId = i.RoomId
             }).ToListAsync();
-
-        var result = new ListItemsForStorageResponse()
-        {
-            Items = listItems,
-            CurrentPage = page,
-            Pages = (int)pageCount
-        };
         
-        return result;
+        
+        if (parameters.SortOrderBy is not null)
+        {
+            switch (parameters.SortOrderBy)
+            {
+                case "itemName_asc":
+                    listItems = listItems.OrderBy(i => i.ItemName).ToList();
+                    break;
+                case "itemName_desc":
+                    listItems = listItems.OrderByDescending(i => i.ItemName).ToList();
+                    break;
+                case "date_asc":
+                    listItems = listItems.OrderBy(i => i.UserDate).ToList();
+                    break;
+                case "date_desc":
+                    listItems = listItems.OrderByDescending(i => i.UserDate).ToList();
+                    break;
+                case "price_asc":
+                    listItems = listItems.OrderBy(i => i.Price).ToList();
+                    break;
+                case "price_desc":
+                    listItems = listItems.OrderByDescending(i => i.Price).ToList();
+                    break;
+                case "room_asc":
+                    listItems = listItems.OrderBy(i => i.RoomName).ToList();
+                    break;
+                case "room_desc":
+                    listItems = listItems.OrderByDescending(i => i.RoomName).ToList();
+                    break;
+                case "setup_asc":
+                    listItems = listItems.OrderBy(i => i.SetupName).ToList();
+                    break;
+                case "setup_desc":
+                    listItems = listItems.OrderByDescending(i => i.SetupName).ToList();
+                    break;
+                case "numberOfDefects_asc":
+                    listItems = listItems.OrderBy(i => i.NumberOfDefects).ToList();
+                    break;
+                case "numberOfDefects_desc":
+                    listItems = listItems.OrderByDescending(i => i.NumberOfDefects).ToList();
+                    break;
+            }
+        }
+        else
+        {
+            listItems = listItems.OrderBy(i => i.ItemName).ToList();
+        }
+
+
+        listItems = listItems.Where(x =>
+            ((parameters.FilterBySetup is null) || x.SetupName == parameters.FilterBySetup)
+            && ((parameters.FilterByRoom is null) || x.RoomName == parameters.FilterByRoom)
+            && ((parameters.FilterByStatus is null) || x.Status == parameters.FilterByStatus)
+            && ((parameters.FilterByDateStart is null) || x.UserDate >= parameters.FilterByDateStart && x.UserDate <= parameters.FilterByDateEnd)
+            && ((parameters.FilterByPriceStart is null) || x.Price >= parameters.FilterByPriceStart && x.Price <= parameters.FilterByPriceEnd)).ToList();
+        
+        #endregion
+        
+        var resultList = PaginatedList<ListItemsForStorage>.CreateAsync(listItems, parameters.PageIndex,
+            parameters.PageSize);
+        
+        var response = new ListItemsForStorageResponse()
+        {
+            Items = resultList,
+            TotalCount = resultList.TotalCount,
+            PageSize = resultList.PageSize,
+            PageIndex = resultList.PageIndex,
+            TotalPages = resultList.TotalPages,
+            HasNextPage = resultList.HasNextPage,
+            HasPreviousPage = resultList.HasPreviousPage
+        };
+
+
+        return response;
     }
-    
+
     public async Task<IList<ListItemsForStorage>> GetAllAsync()
     {
         var listItems = await _dbContext.Items
@@ -149,6 +231,7 @@ public class ItemRepository : IItemRepository<Item>
                 _dbContext.Entry(itemPhoto).State = EntityState.Modified;
                 _dbContext.ItemPhotos.Update(itemPhoto);
             }
+
         _dbContext.Items.Update(entity);
         await _dbContext.SaveChangesAsync();
         return entity;
