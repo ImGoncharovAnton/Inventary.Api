@@ -25,15 +25,15 @@ public class ItemRepository : IItemRepository<Item>
         
         #region Filter&SortLogic
 
-        if (parameters.FilterByRoom != null || parameters.FilterBySetup != null || parameters.FilterByStatus != null ||
+        /*if (parameters.FilterByRoom != null || parameters.FilterBySetup != null || parameters.FilterByStatus != null ||
             parameters.FilterByDateStart != null || parameters.FilterByPriceStart != null)
         {
             parameters.PageIndex = 1;
-        }
+        }*/
         
         if (!String.IsNullOrEmpty(parameters.SearchString))
         {
-            parameters.PageIndex = 1;
+            // parameters.PageIndex = 1;
             items = items.Where(l =>
                 l.ItemName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())
                 || l.Room.RoomName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())

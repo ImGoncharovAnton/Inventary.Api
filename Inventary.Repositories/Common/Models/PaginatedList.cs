@@ -10,7 +10,7 @@ public class PaginatedList<T> : List<T>
     public int TotalCount { get; private set; }
     public bool HasPreviousPage => PageIndex > 1;
     public bool HasNextPage => PageIndex < TotalPages;
-    
+
     public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
     {
         PageIndex = pageIndex;
@@ -20,8 +20,6 @@ public class PaginatedList<T> : List<T>
 
         AddRange(items);
     }
-
-  
 
     public static PaginatedList<T> CreateAsync(List<T> source, int pageIndex, int pageSize)
     {
