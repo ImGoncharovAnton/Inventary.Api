@@ -27,6 +27,12 @@ public class ItemService : IItemService
         return items;
     }
 
+    public async Task<ListItemsForStorageResponse> GetItemsByPage(RequestParams parameters)
+    {
+        var items = await _repositoryManager.ItemRepository.GetItemsWithFilters(parameters);
+        return items;
+    }
+
     public async Task<IList<ItemsList>> GetItemsListAsync()
     {
         return await _repositoryManager.ItemRepository.GetListItemsAsync();

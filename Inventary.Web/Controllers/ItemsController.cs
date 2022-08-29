@@ -1,4 +1,6 @@
 ﻿using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using Inventary.Repositories.Common.Models;
 using Inventary.Services.Infrastructure;
@@ -26,6 +28,27 @@ public class ItemsController : Controller
     public async Task<IActionResult> GetAllItems()
     {
         var items = await _serviceManager.ItemService.GetAllItems();
+        return Ok(items);
+    }
+    
+    [HttpPost("")]
+    public async Task<IActionResult> ListItemsWithFilters([FromBody] RequestParams parameters)
+    {
+        var items = await _serviceManager.ItemService.GetItemsByPage(parameters);
+
+        // var metadata = new
+        // {
+        //     items.TotalCount,
+        //     items.PageSize,
+        //     items.PageIndex,
+        //     items.TotalPages,
+        //     items.HasNextPage,
+        //     items.HasPreviousPage
+        //
+        // };
+        //
+        // Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+        
         return Ok(items);
     }
 

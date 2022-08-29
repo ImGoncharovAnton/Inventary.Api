@@ -17,6 +17,130 @@ public class ItemRepository : IItemRepository<Item>
         _dbContext = dbContext;
     }
 
+    public async Task<ListItemsForStorageResponse> GetItemsWithFilters(RequestParams parameters)
+    {
+
+        var items = from s in _dbContext.Items
+            select s;
+        
+        #region Filter&SortLogic
+
+        if (!String.IsNullOrEmpty(parameters.SearchString))
+        {
+            // parameters.PageIndex = 1;
+            items = items.Where(l =>
+                l.ItemName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())
+                || l.Room.RoomName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower())
+                || l.Setup.SetupName.Trim().ToLower().Contains(parameters.SearchString.Trim().ToLower()));
+        }
+
+        var listItems = await items
+            .Select(i => new ListItemsForStorage()
+            {
+                Id = i.Id,
+                ItemName = i.ItemName,
+                UserDate = i.UserDate,
+                Status = i.Status,
+                Price = i.Price,
+                QRcode = i.QRcode,
+                RoomName = i.Room.RoomName,
+                SetupName = i.Setup.SetupName,
+                NumberOfDefects = i.Defects.Count(),
+                CategoryId = i.CurrentCategoryId,
+                SetupId = i.SetupId,
+                RoomId = i.RoomId
+            }).ToListAsync();
+        
+        
+        if (parameters.SortOrderBy is not null)
+        {
+            switch (parameters.SortOrderBy)
+            {
+                case "itemName_asc":
+                    listItems = listItems.OrderBy(i => i.ItemName).ToList();
+                    break;
+                case "itemName_desc":
+                    listItems = listItems.OrderByDescending(i => i.ItemName).ToList();
+                    break;
+                case "date_asc":
+                    listItems = listItems.OrderBy(i => i.UserDate).ToList();
+                    break;
+                case "date_desc":
+                    listItems = listItems.OrderByDescending(i => i.UserDate).ToList();
+                    break;
+                case "price_asc":
+                    listItems = listItems.OrderBy(i => i.Price).ToList();
+                    break;
+                case "price_desc":
+                    listItems = listItems.OrderByDescending(i => i.Price).ToList();
+                    break;
+                case "room_asc":
+                    listItems = listItems.OrderBy(i => i.RoomName).ToList();
+                    break;
+                case "room_desc":
+                    listItems = listItems.OrderByDescending(i => i.RoomName).ToList();
+                    break;
+                case "setup_asc":
+                    listItems = listItems.OrderBy(i => i.SetupName).ToList();
+                    break;
+                case "setup_desc":
+                    listItems = listItems.OrderByDescending(i => i.SetupName).ToList();
+                    break;
+                case "numberOfDefects_asc":
+                    listItems = listItems.OrderBy(i => i.NumberOfDefects).ToList();
+                    break;
+                case "numberOfDefects_desc":
+                    listItems = listItems.OrderByDescending(i => i.NumberOfDefects).ToList();
+                    break;
+            }
+        }
+        else
+        {
+            listItems = listItems.OrderBy(i => i.ItemName).ToList();
+        }
+
+        var valuePriceArr = listItems.Select(item => item.Price).ToList();
+
+        listItems = listItems.Where(x =>
+            ((parameters.FilterBySetup is null) || x.SetupName == parameters.FilterBySetup)
+            && ((parameters.FilterByRoom is null) || x.RoomName == parameters.FilterByRoom)
+            && ((parameters.FilterByCategory is null) || x.CategoryId == parameters.FilterByCategory)
+            && ((parameters.FilterByStatus is null) || x.Status == parameters.FilterByStatus)
+            && ((parameters.FilterByDateStart is null) || x.UserDate >= parameters.FilterByDateStart && x.UserDate <= parameters.FilterByDateEnd)
+            && ((parameters.FilterByPriceStart is null) || x.Price >= parameters.FilterByPriceStart)
+            && ((parameters.FilterByPriceEnd is null) || x.Price <= parameters.FilterByPriceEnd)).ToList();
+
+        #endregion
+        
+        var resultList = PaginatedList<ListItemsForStorage>.CreateAsync(listItems, parameters.PageIndex,
+            parameters.PageSize);
+
+        var valueCurrentPriceArr = resultList.Select(item => item.Price).ToList();
+
+        if (resultList.Count == 0)
+        {
+            return new ListItemsForStorageResponse();
+        }
+        else
+        {
+            var response = new ListItemsForStorageResponse()
+            {
+                Items = resultList,
+                TotalCount = resultList.TotalCount,
+                PageSize = resultList.PageSize,
+                PageIndex = resultList.PageIndex,
+                TotalPages = resultList.TotalPages,
+                MaxValuePrice = valuePriceArr.Max(),
+                MinValuePrice = valuePriceArr.Min(),
+                MinCurrentValuePrice = valueCurrentPriceArr.Min(),
+                MaxCurrentValuePrice = valueCurrentPriceArr.Max(),
+                HasNextPage = resultList.HasNextPage,
+                HasPreviousPage = resultList.HasPreviousPage
+            };
+            return response;
+        }
+    }
+
     public async Task<IList<ListItemsForStorage>> GetAllAsync()
     {
         var listItems = await _dbContext.Items
@@ -35,7 +159,6 @@ public class ItemRepository : IItemRepository<Item>
                 SetupId = i.SetupId,
                 RoomId = i.RoomId
             }).ToListAsync();
-
         return listItems;
     }
 
@@ -116,6 +239,7 @@ public class ItemRepository : IItemRepository<Item>
                 _dbContext.Entry(itemPhoto).State = EntityState.Modified;
                 _dbContext.ItemPhotos.Update(itemPhoto);
             }
+
         _dbContext.Items.Update(entity);
         await _dbContext.SaveChangesAsync();
         return entity;
