@@ -7,6 +7,10 @@ public class ListItemsForStorageResponse
     public int PageSize { get; set;}
     public int PageIndex { get; set;}
     public int TotalPages { get; set;}
+    public double MaxValuePrice { get; set; }
+    public double MinValuePrice { get; set; }
+    public double MinCurrentValuePrice { get; set; }
+    public double MaxCurrentValuePrice { get; set; }
     public bool HasNextPage { get; set;}
     public bool HasPreviousPage { get; set;}
 }

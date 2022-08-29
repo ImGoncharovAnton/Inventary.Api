@@ -24,6 +24,7 @@ public class RequestParams
     public string? SearchString { get; set; }
     public string? FilterBySetup { get; set; }
     public string? FilterByRoom { get; set; }
+    public Guid? FilterByCategory { get; set; }
     public StatusEnum.StatusType? FilterByStatus { get; set; }
     public DateTime? FilterByDateStart { get; set; }
     public DateTime? FilterByDateEnd { get; set; }

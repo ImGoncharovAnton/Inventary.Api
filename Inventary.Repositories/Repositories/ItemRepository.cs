@@ -25,12 +25,6 @@ public class ItemRepository : IItemRepository<Item>
         
         #region Filter&SortLogic
 
-        /*if (parameters.FilterByRoom != null || parameters.FilterBySetup != null || parameters.FilterByStatus != null ||
-            parameters.FilterByDateStart != null || parameters.FilterByPriceStart != null)
-        {
-            parameters.PageIndex = 1;
-        }*/
-        
         if (!String.IsNullOrEmpty(parameters.SearchString))
         {
             // parameters.PageIndex = 1;
@@ -105,32 +99,46 @@ public class ItemRepository : IItemRepository<Item>
             listItems = listItems.OrderBy(i => i.ItemName).ToList();
         }
 
+        var valuePriceArr = listItems.Select(item => item.Price).ToList();
 
         listItems = listItems.Where(x =>
             ((parameters.FilterBySetup is null) || x.SetupName == parameters.FilterBySetup)
             && ((parameters.FilterByRoom is null) || x.RoomName == parameters.FilterByRoom)
+            && ((parameters.FilterByCategory is null) || x.CategoryId == parameters.FilterByCategory)
             && ((parameters.FilterByStatus is null) || x.Status == parameters.FilterByStatus)
             && ((parameters.FilterByDateStart is null) || x.UserDate >= parameters.FilterByDateStart && x.UserDate <= parameters.FilterByDateEnd)
-            && ((parameters.FilterByPriceStart is null) || x.Price >= parameters.FilterByPriceStart && x.Price <= parameters.FilterByPriceEnd)).ToList();
-        
+            && ((parameters.FilterByPriceStart is null) || x.Price >= parameters.FilterByPriceStart)
+            && ((parameters.FilterByPriceEnd is null) || x.Price <= parameters.FilterByPriceEnd)).ToList();
+
         #endregion
         
         var resultList = PaginatedList<ListItemsForStorage>.CreateAsync(listItems, parameters.PageIndex,
             parameters.PageSize);
-        
-        var response = new ListItemsForStorageResponse()
+
+        var valueCurrentPriceArr = resultList.Select(item => item.Price).ToList();
+
+        if (resultList.Count == 0)
         {
-            Items = resultList,
-            TotalCount = resultList.TotalCount,
-            PageSize = resultList.PageSize,
-            PageIndex = resultList.PageIndex,
-            TotalPages = resultList.TotalPages,
-            HasNextPage = resultList.HasNextPage,
-            HasPreviousPage = resultList.HasPreviousPage
-        };
-
-
-        return response;
+            return new ListItemsForStorageResponse();
+        }
+        else
+        {
+            var response = new ListItemsForStorageResponse()
+            {
+                Items = resultList,
+                TotalCount = resultList.TotalCount,
+                PageSize = resultList.PageSize,
+                PageIndex = resultList.PageIndex,
+                TotalPages = resultList.TotalPages,
+                MaxValuePrice = valuePriceArr.Max(),
+                MinValuePrice = valuePriceArr.Min(),
+                MinCurrentValuePrice = valueCurrentPriceArr.Min(),
+                MaxCurrentValuePrice = valueCurrentPriceArr.Max(),
+                HasNextPage = resultList.HasNextPage,
+                HasPreviousPage = resultList.HasPreviousPage
+            };
+            return response;
+        }
     }
 
     public async Task<IList<ListItemsForStorage>> GetAllAsync()
