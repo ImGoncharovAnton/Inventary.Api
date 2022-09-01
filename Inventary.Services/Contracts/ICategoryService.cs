@@ -6,12 +6,10 @@ namespace Inventary.Services.Contracts;
 
 public interface ICategoryService
 {
-    Task<IList<CategoryDto>> GetAllAsync();
     Task<IList<CategoriesForRoom>> GetAllWithItemsAsync();
     Task<IList<CategoriesForRoom>> GetAllCategoriesBySetupId(Guid id);
     Task<CategoryDto> GetByIdAsync(Guid id);
-    Task<CategoryDto> CreateAsync(CreateCategoryDto createCategory);
-    Task CreateRangeAsync(IList<CreateCategoryDto> createCategoryList);
-    Task UpdateAsync(Guid id, CreateCategoryDto updateCategory);
-    Task DeleteAsync(Guid id);
+    Task<bool> CreateRangeAsync(IList<CreateCategoryDto> createCategoryList);
+    Task<bool> UpdateAsync(Guid id, CreateCategoryDto updateCategory);
+    Task<bool> DeleteAsync(Guid id);
 }

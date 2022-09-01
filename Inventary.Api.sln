@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventary.Services", "Inven
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventary.Repositories", "Inventary.Repositories\Inventary.Repositories.csproj", "{F76DC7FB-2DBB-46D3-9E1C-7889F6E1B546}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventary.Tests", "Inventary.Tests\Inventary.Tests.csproj", "{3587D385-928E-494D-BAB2-34E5F73F0600}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{F76DC7FB-2DBB-46D3-9E1C-7889F6E1B546}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F76DC7FB-2DBB-46D3-9E1C-7889F6E1B546}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F76DC7FB-2DBB-46D3-9E1C-7889F6E1B546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3587D385-928E-494D-BAB2-34E5F73F0600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3587D385-928E-494D-BAB2-34E5F73F0600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3587D385-928E-494D-BAB2-34E5F73F0600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3587D385-928E-494D-BAB2-34E5F73F0600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
