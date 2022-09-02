@@ -114,7 +114,7 @@ public class ItemsController : Controller
     [HttpDelete("")]
     public async Task<IActionResult> DeleteListItems([FromBody] List<ItemsForRoom> items)
     {
-        await _serviceManager.ItemService.DeleteRange(items);
-        return NoContent();
+        var result = await _serviceManager.ItemService.DeleteRange(items);
+        return Ok(result);
     }
 }

@@ -1,6 +1,4 @@
-﻿using AutoFixture;
-using Inventary.Domain.Entities;
-using Inventary.Repositories;
+﻿using Inventary.Repositories;
 using Inventary.Repositories.Infrastructure;
 using Inventary.Services.Infrastructure;
 using Inventary.Tests.MockData;
@@ -10,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Inventary.Tests;
 
-public class DependencySetupFixture
+public class DependencyCategoryFixture
 {
-    public DependencySetupFixture()
+    public DependencyCategoryFixture()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddDbContext<ApplicationDbContext>(opt =>
@@ -27,16 +25,14 @@ public class DependencySetupFixture
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
         using var scope = ServiceProvider.CreateScope();
-        var fixture = new Fixture();
-        var categoryList = fixture.Build<Category>()
-            .Without(x => x.Items)
-            .CreateMany(5)
-            .ToList();
-
         var categories = CategoryMockData.GetCategories();
         var setups = SetupMockData.GetSetups();
-        
+
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        // need or not, im not understand
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+        
         context.Categories.AddRange(categories);
         context.Setups.AddRange(setups);
         context.SaveChanges();

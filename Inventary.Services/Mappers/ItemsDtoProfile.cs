@@ -9,8 +9,24 @@ public class ItemsDtoProfile : Profile
 {
     public ItemsDtoProfile()
     {
+        
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var stringChars = new char[6];
+        var random = new Random();
+
+        for (var i = 0; i < stringChars.Length; i++)
+        {
+            stringChars[i] = chars[random.Next(chars.Length)];
+        }
+
+        var finalString = new String(stringChars);
+        
         CreateMap<Item, ItemDto>().ReverseMap();
-        CreateMap<CreateItemDto, Item>();
+        CreateMap<CreateItemDto, Item>()
+            .ForMember(dest => dest.QRcode, opt =>
+                opt.MapFrom(src => finalString))
+            .ForMember(dest => dest.UserDate, opt => 
+                opt.MapFrom((src => src.UserDate ?? DateTime.UtcNow)));
         CreateMap<UpdateItemDto, Item>();
         CreateMap<ItemsForRoom, Item>();
         

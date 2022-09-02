@@ -5,6 +5,7 @@ namespace Inventary.Web.Models.Request;
 public class ItemUpdateRequestUi
 {
     public Guid Id { get; set; }
+    
     public string ItemName { get; set; }
     public DateTime UserDate { get; set; }
     public StatusEnum.StatusType Status { get; set; }

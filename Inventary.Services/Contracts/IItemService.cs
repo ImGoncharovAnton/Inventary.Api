@@ -14,5 +14,5 @@ public interface IItemService
     Task<ItemDto> UpdateAsync(Guid id, UpdateItemDto item);
     Task MoveItemsToAnotherRoom(Guid id, IList<ListItemsForUpdate> items);
     Task<ItemDto> DeleteAsync(Guid id);
-    Task DeleteRange(IList<ItemsForRoom> items);
+    Task<bool> DeleteRange(IList<ItemsForRoom> items);
 }

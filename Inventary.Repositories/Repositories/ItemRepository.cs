@@ -92,6 +92,9 @@ public class ItemRepository : IItemRepository<Item>
                 case "numberOfDefects_desc":
                     listItems = listItems.OrderByDescending(i => i.NumberOfDefects).ToList();
                     break;
+                default:
+                    listItems = listItems.OrderBy(i => i.ItemName).ToList();
+                    break;
             }
         }
         else
@@ -162,7 +165,7 @@ public class ItemRepository : IItemRepository<Item>
         return listItems;
     }
 
-    public async Task<IList<ItemsList>> GetListItemsAsync()
+    public async Task<IList<ItemsList>> GetListItemsWithoutSetupAsync()
     {
         return await _dbContext.Items
             .Where(x => x.SetupId == null)
