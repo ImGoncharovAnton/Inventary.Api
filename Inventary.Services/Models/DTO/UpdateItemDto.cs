@@ -6,7 +6,6 @@ namespace Inventary.Services.Models.DTO;
 public class UpdateItemDto
 {
     public Guid Id { get; set; }
-    [MaxLength(50)]
     public string ItemName { get; set; }
     public DateTime? UserDate { get; set; }
     public StatusEnum.StatusType Status { get; set; }

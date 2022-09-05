@@ -27,7 +27,7 @@ public class SetupService: ISetupService
         return result;
     }
 
-    public async  Task<IList<SetupDto>> GetAllSetupsWithoutUser()
+    public async Task<IList<SetupDto>> GetAllSetupsWithoutUser()
     {
         var setups = await _repositoryManager.SetupRepository.GetAllSetupsWithoutUser();
         var result = _mapper.Map<List<SetupDto>>(setups);
@@ -110,7 +110,7 @@ public class SetupService: ISetupService
         return result;
     }
 
-    public async Task UpdateAsync(Guid id, UpdateSetupDto item)
+    public async Task<bool> UpdateAsync(Guid id, UpdateSetupDto item)
     {
         var desiredItem = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
         if (desiredItem is null)
@@ -138,28 +138,36 @@ public class SetupService: ISetupService
             desiredItem.UserId = item.UserId;
         }
 
+        
         var mappedItems = _mapper.Map<List<CreateItemWithSetupDto>>(desiredItem.Items);
-        
-        var exceptItemsList = mappedItems
-            .ExceptBy(item.Items.Select(x => x.Id), z => z.Id).ToList();
 
-        var newItemsList = item.Items
-            .ExceptBy(mappedItems.Select(x => x.Id), z => z.Id).ToList();
-        foreach (var exceptItem in exceptItemsList)
+        if (mappedItems is not null && mappedItems.Count != 0)
         {
-            var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(exceptItem.Id);
-            if (findItem is null) continue;
-            findItem.UpdateDate = DateTime.UtcNow;
-            findItem.SetupId = null;
-            findItem.Status = StatusEnum.StatusType.Inactive;
-            findItem.RoomId = null;
-            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            if (item.Items is not null && item.Items.Count != 0)
+            {
+                var exceptItemsList = mappedItems
+                    .ExceptBy(item.Items.Select(x => x.Id), z => z.Id).ToList();
+
+                foreach (var exceptItem in exceptItemsList)
+                {
+                    var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(exceptItem.Id);
+                    if (findItem is null) continue;
+                    findItem.UpdateDate = DateTime.UtcNow;
+                    findItem.SetupId = null;
+                    findItem.Status = StatusEnum.StatusType.Inactive;
+                    findItem.RoomId = null;
+                    await _repositoryManager.UnitOfWork.SaveChangesAsync();
+                }
+            }
         }
-        
+
         var itemsList = item.Items;
 
-        if (itemsList is not null)
+        if (itemsList is not null && itemsList.Count != 0)
         {
+            var newItemsList = item.Items
+                .ExceptBy(mappedItems.Select(x => x.Id), z => z.Id).ToList();
+            
             foreach (var el in newItemsList)
             {
                 var findItem = await _repositoryManager.ItemRepository.GetByIdAsync(el.Id);
@@ -171,9 +179,10 @@ public class SetupService: ISetupService
             }
         }
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
-    public async Task ToggleSetupStatus(Guid id, SetupForUpdateStatusDto setup)
+    public async Task<bool> ToggleSetupStatus(Guid id, SetupForUpdateStatusDto setup)
     {
 
         var desiredSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
@@ -197,6 +206,7 @@ public class SetupService: ISetupService
         }
         
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
     public async Task ToggleSetupStatusList(IList<SetupForUpdateStatusDto> setups)

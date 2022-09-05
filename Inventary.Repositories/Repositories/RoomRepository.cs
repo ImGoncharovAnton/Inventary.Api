@@ -13,17 +13,12 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
     {
         _dbContext = dbContext;
     }
-
-    public async Task<List<Room>> GetAllWithItems()
-    {
-        return await _dbContext.Rooms.Include(x => x.Items).ToListAsync();
-    }
-
+    
     public async Task<List<ItemsForRoom>> GetByIdWithItems(Guid id)
     {
         var room = await _dbContext.Rooms.FindAsync(id);
         if (room is null)
-            throw new ArgumentNullException();
+            throw new Exception($"The room with the identifier {id} was not found.");
         var itemsForRoom = await _dbContext.Items
             .Where(i => i.RoomId == room.Id)
             .Select(i => new ItemsForRoom()
@@ -46,7 +41,7 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
     {
         var room = await _dbContext.Rooms.FindAsync(id);
         if (room is null)
-            throw new ArgumentNullException();
+            throw new Exception($"The room with the identifier {id} was not found.");
         
         var categoriesForRoom = await _dbContext.Rooms
             .Include(x => x.Items)

@@ -192,50 +192,6 @@ public class ItemServiceTests: IClassFixture<DependencyItemsFixture>
     }
 
     [Fact]
-    public async Task CreateAsync_IsEmptyItemName_ShouldThrowException()
-    {
-        // Arrange
-        var newItem = new CreateItemDto
-        {
-            ItemName = "",
-            UserDate = null,
-            Status = StatusEnum.StatusType.Inactive,
-            Price = 4834
-        };
-        var sut = GetItemService(_serviceProvider);
-        
-        // Act
-        var exception = await Assert.ThrowsAsync<Exception>(() =>
-            sut.CreateAsync(newItem));
-
-        // Assert
-        exception.Should().NotBeNull().And.Match<Exception>(x =>
-            x.Message == "ItemName field cannot be empty!");
-    }
-    
-    [Fact]
-    public async Task CreateAsync_IsNotPositivePrice_ShouldThrowException()
-    {
-        // Arrange
-        var newItem = new CreateItemDto
-        {
-            ItemName = "Item834",
-            UserDate = null,
-            Status = StatusEnum.StatusType.Inactive,
-            Price = -2423
-        };
-        var sut = GetItemService(_serviceProvider);
-        
-        // Act
-        var exception = await Assert.ThrowsAsync<Exception>(() =>
-            sut.CreateAsync(newItem));
-
-        // Assert
-        exception.Should().NotBeNull().And.Match<Exception>(x =>
-            x.Message == "Price can only be positive!");
-    }
-
-    [Fact]
     public async Task UpdateAsync_IsValidItemIdAndValidModel_ReturnItem()
     {
         // Arrange
@@ -266,8 +222,147 @@ public class ItemServiceTests: IClassFixture<DependencyItemsFixture>
         exception.Should().NotBeNull().And.Match<ItemNotFoundException>(x =>
             x.Message == $"The item with the identifier {itemId} was not found.");
     }
+
+    [Fact]
+    public async Task MoveItemsToAnotherRoom_IsValidRoomIdAndNotNullItemsList_ReturnTrue()
+    {
+        // Arrange
+        var roomId = new Guid("FEEF33C2-26FE-47AC-9FB7-17CB5199F3CF");
+        var itemsForMove = new List<ListItemsForUpdate>
+        {
+            new ListItemsForUpdate
+            {
+                Id = new Guid("3B0982DD-4540-45F7-82E0-EC4B6E242B88"),
+                ItemName = "Item 2"
+            },
+            new ListItemsForUpdate
+            {
+                Id = new Guid("628A4EE9-E3C7-4B6A-8DCE-6D420B03BC5C"),
+                ItemName = "Item 3"
+            }
+        };
+        var sut = GetItemService(_serviceProvider);
+        
+        // Act
+        var result = await sut.MoveItemsToAnotherRoom(roomId, itemsForMove);
+
+        // Assert
+        result.Should().BeTrue();
+    }
     
+    [Fact]
+    public async Task MoveItemsToAnotherRoom_IsNotValidRoomIdAndNotNullItemsList_ShouldThrowNotFoundException()
+    {
+        // Arrange
+        var roomId = new Guid("A62E4E0B-0756-452B-B4B3-75DD185556AF");
+        var itemsForMove = new List<ListItemsForUpdate>
+        {
+            new ListItemsForUpdate
+            {
+                Id = new Guid("3B0982DD-4540-45F7-82E0-EC4B6E242B88"),
+                ItemName = "Item 2"
+            },
+            new ListItemsForUpdate
+            {
+                Id = new Guid("628A4EE9-E3C7-4B6A-8DCE-6D420B03BC5C"),
+                ItemName = "Item 3"
+            }
+        };
+        var sut = GetItemService(_serviceProvider);
+        
+        // Act
+        var exception = await Assert.ThrowsAsync<RoomNotFoundException>(() =>
+            sut.MoveItemsToAnotherRoom(roomId, itemsForMove));
+
+        // Assert
+        exception.Should().NotBeNull().And.Match<RoomNotFoundException>(x =>
+            x.Message == $"The room with the identifier {roomId} was not found.");
+    }
     
+    [Fact]
+    public async Task MoveItemsToAnotherRoom_IsValidRoomIdAndNullItemsList_ReturnFalse()
+    {
+        // Arrange
+        var roomId = new Guid("FEEF33C2-26FE-47AC-9FB7-17CB5199F3CF");
+        var itemsForMove = new List<ListItemsForUpdate>();
+        var sut = GetItemService(_serviceProvider);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<Exception>(() =>
+            sut.MoveItemsToAnotherRoom(roomId, itemsForMove));
+
+        // Assert
+        exception.Should().NotBeNull().And.Match<Exception>(x =>
+            x.Message == $"List items cannot be empty!");
+    }
+
+    [Fact]
+    public async Task DeleteAsync_IsValidItemId_ReturnItem()
+    {
+        // Arrange
+        var itemId = new Guid("3B0982DD-4540-45F7-82E0-EC4B6E242B88");
+        var sut = GetItemService(_serviceProvider);
+        var oldItemsList = await sut.GetAllItems();
+        
+        // Act
+        var result = await sut.DeleteAsync(itemId);
+        var newItemsList = await sut.GetAllItems();
+
+        // Assert
+        result.Should().NotBeNull().And.BeOfType<ItemDto>();
+        newItemsList.Should().NotEqual(oldItemsList);
+    }
+    
+    [Fact]
+    public async Task DeleteAsync_IsNotValidItemId_ShouldThrowNotFoundException()
+    {
+        // Arrange
+        var itemId = new Guid("72CF6D6E-426A-4965-8135-FDB12EF3AB0B");
+        var sut = GetItemService(_serviceProvider);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<ItemNotFoundException>(() =>
+            sut.DeleteAsync(itemId));
+
+        // Assert
+        exception.Should().NotBeNull().And.Match<ItemNotFoundException>(x =>
+            x.Message == $"The item with the identifier {itemId} was not found.");
+        
+    }
+
+    [Fact]
+    public async Task DeleteRange_IsNotNullListItems_ReturnTrue()
+    {
+        // Arrange
+        var listItemsForDelete = ItemMockData.ItemsForRoom();
+        var sut = GetItemService(_serviceProvider);
+        var oldListItems = await sut.GetAllItems();
+        
+        // Act
+        var result = await sut.DeleteRange(listItemsForDelete);
+        var newListItems = await sut.GetAllItems();
+
+        // Assert
+        result.Should().BeTrue();
+        newListItems.Should().NotEqual(oldListItems);
+    }
+    
+    [Fact]
+    public async Task DeleteRange_IsNullListItems_ReturnTrue()
+    {
+        // Arrange
+        var listItemsForDelete = new List<ItemsForRoom>();
+        var sut = GetItemService(_serviceProvider);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<Exception>(() =>
+            sut.DeleteRange(listItemsForDelete));
+
+        // Assert
+        exception.Should().NotBeNull().And.Match<Exception>(x =>
+            x.Message == "List items cannot be empty.");
+
+    }
     
     private IItemService GetItemService(IServiceProvider scope)
     {

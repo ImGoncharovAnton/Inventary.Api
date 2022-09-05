@@ -16,40 +16,35 @@ public class CategoryMockData
                 Id = new Guid("B9EA7A35-57C2-4D95-A18D-3C490881A2A2"),
                 CategoryName = "Category 1",
                 CreatedDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Items = null
+                UpdateDate = DateTime.UtcNow
             },
             new Category
             {
                 Id = new Guid("FC7FE539-AB73-46A6-A5E8-A4CDDFB518A0"),
                 CategoryName = "Category 2",
                 CreatedDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Items = null
+                UpdateDate = DateTime.UtcNow
             },
             new Category
             {
                 Id = new Guid("CE126C08-BBD1-47E2-AF5A-3E095DA89DDE"),
                 CategoryName = "Category 3",
                 CreatedDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Items = null
+                UpdateDate = DateTime.UtcNow
             },
             new Category
             {
                 Id = new Guid("6F595167-0848-490B-B705-A302B12DBD77"),
                 CategoryName = "Category 4",
                 CreatedDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Items = null
+                UpdateDate = DateTime.UtcNow
             },
             new Category
             {
                 Id = new Guid("29377380-905A-41C7-A70C-C062F9882D5A"),
                 CategoryName = "Category 5",
                 CreatedDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Items = null
+                UpdateDate = DateTime.UtcNow
             }
         };
     }

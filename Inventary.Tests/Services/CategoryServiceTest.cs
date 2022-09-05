@@ -108,21 +108,6 @@ public class CategoryServiceTest : IClassFixture<DependencyCategoryFixture>
     }
 
     [Fact]
-    public async Task CreateRangeAsync_IsNotValidCategoryList_ShouldThrowException()
-    {
-        // Arrange
-        var sut = GetCategoryService(_serviceProvider);
-
-        // Act
-        var exception = await Assert.ThrowsAsync<Exception>(() =>
-            sut.CreateRangeAsync(CategoryMockData.CreateListCategoryWithEmptyCategoryName()));
-
-        // Assert
-        exception.Should().NotBeNull().And.Match<Exception>(x => 
-            x.Message == "CategoryName field cannot be empty");
-    }
-
-    [Fact]
     public async Task UpdateAsync_IsValidIdAndModel_ReturnTrue()
     {
         // Arrange
@@ -154,26 +139,7 @@ public class CategoryServiceTest : IClassFixture<DependencyCategoryFixture>
             x.Message == $"The category with the identifier {categoryId} was not found.");
     }
     
-    [Fact]
-    public async Task UpdateAsync_IsNotValidModel_ReturnTrue()
-    {
-        // Arrange
-        var categoryItem = new CreateCategoryDto()
-        {
-            CategoryName = ""
-        };
-        var categoryId = new Guid("AE92D7C5-D1CC-4796-B2A7-24EEDB9614A5");
-        var sut = GetCategoryService(_serviceProvider);
-        
-        // Act 
-        var exception = await Assert.ThrowsAsync<Exception>(() =>
-            sut.UpdateAsync(categoryId, categoryItem));
-        
-        // Assert
-        exception.Should().NotBeNull().And.Match<Exception>(x => x.Message == "CategoryName field cannot be empty");
-    }
-
-    [Fact]
+   [Fact]
     public async Task DeleteAsync_IsValidCategoryId_ReturnTrue()
     {
         // Arrange

@@ -12,7 +12,7 @@ public class CategoryService : ICategoryService
 {
     private readonly IRepositoryManager _repositoryManager;
     private readonly IMapper _mapper;
-    
+
     public CategoryService(IRepositoryManager repositoryManager, IMapper mapper)
     {
         _repositoryManager = repositoryManager;
@@ -40,26 +40,14 @@ public class CategoryService : ICategoryService
 
     public async Task<bool> CreateRangeAsync(IList<CreateCategoryDto> createCategoryList)
     {
-        var checkValid = createCategoryList.Any(c => c.CategoryName == String.Empty);
-        if (!checkValid)
-        {
-            var mappedList = _mapper.Map<List<Category>>(createCategoryList);
-            await _repositoryManager.CategoryRepository.AddRange(mappedList);
-            await _repositoryManager.UnitOfWork.SaveChangesAsync();
-            return true;
-        }
-        else
-        {
-            throw new Exception("CategoryName field cannot be empty");
-            
-        }
+        var mappedList = _mapper.Map<List<Category>>(createCategoryList);
+        await _repositoryManager.CategoryRepository.AddRange(mappedList);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> UpdateAsync(Guid id, CreateCategoryDto updateCategory)
     {
-        var validateItem = updateCategory.CategoryName == String.Empty;
-        if (validateItem)
-            throw new Exception("CategoryName field cannot be empty");
         var deciredCategory = await _repositoryManager.CategoryRepository.GetByIdAsync(id);
         if (deciredCategory is null)
             throw new CategoryNotFoundException(id);
@@ -74,7 +62,7 @@ public class CategoryService : ICategoryService
         var category = await _repositoryManager.CategoryRepository.GetByIdAsync(id);
         if (category is null)
             throw new CategoryNotFoundException(id);
-        
+
         _repositoryManager.CategoryRepository.Remove(category);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
         return true;

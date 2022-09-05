@@ -7,12 +7,10 @@ namespace Inventary.Services.Contracts;
 public interface IRoomService
 {
     Task<IList<RoomDto>> GetAllAsync();
-    Task<IList<RoomDto>> GetAllAsyncWithItems();
     Task<RoomDto> GetByIdAsync(Guid id);
     Task<IList<CategoriesForRoom>> GetByIdWithCategory(Guid id);
     Task<IList<ItemsForRoom>> GetByIdWithItems(Guid id);
-    Task<Room> CreateAsync(CreateRoomDTO room);
-    Task CreateRangeAsync(IList<CreateRoomDTO> rooms);
-    Task UpdateAsync(Guid id, CreateRoomDTO room);
-    Task DeleteAsync(Guid id);
+    Task<bool> CreateRangeAsync(IList<CreateRoomDTO> rooms);
+    Task<bool> UpdateAsync(Guid id, CreateRoomDTO room);
+    Task<bool> DeleteAsync(Guid id);
 }

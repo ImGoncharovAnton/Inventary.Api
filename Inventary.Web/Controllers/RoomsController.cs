@@ -27,14 +27,7 @@ public class RoomsController : Controller
         var rooms = await _serviceManager.RoomService.GetAllAsync();
         return Ok(rooms);
     }
-
-    [HttpGet("")]
-    public async Task<IActionResult> GetAllWithItems()
-    {
-        var rooms = await _serviceManager.RoomService.GetAllAsyncWithItems();
-        return Ok(rooms);
-    }
-
+    
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetRoomById(Guid id)
     {
@@ -55,13 +48,6 @@ public class RoomsController : Controller
     {
         var result = await _serviceManager.RoomService.GetByIdWithCategory(id);
         return Ok(result);
-    }
-
-    [HttpPost("")]
-    public async Task<IActionResult> CreateRoom([FromBody] CreateRoomDTO room)
-    {
-        var newRoom = await _serviceManager.RoomService.CreateAsync(room);
-        return CreatedAtAction(nameof(GetRoomById), new { id = newRoom.Id }, newRoom);
     }
 
     [HttpPost("")]

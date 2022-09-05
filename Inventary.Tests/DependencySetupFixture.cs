@@ -8,14 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Inventary.Tests;
 
-public class DependencyItemsFixture
+public class DependencySetupFixture
 {
-    public DependencyItemsFixture()
+    public DependencySetupFixture()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddDbContext<ApplicationDbContext>(opt =>
         {
-            opt.UseInMemoryDatabase(databaseName: "TestItemsDb");
+            opt.UseInMemoryDatabase(databaseName: "TestSetupsDb");
         });
         serviceCollection.AddScoped<IRepositoryManager, RepositoryManager>();
         serviceCollection.AddScoped<IServiceManager, ServiceManager>();

@@ -1,5 +1,6 @@
 ﻿using Inventary.Domain.Entities;
 using Inventary.Domain.Enums;
+using Inventary.Repositories.Common.Models;
 using Inventary.Services.Models.DTO;
 
 namespace Inventary.Tests.MockData;
@@ -20,7 +21,7 @@ public class ItemMockData
                 Status = StatusEnum.StatusType.Inactive,
                 Price = 1234.5,
                 QRcode = "QrCode 1",
-                RoomId = null,
+                RoomId = new Guid("CF1E7791-FA87-4487-8B84-9B8B45CEEEE9"),
                 UserId = null,
                 CurrentCategoryId = null,
                 SetupId = null
@@ -65,9 +66,9 @@ public class ItemMockData
                 Status = StatusEnum.StatusType.Inactive,
                 Price = 2335,
                 QRcode = "QrCode 4",
-                RoomId = null,
+                RoomId = new Guid("CF1E7791-FA87-4487-8B84-9B8B45CEEEE9"),
                 UserId = null,
-                CurrentCategoryId = null,
+                CurrentCategoryId = new Guid("B9EA7A35-57C2-4D95-A18D-3C490881A2A2"),
                 SetupId = new Guid("489FB9AA-471F-41FE-B591-A4C27246BB08")
             },
             new Item()
@@ -80,9 +81,9 @@ public class ItemMockData
                 Status = StatusEnum.StatusType.Inactive,
                 Price = 233,
                 QRcode = "QrCode 5",
-                RoomId = null,
+                RoomId = new Guid("CF1E7791-FA87-4487-8B84-9B8B45CEEEE9"),
                 UserId = null,
-                CurrentCategoryId = null,
+                CurrentCategoryId = new Guid("B9EA7A35-57C2-4D95-A18D-3C490881A2A2"),
                 SetupId = new Guid("489FB9AA-471F-41FE-B591-A4C27246BB08")
             }
         };
@@ -114,6 +115,25 @@ public class ItemMockData
             UserId = null,
             CurrentCategoryId = null,
             SetupId = null
+        };
+    }
+
+    public static List<ItemsForRoom> ItemsForRoom()
+    {
+        return new List<ItemsForRoom>
+        {
+            new ItemsForRoom
+            {
+                Id = new Guid("4CCAD79E-40BB-4810-9D31-6EFC4E1F3169"),
+                ItemName = "Notebook 2",
+                UserDate = DateTime.UtcNow,
+                Status = StatusEnum.StatusType.Inactive,
+                Price = 233,
+                QRcode = "QrCode 5",
+                SetupName = "Setup 1",
+                CurrentCategoryId = null,
+                Defects = null
+            }
         };
     }
 }

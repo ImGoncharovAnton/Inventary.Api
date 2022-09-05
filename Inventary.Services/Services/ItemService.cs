@@ -56,19 +56,6 @@ public class ItemService : IItemService
     public async Task<ItemDto> CreateAsync(CreateItemDto createItem)
     {
 
-        var notValidItemName = createItem.ItemName.Equals(String.Empty);
-        var notValidByPositivePrice = createItem.Price < 0;
-
-        if (notValidItemName)
-        {
-            throw new Exception("ItemName field cannot be empty!");
-        }
-
-        if (notValidByPositivePrice)
-        {
-            throw new Exception("Price can only be positive!");
-        }
-        
         var newItem = _mapper.Map<Item>(createItem);
 
         var item = await _repositoryManager.ItemRepository.Add(newItem);
@@ -81,20 +68,8 @@ public class ItemService : IItemService
 
     public async Task<ItemDto> UpdateAsync(Guid itemId, UpdateItemDto item)
     {
-        var notValidItemName = item.ItemName.Equals(String.Empty);
-        var notValidByPositivePrice = item.Price < 0;
         var notNullableUserDate = item.UserDate ?? DateTime.UtcNow;
 
-        if (notValidItemName)
-        {
-            throw new Exception("ItemName field cannot be empty!");
-        }
-
-        if (notValidByPositivePrice)
-        {
-            throw new Exception("Price can only be positive!");
-        }
-        
         var desiredItem = await _repositoryManager.ItemRepository.GetByIdAsync(itemId);
         if (desiredItem is null)
             throw new ItemNotFoundException(itemId);
@@ -124,14 +99,18 @@ public class ItemService : IItemService
         return result;
     }
 
-    public async Task MoveItemsToAnotherRoom(Guid roomId, IList<ListItemsForUpdate> items)
+    public async Task<bool> MoveItemsToAnotherRoom(Guid roomId, IList<ListItemsForUpdate> items)
     {
         var desiredRoom = await _repositoryManager.RoomRepository.GetByIdAsync(roomId);
         if (desiredRoom is null)
             throw new RoomNotFoundException(roomId);
 
         var itemsList = items.ToList();
-        if (itemsList is not null)
+        if (itemsList is null || itemsList.Count == 0)
+        {
+            throw new Exception("List items cannot be empty!");
+        }
+        else
         {
             foreach (var item in itemsList)
             {
@@ -144,7 +123,10 @@ public class ItemService : IItemService
                 findItem.Status = StatusEnum.StatusType.Active;
                 await _repositoryManager.UnitOfWork.SaveChangesAsync();
             }
+
+            return true;
         }
+        
     }
 
     public async Task<ItemDto> DeleteAsync(Guid id)
@@ -162,9 +144,14 @@ public class ItemService : IItemService
 
     public async Task<bool> DeleteRange(IList<ItemsForRoom> items)
     {
+        if (items is null || items.Count == 0)
+        {
+            throw new Exception("List items cannot be empty.");
+        }
         var mappedListItems = _mapper.Map<List<Item>>(items);
         _repositoryManager.ItemRepository.RemoveRange(mappedListItems);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
         return true;
+        
     }
 }

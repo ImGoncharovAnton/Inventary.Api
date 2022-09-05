@@ -36,20 +36,7 @@ public class ItemsController : Controller
     {
         var items = await _serviceManager.ItemService.GetItemsByPage(parameters);
 
-        // var metadata = new
-        // {
-        //     items.TotalCount,
-        //     items.PageSize,
-        //     items.PageIndex,
-        //     items.TotalPages,
-        //     items.HasNextPage,
-        //     items.HasPreviousPage
-        //
-        // };
-        //
-        // Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
-        
-        return Ok(items);
+       return Ok(items);
     }
 
     [HttpGet("{id:guid}")]
@@ -77,9 +64,6 @@ public class ItemsController : Controller
     [HttpPost("")]
     public async Task<IActionResult> CreateItem([FromBody] ItemRequestUi itemRequest)
     {
-        // if (!ModelState.IsValid)
-        //     return BadRequest("Something is wrong with the model");
-
         var mappedItem = _mapper.Map<CreateItemDto>(itemRequest);
         var newItem = await _serviceManager.ItemService.CreateAsync(mappedItem);
         var result = _mapper.Map<ItemResponseUi>(newItem);

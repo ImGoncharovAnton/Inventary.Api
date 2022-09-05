@@ -15,7 +15,7 @@ public class SetupMockData
                 SetupName = "Setup 1",
                 QrCode = "QrCode 1",
                 Status = StatusEnum.StatusType.Active,
-                RoomId = null,
+                RoomId = new Guid("CF1E7791-FA87-4487-8B84-9B8B45CEEEE9"),
                 UserId = null, 
                 CreatedDate = DateTime.UtcNow,
                 UpdateDate = DateTime.UtcNow,
@@ -32,7 +32,7 @@ public class SetupMockData
                 UserId = null, 
                 CreatedDate = DateTime.UtcNow,
                 UpdateDate = DateTime.UtcNow,
-                Items = null,
+                Items = new List<Item>(),
                 User = null
             },
             new Setup
@@ -67,7 +67,7 @@ public class SetupMockData
                 SetupName = "Setup 5",
                 QrCode = "QrCode 5",
                 Status = StatusEnum.StatusType.Inactive,
-                RoomId = null,
+                RoomId = new Guid("640C0DE9-6ED8-43EC-9C4D-9B83A9F923F8"),
                 UserId = null, 
                 CreatedDate = DateTime.UtcNow,
                 UpdateDate = DateTime.UtcNow,
