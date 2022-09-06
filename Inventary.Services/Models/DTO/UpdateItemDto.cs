@@ -1,4 +1,5 @@
-﻿using Inventary.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Inventary.Domain.Enums;
 
 namespace Inventary.Services.Models.DTO;
 
@@ -6,7 +7,7 @@ public class UpdateItemDto
 {
     public Guid Id { get; set; }
     public string ItemName { get; set; }
-    public DateTime UserDate { get; set; }
+    public DateTime? UserDate { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public double Price { get; set; }
     public string QRcode { get; set; }

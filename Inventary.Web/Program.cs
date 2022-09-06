@@ -9,6 +9,7 @@ using Inventary.Services.Infrastructure;
 using Inventary.Services.Mappers;
 using Inventary.Services.Services;
 using Inventary.Web;
+using Inventary.Web.ActionFilters;
 using Inventary.Web.Middleware;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
@@ -79,6 +80,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(AppDomain));
 builder.Services.AddAutoMapper(typeof(RoomsDtoProfile).Assembly);
 
+// Action Filters 
+builder.Services.AddMvc(opt =>
+    opt.Filters.Add(typeof(ValidateModelStateAttribute)));
+
 var app = builder.Build();
 
 
@@ -103,3 +108,5 @@ app.UseAuthorization();
 app.MapControllers();
 app.MigrateDatabase();
 app.Run();
+
+public partial class Program {}

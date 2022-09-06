@@ -1,10 +1,14 @@
-﻿using Inventary.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Inventary.Domain.Enums;
 
 namespace Inventary.Web.Models.Request;
 
 public class SetupUpdateRequestUi
 {
+    [Required]
     public Guid Id { get; set; }
+    [Required]
+    [MinLength(3), MaxLength(30)]
     public string SetupName { get; set; }
     public StatusEnum.StatusType Status { get; set; }
     public Guid? RoomId { get; set; }

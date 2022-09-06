@@ -13,28 +13,20 @@ public class CategoryService : ICategoryService
     private readonly IRepositoryManager _repositoryManager;
     private readonly IMapper _mapper;
 
-
     public CategoryService(IRepositoryManager repositoryManager, IMapper mapper)
     {
         _repositoryManager = repositoryManager;
         _mapper = mapper;
     }
 
-    public async Task<IList<CategoryDto>> GetAllAsync()
-    {
-        var categories = await _repositoryManager.CategoryRepository.GetAllAsync();
-        var result = _mapper.Map<List<CategoryDto>>(categories);
-        return result;
-    }
-
     public async Task<IList<CategoriesForRoom>> GetAllWithItemsAsync()
     {
-        return await _repositoryManager.CategoryRepository.GetAllWithItems();
+        return await _repositoryManager.CategoryRepository.GetAllWithNumbersOfItems();
     }
 
     public async Task<IList<CategoriesForRoom>> GetAllCategoriesBySetupId(Guid id)
     {
-        return await _repositoryManager.CategoryRepository.GetCategoryBySetupId(id);
+        return await _repositoryManager.CategoryRepository.GetCategoryListBySetupId(id);
     }
 
     public async Task<CategoryDto> GetByIdAsync(Guid id)
@@ -46,24 +38,15 @@ public class CategoryService : ICategoryService
         return result;
     }
 
-    public async Task<CategoryDto> CreateAsync(CreateCategoryDto createCategory)
-    {
-        var category = _mapper.Map<Category>(createCategory);
-        var result = _mapper.Map<CategoryDto>(category);
-        
-        _repositoryManager.CategoryRepository.Add(category);
-        await _repositoryManager.UnitOfWork.SaveChangesAsync();
-        return result;
-    }
-
-    public async Task CreateRangeAsync(IList<CreateCategoryDto> createCategoryList)
+    public async Task<bool> CreateRangeAsync(IList<CreateCategoryDto> createCategoryList)
     {
         var mappedList = _mapper.Map<List<Category>>(createCategoryList);
         await _repositoryManager.CategoryRepository.AddRange(mappedList);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
-    public async Task UpdateAsync(Guid id, CreateCategoryDto updateCategory)
+    public async Task<bool> UpdateAsync(Guid id, CreateCategoryDto updateCategory)
     {
         var deciredCategory = await _repositoryManager.CategoryRepository.GetByIdAsync(id);
         if (deciredCategory is null)
@@ -71,15 +54,17 @@ public class CategoryService : ICategoryService
 
         deciredCategory.CategoryName = updateCategory.CategoryName;
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var category = await _repositoryManager.CategoryRepository.GetByIdAsync(id);
         if (category is null)
             throw new CategoryNotFoundException(id);
-        
+
         _repositoryManager.CategoryRepository.Remove(category);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 }

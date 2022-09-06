@@ -14,7 +14,7 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
     }
 
 
-    public async Task<List<CategoriesForRoom>> GetAllWithItems()
+    public async Task<List<CategoriesForRoom>> GetAllWithNumbersOfItems()
     {
         var category = _dbContext.Categories
             .Select(x => new CategoriesForRoom()
@@ -26,7 +26,7 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
         return await category;
     }
 
-    public async Task<List<CategoriesForRoom>> GetCategoryBySetupId(Guid setupId)
+    public async Task<List<CategoriesForRoom>> GetCategoryListBySetupId(Guid setupId)
     {
         var findSetup = await _dbContext.Setups.FirstOrDefaultAsync(x => x.Id == setupId);
         if (findSetup is null)

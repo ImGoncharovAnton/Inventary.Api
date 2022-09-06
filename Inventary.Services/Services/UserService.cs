@@ -43,31 +43,22 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateAsync(UserCreateDto createUser)
     {
-        var email = await _repositoryManager.UserRepository.ValidateEmail(createUser.Email);
-
-        if (email == null)
+        var user = _mapper.Map<User>(createUser);
+        var result = _mapper.Map<UserDto>(user);
+        var newUser = _repositoryManager.UserRepository.AddAsync(user);
+        if (user.CurrentSetupId is not null)
         {
-            var user = _mapper.Map<User>(createUser);
-            var result = _mapper.Map<UserDto>(user);
-            var newUser = _repositoryManager.UserRepository.AddAsync(user);
-            if (user.CurrentSetupId is not null)
-            {
-                var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
-                findSetup.UpdateDate = DateTime.UtcNow;
-                findSetup.UserId = newUser.Result.Id;
-                await _repositoryManager.UnitOfWork.SaveChangesAsync();
-            }
+            var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+            findSetup.UpdateDate = DateTime.UtcNow;
+            findSetup.UserId = newUser.Result.Id;
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
-            return result;
         }
-        else
-        {
-            throw new Exception("Email is not unique");
-        }
-       
+
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return result;
     }
 
-    public async Task UpdateAsync(Guid id, UserCreateDto user)
+    public async Task<bool> UpdateAsync(Guid id, UserCreateDto user)
     {
         var desiredUser = await _repositoryManager.UserRepository.GetByIdAsync(id);
         if (desiredUser is null)
@@ -96,7 +87,8 @@ public class UserService : IUserService
 
             if (user.CurrentSetupId is not null)
             {
-                var findSetup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
+                var findSetup =
+                    await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
                 findSetup.UpdateDate = DateTime.UtcNow;
                 findSetup.UserId = id;
                 await _repositoryManager.UnitOfWork.SaveChangesAsync();
@@ -107,15 +99,16 @@ public class UserService : IUserService
 
 
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var user = await _repositoryManager.UserRepository.GetByIdAsync(id);
         if (user is null)
-            throw new RoomNotFoundException(id);
-
-        if (user.CurrentSetupId.HasValue)
+            throw new UserNotFoundException(id);
+        
+        if (user.CurrentSetupId is { } or { })
         {
             var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(user.CurrentSetupId.Value);
             setup.User = null;
@@ -125,5 +118,6 @@ public class UserService : IUserService
 
         _repositoryManager.UserRepository.Remove(user);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 }

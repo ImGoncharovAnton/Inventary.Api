@@ -32,3 +32,6 @@ C:\Users\a_n_g\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6
 C:\Users\a_n_g\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.pdb
 C:\Users\a_n_g\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\Inventary.Repositories.genruntimeconfig.cache
 C:\Users\a_n_g\RiderProjects\Inventary.Api\Inventary.Repositories\obj\Debug\net6.0\ref\Inventary.Repositories.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Services.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Repositories\bin\Debug\net6.0\Inventary.Services.pdb

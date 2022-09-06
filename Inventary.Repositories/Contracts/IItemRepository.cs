@@ -7,7 +7,7 @@ public interface IItemRepository<Item>
 {
     Task<ListItemsForStorageResponse> GetItemsWithFilters(RequestParams parameters);
     Task<IList<ListItemsForStorage>> GetAllAsync();
-    Task<IList<ItemsList>> GetListItemsAsync();
+    Task<IList<ItemsList>> GetListItemsWithoutSetupAsync();
     Task<IList<ItemsList>> GetListItemsBySetupId(Guid id);
     Task<Item> GetByIdAsync(Guid id);
     Task<Item> Add(Item entity);

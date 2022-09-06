@@ -28,4 +28,10 @@
       <Folder Include="Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Inventary.Services">
+        <HintPath>..\Inventary.Tests\bin\Debug\net6.0\Inventary.Services.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

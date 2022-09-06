@@ -19,15 +19,7 @@ public class CategoryController : Controller
         _serviceManager = serviceManager;
         _mapper = mapper;
     }
-
-    [HttpGet("")]
-    public async Task<IActionResult> GetAllCategories()
-    {
-        var categories = await _serviceManager.CategoryService.GetAllAsync();
-        var result = _mapper.Map<List<CategoryResponseUi>>(categories);
-        return Ok(result);
-    }
-
+    
     [HttpGet("")]
     public async Task<IActionResult> GetAllWithItems()
     {
@@ -49,23 +41,13 @@ public class CategoryController : Controller
         var result = await _serviceManager.CategoryService.GetAllCategoriesBySetupId(id);
         return Ok(result);
     }
-
-    [HttpPost("")]
-    public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestUi categoryRequest)
-    {
-        var mappedCategory = _mapper.Map<CreateCategoryDto>(categoryRequest);
-        var newCategory = await _serviceManager.CategoryService.CreateAsync(mappedCategory);
-        var result = _mapper.Map<CategoryResponseUi>(newCategory);
-
-        return CreatedAtAction(nameof(GetCategoryById), new { id = result.Id }, result);
-    }
-
+    
     [HttpPost("")]
     public async Task<IActionResult> CreateListCategory([FromBody] List<CategoryRequestUi> categoryRequestList)
     {
         var mappedCategory = _mapper.Map<List<CreateCategoryDto>>(categoryRequestList);
-        await _serviceManager.CategoryService.CreateRangeAsync(mappedCategory);
-        return NoContent();
+        var result = await _serviceManager.CategoryService.CreateRangeAsync(mappedCategory);
+        return Ok(result);
     }
 
     [HttpPut("{id:guid}")]
@@ -79,7 +61,7 @@ public class CategoryController : Controller
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteCategory(Guid id)
     {
-        await _serviceManager.CategoryService.DeleteAsync(id);
-        return NoContent();
+        var result = await _serviceManager.CategoryService.DeleteAsync(id);
+        return Ok(result);
     }
 }
