@@ -17,5 +17,5 @@ public interface ISetupService
     Task<bool> ToggleSetupStatus(Guid id, SetupForUpdateStatusDto setup);
     Task ToggleSetupStatusList(IList<SetupForUpdateStatusDto> setups);
     Task MoveSetupsToAnotherRoom(Guid id, IList<ListMoveSetupsDto> items);
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 }

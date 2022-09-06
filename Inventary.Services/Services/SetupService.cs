@@ -270,7 +270,7 @@ public class SetupService: ISetupService
 
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var setup = await _repositoryManager.SetupRepository.GetByIdWithItemsAsync(id);
         if (setup is null)
@@ -292,5 +292,6 @@ public class SetupService: ISetupService
         
         _repositoryManager.SetupRepository.Remove(setup);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return true;
     }
 }

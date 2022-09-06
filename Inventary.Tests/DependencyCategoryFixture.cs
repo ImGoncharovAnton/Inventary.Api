@@ -15,7 +15,7 @@ public class DependencyCategoryFixture
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddDbContext<ApplicationDbContext>(opt =>
         {
-            opt.UseInMemoryDatabase(databaseName: "TestDb");
+            opt.UseInMemoryDatabase(databaseName: "TestCategoriesDb");
         });
         serviceCollection.AddScoped<IRepositoryManager, RepositoryManager>();
         serviceCollection.AddScoped<IServiceManager, ServiceManager>();

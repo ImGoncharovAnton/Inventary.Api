@@ -16,7 +16,7 @@ public class SetupMockData
                 QrCode = "QrCode 1",
                 Status = StatusEnum.StatusType.Active,
                 RoomId = new Guid("CF1E7791-FA87-4487-8B84-9B8B45CEEEE9"),
-                UserId = null, 
+                UserId = new Guid("63698479-1A54-49E2-9FBF-34A5003C9148"),
                 CreatedDate = DateTime.UtcNow,
                 UpdateDate = DateTime.UtcNow,
                 Items = null,

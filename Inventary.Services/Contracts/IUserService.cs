@@ -9,6 +9,6 @@ public interface IUserService
     Task<IList<ListUsersForCreateSetup>> GetListUsersForCreateSetup();
     Task<UserDto> GetByIdAsync(Guid id);
     Task<UserDto> CreateAsync(UserCreateDto user);
-    Task UpdateAsync(Guid id, UserCreateDto user);
-    Task DeleteAsync(Guid id);
+    Task<bool> UpdateAsync(Guid id, UserCreateDto user);
+    Task<bool> DeleteAsync(Guid id);
 }
