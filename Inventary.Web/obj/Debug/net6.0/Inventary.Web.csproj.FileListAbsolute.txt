@@ -111,3 +111,10 @@ C:\Users\a_n_g\RiderProjects\Inventary.Api\Inventary.Web\obj\Debug\net6.0\ref\In
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Npgsql.dll
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\EFCore.NamingConventions.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\danil\RiderProjects\Inventary.Api\Inventary.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
