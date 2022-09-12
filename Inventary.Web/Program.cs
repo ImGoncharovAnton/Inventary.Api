@@ -69,9 +69,12 @@ builder.Services.AddAuthentication("Bearer")
     {
         opt.RequireHttpsMetadata = false;
         opt.Authority = "https://localhost:5001";
+        opt.Audience = "https://localhost:5001/resources";
         opt.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = false
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ValidIssuer = "https://localhost:5001"
         };
     });
 
@@ -126,7 +129,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers().RequireAuthorization("ApiScope");
+app.MapControllers();
 app.MigrateDatabase();
 app.Run();
 

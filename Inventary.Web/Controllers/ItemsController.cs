@@ -7,12 +7,14 @@ using Inventary.Services.Infrastructure;
 using Inventary.Services.Models.DTO;
 using Inventary.Web.Models.Request;
 using Inventary.Web.Models.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventary.Web.Controllers;
 
 [Route("api/[Controller]/[action]")]
 [ApiController]
+[Authorize(Roles = "Admin, Manager")]
 public class ItemsController : Controller
 {
     private readonly IServiceManager _serviceManager;
@@ -40,6 +42,7 @@ public class ItemsController : Controller
     }
 
     [HttpGet("{id:guid}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetItemById(Guid id)
     {
         var item = await _serviceManager.ItemService.GetByIdAsync(id);
