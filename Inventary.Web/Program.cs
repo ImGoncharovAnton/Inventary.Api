@@ -68,13 +68,13 @@ builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", opt =>
     {
         opt.RequireHttpsMetadata = false;
-        opt.Authority = "http://identity-server-1.herokuapp.com/";
-        opt.Audience = "http://identity-server-1.herokuapp.com/resources";
+        opt.Authority = "https://identity-server-1.herokuapp.com/";
+        opt.Audience = "https://identity-server-1.herokuapp.com/resources";
         opt.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateLifetime = true,
             ValidateIssuer = true,
-            ValidIssuer = "http://identity-server-1.herokuapp.com"
+            ValidIssuer = "https://identity-server-1.herokuapp.com"
         };
     });
 
