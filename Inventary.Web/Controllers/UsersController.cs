@@ -3,12 +3,14 @@ using Inventary.Services.Infrastructure;
 using Inventary.Services.Models.DTO;
 using Inventary.Web.Models.Request;
 using Inventary.Web.Models.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventary.Web.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize(Roles = "Admin, Manager")]
 public class UsersController : Controller
 {
     private readonly IServiceManager _serviceManager;

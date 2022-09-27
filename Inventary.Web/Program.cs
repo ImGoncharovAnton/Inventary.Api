@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -63,6 +64,28 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     
 });
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", opt =>
+    {
+        opt.RequireHttpsMetadata = false;
+        opt.Authority = "http://identity-server-1.herokuapp.com/";
+        opt.Audience = "http://identity-server-1.herokuapp.com/resources";
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ValidIssuer = "http://identity-server-1.herokuapp.com"
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "inventory");
+    })
+);
+
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
@@ -103,6 +126,7 @@ app.UseCors(o => o
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
